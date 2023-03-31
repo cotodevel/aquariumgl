@@ -28,7 +28,7 @@ USA
 #include "VideoGL.h"
 
 
-#define TGDSPROJECTNAME ((char*) "gliard")
+#define TGDSPROJECTNAME ((char*) "project")
 
 //project 1 multimedia list
 #define videoIntro ((char*)"0:/sth1.tvs") //video intro

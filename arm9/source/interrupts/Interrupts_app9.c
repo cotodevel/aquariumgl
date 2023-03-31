@@ -31,11 +31,11 @@ USA
 #include "keypadTGDS.h"
 #include "CubeImported.h"
 
-#include "..\arm9\source\gliard\src\gliard-src\EngineGLProj.h"
-#include "..\arm9\source\gliard\src\gliard-src\BitmapTextGLProj.h"
-#include "..\arm9\source\gliard\src\gliard-src\GLLayerGLProj.h"
-#include "..\arm9\source\gliard\src\gliard-src\MathStructsGLProj.h"
-#include "..\arm9\source\gliard\src\gliard\mainwin32.h"
+#include "..\arm9\source\project\src\project-src\EngineGLProj.h"
+#include "..\arm9\source\project\src\project-src\BitmapTextGLProj.h"
+#include "..\arm9\source\project\src\project-src\GLLayerGLProj.h"
+#include "..\arm9\source\project\src\project-src\MathStructsGLProj.h"
+#include "..\arm9\source\project\src\project\mainwin32.h"
 
 #ifdef ARM9
 __attribute__((section(".itcm")))

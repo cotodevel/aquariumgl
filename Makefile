@@ -81,9 +81,9 @@ export DIRS_ARM9_SRC = data/	\
 			source/interrupts/	\
 			source/gui/	\
 			source/TGDSMemoryAllocator/	\
-			source/gliard/src/glm/	\
-			source/gliard/src/gliard/	\
-			source/gliard/src/gliard-src/	\
+			source/project/src/glm/	\
+			source/project/src/project/	\
+			source/project/src/project-src/	\
 			../common/	\
 			../common/templateCode/source/	\
 			../common/templateCode/data/arm9/	
@@ -93,8 +93,8 @@ export DIRS_ARM9_HEADER = data/	\
 			include/	\
 			source/gui/	\
 			source/TGDSMemoryAllocator/	\
-			source/gliard/src/gliard/	\
-			source/gliard/src/gliard-src/	\
+			source/project/src/project/	\
+			source/project/src/project-src/	\
 			../common/	\
 			../common/templateCode/source/	\
 			../common/templateCode/data/arm9/	\
