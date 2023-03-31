@@ -1,3 +1,8 @@
+#if defined(_MSC_VER)
+//disable _CRT_SECURE_NO_WARNINGS message to build this in VC++
+#pragma warning(disable:4996)
+#endif
+
 /*
 * Scene class. This class takes care of drawing all of the contents
 * of our virtual aquarium as well as camera movement.

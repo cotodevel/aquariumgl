@@ -282,7 +282,7 @@ void addObject(int type)
 	// offset above the sea floor
 	GLfloat y;
 
-	Renderable *object;
+	Renderable *object = NULL;
 
 	switch (type)
 	{
@@ -309,9 +309,11 @@ void addObject(int type)
 		break;
 	}
 
-	object->move(x, y, z);	// set objects new position
-	scene->add(object);	// adds object to rendering queue
-	scene->objects[type]++;	// increments the count of this type of object
+	if(object != NULL){
+		object->move(x, y, z);	// set objects new position
+		scene->add(object);	// adds object to rendering queue
+		scene->objects[type]++;	// increments the count of this type of object
+	}
 }
 
 

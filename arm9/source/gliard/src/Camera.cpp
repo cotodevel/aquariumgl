@@ -1,3 +1,8 @@
+#if defined(_MSC_VER)
+//disable _CRT_SECURE_NO_WARNINGS message to build this in VC++
+#pragma warning(disable:4996)
+#endif
+
 /*
 * Camera class. This class is responsible for positioninig the
 * camera at the right place. It also takes care of adjusting the
