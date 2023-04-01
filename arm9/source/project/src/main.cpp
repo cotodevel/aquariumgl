@@ -161,13 +161,11 @@ void keyboardInput(unsigned char key, int x, int y)
 	case 'w':	// toggles wireframe mode on/off
 		wireMode = !wireMode;
 		if (!wireMode) {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 			glDisable(GL_BLEND);
-			glDisable(GL_LINE_SMOOTH);
+			//glDisable(GL_LINE_SMOOTH);
 		} else {
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 			glEnable(GL_BLEND);
-			glEnable(GL_LINE_SMOOTH);
+			//glEnable(GL_LINE_SMOOTH);
 		}
 		break;
 
@@ -405,9 +403,7 @@ void setupGL(void)
 
 	// blue green background colour
 	glClearColor(0.0, 0.5, 0.55, 1.0);
-
 	glShadeModel(GL_SMOOTH);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	// depth testing used on with less than testing
 	glDepthFunc(GL_LESS);
@@ -419,7 +415,6 @@ void setupGL(void)
 	GLfloat fogColor[4] = {0.0f, 0.5f, 0.55f, 1.0f};
 	glFogfv(GL_FOG_COLOR, fogColor);
 	glFogf(GL_FOG_DENSITY, 0.0075);
-	glHint(GL_FOG_HINT, GL_NICEST);
 	
 	// enable normalising of normals after scaling
 	glEnable(GL_NORMALIZE);
@@ -435,7 +430,6 @@ void setupGL(void)
 	*/
 
 	// set up line antialiasing
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glLineWidth(1.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -443,6 +437,4 @@ void setupGL(void)
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 
-	// choose nices perspective correction for textures
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
