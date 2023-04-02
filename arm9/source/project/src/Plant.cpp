@@ -70,9 +70,7 @@ void Plant::generate(int level, int number)
 		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f);
 
 		// cap the bottom
-		glFrontFace(GL_CW);
 		drawCircle(0.5f, bottom, 8 - level, 3.0f);
-		glFrontFace(GL_CCW);
 
 		// cap top
 		glTranslatef(0.0f, 0.0f, height);

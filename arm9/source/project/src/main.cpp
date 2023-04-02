@@ -512,4 +512,7 @@ void setupGL(void)
 		glEndList(USERSPACE_TGDS_OGL_DL_POINTER);
 		#endif
 	}
+
+	glDisable(GL_CULL_FACE); 
+	glCullFace (GL_NONE);
 }

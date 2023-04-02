@@ -39,32 +39,74 @@ void Crab::_draw(void)
 	*/
 
 	// get our pinky colour
-	glColor3f(1.0f, 0.45f, 0.45f);
+	glColor3f(1.0f, 0.45f, 0.45f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+		);
 
 	// draw crab body (squashed along Y axis
-	glPushMatrix();
-	glScalef(1.0f, 0.5f, 1.0f);
-	drawSphere(0.3f, 16, 16);
-	glPopMatrix();
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glScalef(1.0f, 0.5f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	drawSphere(0.3f, 16, 16
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// draw all of the legs
-	glPushMatrix();
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 	drawLegs();
-	glScalef(-1.f, 1.f, 1.f);
-	glFrontFace(GL_CW);
+	glScalef(-1.f, 1.f, 1.f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawLegs();
-	glFrontFace(GL_CCW);
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9	
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// set to use our black colour
-	glColor3f(0.0f, 0.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// draw left crab eye
-	glTranslatef(-0.06f, 0.0f, 0.3f);
+	glTranslatef(-0.06f, 0.0f, 0.3f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawSphere(0.05f, 12, 8);
 
 	// draw right crab eye
-	glTranslatef(0.12f, 0.0f, 0.0f);
+	glTranslatef(0.12f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawSphere(0.05f, 12, 8);
 }
 

@@ -48,7 +48,6 @@ void Quad::_draw(void)
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 	glColor3f(0.9f, 0.6f, 0.0f);
-	glFrontFace(GL_CCW);
 	glBegin(GL_QUADS);
 		glNormal3f(0.f, 0.f, 1.f);
 		glTexCoord2f(0.0f, 0.0f);	glVertex2f(-0.5f, -0.5f);

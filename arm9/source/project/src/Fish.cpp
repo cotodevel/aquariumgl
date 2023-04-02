@@ -78,12 +78,10 @@ void Fish::_draw(void)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// draw first side of the fish
-	glFrontFace(GL_CCW);
 	drawSide();
 	
 	// draw second side of the fish
 	glScalef(1.0f, 1.0f, -1.0f);
-	glFrontFace(GL_CW);
 	drawSide();
 
 	// work out new fish tail position
@@ -98,7 +96,6 @@ void Fish::_draw(void)
 	glScalef(1.0f, 1.0f, -1.0f);
 
 	// draw second side of flexible part of the tail
-	glFrontFace(GL_CCW);
 	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = -pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	
