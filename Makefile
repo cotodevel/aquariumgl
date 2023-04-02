@@ -82,8 +82,7 @@ export DIRS_ARM9_SRC = data/	\
 			source/gui/	\
 			source/TGDSMemoryAllocator/	\
 			source/project/src/glm/	\
-			source/project/src/project/	\
-			source/project/src/project-src/	\
+			source/project/src/	\
 			../common/	\
 			../common/templateCode/source/	\
 			../common/templateCode/data/arm9/	
@@ -93,8 +92,8 @@ export DIRS_ARM9_HEADER = data/	\
 			include/	\
 			source/gui/	\
 			source/TGDSMemoryAllocator/	\
-			source/project/src/project/	\
-			source/project/src/project-src/	\
+			source/project/src/glm/	\
+			source/project/src/	\
 			../common/	\
 			../common/templateCode/source/	\
 			../common/templateCode/data/arm9/	\

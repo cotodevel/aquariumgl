@@ -23,7 +23,14 @@
 #ifndef __RENDERABLE_3201
 #define __RENDERABLE_3201
 
+#ifdef _MSC_VER
 #include <GL/glut.h>
+#endif
+
+#ifdef ARM9
+#include "VideoGL.h"
+#endif
+
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>

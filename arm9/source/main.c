@@ -42,11 +42,6 @@ USA
 #include "biosTGDS.h"
 #include "InterruptsARMCores_h.h"
 #include "interrupts.h"
-#include "EngineGLProj.h"
-#include "BitmapTextGLProj.h"
-#include "GLLayerGLProj.h"
-#include "MathStructsGLProj.h"
-#include "mainwin32.h"
 
 char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH];
 bool pendingPlay = false;

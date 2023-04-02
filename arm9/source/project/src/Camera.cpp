@@ -43,9 +43,17 @@ void Camera::reset(void)
 /// Zoom and spin is done by translate/rotate
 void Camera::position(void)
 {
+	#ifdef _MSC_VER
 	glTranslatef(0.0f, 0.0f, this->distance);
 	glRotatef(this->verticalTilt, 1.0f, 0.0f, 0.0f);
 	glRotatef(this->horizontalAngle, 0.0f, 1.0f, 0.0f); 
+	#endif
+
+	#ifdef ARM9
+	glTranslatef(0.0f, 0.0f, this->distance, USERSPACE_TGDS_OGL_DL_POINTER);
+	glRotatef(this->verticalTilt, 1.0f, 0.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+	glRotatef(this->horizontalAngle, 0.0f, 1.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+	#endif
 }
 
 

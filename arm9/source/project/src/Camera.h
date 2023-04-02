@@ -9,7 +9,14 @@
 #ifndef __CAMERA_3201
 #define __CAMERA_3201
 
+#ifdef _MSC_VER
 #include <GL/glut.h>
+#endif
+
+#ifdef ARM9
+#include "VideoGL.h"
+#endif
+
 #include <iostream>
 #include <math.h>
 

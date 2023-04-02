@@ -31,12 +31,6 @@ USA
 #include "keypadTGDS.h"
 #include "CubeImported.h"
 
-#include "..\arm9\source\project\src\project-src\EngineGLProj.h"
-#include "..\arm9\source\project\src\project-src\BitmapTextGLProj.h"
-#include "..\arm9\source\project\src\project-src\GLLayerGLProj.h"
-#include "..\arm9\source\project\src\project-src\MathStructsGLProj.h"
-#include "..\arm9\source\project\src\project\mainwin32.h"
-
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
@@ -85,11 +79,13 @@ void Timer2handlerUser(){
 __attribute__((section(".itcm")))
 #endif
 void Timer3handlerUser(){
+	/* //todo
 	if(msCounter > TIME_INTERVAL){
 		runGameTick = true;
 		msCounter = 0;	
 	}
 	msCounter++;
+	*/
 }
 
 #ifdef ARM9
