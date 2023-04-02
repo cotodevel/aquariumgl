@@ -16,14 +16,14 @@ GLfloat StarFish::shininess = 32.f;
 /// Default Constructor. Initialises defaults.
 StarFish::StarFish() : Renderable()
 {
-	cout << "-- Creating StarFish\n";
+	TWLPrintf("-- Creating StarFish\n");
 }
 
 
 /// Default destructor.
 StarFish::~StarFish()
 {
-	cout << "++ Destructing StarFish\n";
+	TWLPrintf("++ Destructing StarFish\n");
 }
 
 

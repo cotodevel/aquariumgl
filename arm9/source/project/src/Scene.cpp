@@ -41,7 +41,7 @@ GLfloat Scene::spotAngle	= 15.f;
 /// Default Constructor. Initialises defaults.
 Scene::Scene()
 {
-	cout << "-- Creating scene\n";
+	TWLPrintf("-- Creating scene\n");
 
 	error = GL_NO_ERROR;
 	polygonModel = GL_FILL;
@@ -74,7 +74,7 @@ Scene::Scene()
 /// Default destructor.
 Scene::~Scene()
 {
-	cout << "++ Destructing scene\n";
+	TWLPrintf("++ Destructing scene\n");
 	delete elements;
 }
 
@@ -89,9 +89,11 @@ bool Scene::render(void)
 	GLenum error;
 
 	// check for errors and print them to stdout if any
-	while ((error = glGetError()) != GL_NO_ERROR)
+	/*
+	while ((error = glGetError()) != GL_NO_ERROR){
 		cout << ">> Error: " << gluErrorString(error) << endl;
-
+	}
+	*/
 	// clear scene
 	clear();
 

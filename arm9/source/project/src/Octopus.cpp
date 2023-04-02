@@ -15,8 +15,7 @@ GLfloat Octopus::shininess = 50.f;
 
 Octopus::Octopus()
 {
-	cout << "-- Creating octopus\n";
-
+	TWLPrintf("-- Creating octopus\n");
 	// leg rotation angles
 	legAngle = 0.0f;
 	legAngleCutOff = 30.0f;
@@ -26,7 +25,7 @@ Octopus::Octopus()
 
 Octopus::~Octopus()
 {
-	cout << "++ Destructing octopus\n";
+	TWLPrintf("++ Destructing octopus\n");
 }
 
 

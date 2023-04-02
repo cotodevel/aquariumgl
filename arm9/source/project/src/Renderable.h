@@ -31,6 +31,9 @@
 #include "VideoGL.h"
 #endif
 
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
@@ -239,3 +242,5 @@ extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
 extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
 extern GLint DLSOLIDCUBE0_06F;
 extern void glut2SolidCube0_06f();
+
+extern int TWLPrintf(const char *fmt, ...);

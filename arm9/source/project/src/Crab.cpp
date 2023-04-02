@@ -16,7 +16,7 @@ GLfloat Crab::shininess = 50.f;
 /// Default Constructor. Builds the display list for the crab.
 Crab::Crab() : Renderable()
 {
-	cout << "-- Creating crab\n";
+	TWLPrintf("-- Creating crab\n");
 	sy = sx = sz = 2.f; // make crab twice as big
 	build(dlist);
 }
@@ -25,7 +25,7 @@ Crab::Crab() : Renderable()
 /// Default destructor.
 Crab::~Crab()
 {
-	cout << "++ Destructing crab\n";
+	TWLPrintf("++ Destructing crab\n");
 }
 
 
@@ -56,11 +56,7 @@ void Crab::_draw(void)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawSphere(0.3f, 16, 16
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	drawSphere(0.3f, 16, 16);
 	glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -115,15 +111,32 @@ void Crab::_draw(void)
 void Crab::_draw_dlist(void)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	
+#ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
+#endif
 
-	glCallList(this->dlist);
+	glCallList(this->dlist
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
+#ifdef WIN32
 	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);
+#endif
 }
 
 
@@ -131,19 +144,55 @@ void Crab::_draw_dlist(void)
 void Crab::drawLeg(GLfloat jointAngle, GLfloat jointOffset)
 {
 	// draw first part of a leg
-	glPushMatrix();
-	glTranslatef(-0.38f, 0.0f, 0.0f);
-	glScalef(3.0f, 1.0f, 1.0f);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glTranslatef(-0.38f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glScalef(3.0f, 1.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	glut2SolidCube0_06f();
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif	
+	);
 
 	// draw second part of a leg
-	glPushMatrix();
-	glTranslatef(-0.53f, jointOffset, 0.0f);
-	glRotatef(jointAngle, 0.0f, 0.0f, 1.0f);
-	glScalef(4.0f, 1.0f, 1.0f);
+	glPushMatrix(
+#ifdef ARM9
+	 USERSPACE_TGDS_OGL_DL_POINTER
+#endif	
+	);
+	glTranslatef(-0.53f, jointOffset, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(jointAngle, 0.0f, 0.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glScalef(4.0f, 1.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	glut2SolidCube0_06f();
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
@@ -158,41 +207,121 @@ void Crab::drawLeg()
 void Crab::drawLegs()
 {
 	// set a darker pinky colour for legs
-	glColor3f(1.0f, 0.55f, 0.55f);
+	glColor3f(1.0f, 0.55f, 0.55f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// draw three side legs
 	for (GLfloat i = -15.0f; i <= 15.0f; i += 15.0f)
 	{
-		glPushMatrix();
-		glTranslatef(0.0f, 0.0f, -0.025f);
-		glRotatef(i, 0.0f, 1.0f, 0.0f);
+		glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glTranslatef(0.0f, 0.0f, -0.025f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glRotatef(i, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		drawLeg();
-		glPopMatrix();
+		glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 	}
 
 	// draw fourth leg (the straight and bent downwards leg)
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, -0.00f);
-	glRotatef(-65.0f, -0.2f, 1.0f, 0.0f);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glTranslatef(0.0f, 0.0f, -0.00f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(-65.0f, -0.2f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawLeg(0.0f, 0.0f);
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// set a light pinky colour for front legs
-	glColor3f(1.0f, 0.65f, 0.65f);
+	glColor3f(1.0f, 0.65f, 0.65f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// front leg (arm)
-	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, 0.0f);
-	glRotatef(55.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+	glPushMatrix(
+#ifdef ARM9
+	 USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glTranslatef(0.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(55.0f, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawLeg();
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// front clippers on the front leg (arm)
-	glPushMatrix();
-	glTranslatef(0.24f, 0.0f, 0.725f);
-	glRotatef(-15.0f, 0.0f, 1.0f, 0.0f);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glTranslatef(0.24f, 0.0f, 0.725f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(-15.0f, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawLeg(-60.0f, 0.1f);
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }

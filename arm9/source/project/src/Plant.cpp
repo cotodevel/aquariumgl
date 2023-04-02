@@ -17,7 +17,7 @@ GLfloat Plant::shininess = 100.f;
 /// Default Constructor. Initialises defaults.
 Plant::Plant() : Renderable()
 {
-	cout << "-- Creating Plant\n";
+	TWLPrintf("-- Creating Plant\n");
 	build(dlist);
 }
 
@@ -25,7 +25,7 @@ Plant::Plant() : Renderable()
 /// Default destructor.
 Plant::~Plant()
 {
-	cout << "++ Destructing Plant\n";
+	TWLPrintf("++ Destructing Plant\n");
 }
 
 

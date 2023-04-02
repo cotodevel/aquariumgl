@@ -16,14 +16,14 @@ GLfloat Quad::shininess = 120.f;
 /// Default Constructor. Initialises defaults.
 Quad::Quad() : Renderable()
 {
-	cout << "-- Creating quad\n";
+	TWLPrintf("-- Creating quad\n");
 }
 
 
 /// Default destructor.
 Quad::~Quad()
 {
-	cout << "++ Destructing quad\n";
+	TWLPrintf("++ Destructing quad\n");
 }
 
 

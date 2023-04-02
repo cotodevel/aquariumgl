@@ -15,8 +15,7 @@ GLfloat Fish::shininess = 120.f;
 
 Fish::Fish()
 {
-	cout << "-- Creating fish\n";
-	
+	TWLPrintf("-- Creating fish\n");
 	// angles and cut offs for tail animation
 	tailAngle = 0.0f;
 	tailAngleCutOff = 20.0f;
@@ -26,7 +25,7 @@ Fish::Fish()
 
 Fish::~Fish()
 {
-	cout << "++ Destructing fish\n";
+	TWLPrintf("++ Destructing fish\n");
 }
 
 /// Draws the full fish
@@ -49,22 +48,44 @@ void Fish::_draw(void)
 	z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// enable texturing
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, FISH_TEXTURE);
 
+#ifdef WIN32
+	glBindTexture(GL_TEXTURE_2D, FISH_TEXTURE);
 	// set up texture parameters
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+#endif
 
+#ifdef ARM9
+	//todo
+#endif
+	
 	// set up vertex arrays
 	glVertexPointer(3, GL_FLOAT, 0, vertex);
 	glNormalPointer(GL_FLOAT, 0, normal);
@@ -81,7 +102,11 @@ void Fish::_draw(void)
 	drawSide();
 	
 	// draw second side of the fish
-	glScalef(1.0f, 1.0f, -1.0f);
+	glScalef(1.0f, 1.0f, -1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	drawSide();
 
 	// work out new fish tail position
@@ -93,7 +118,11 @@ void Fish::_draw(void)
 	// draw one side of flexible part of the tail
 	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
-	glScalef(1.0f, 1.0f, -1.0f);
+	glScalef(1.0f, 1.0f, -1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// draw second side of flexible part of the tail
 	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = -pt;

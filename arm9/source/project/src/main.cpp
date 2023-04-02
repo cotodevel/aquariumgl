@@ -11,7 +11,17 @@
 */
 
 #include <GL/glut.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
 #include <iostream>
+
+#ifdef ARM9
+#include <ctype.h>
+#include <stdlib.h>
+#include <_ansi.h>
+#include <reent.h>
+#endif
 
 #include "Scene.h"
 #include "Renderable.h"
@@ -46,20 +56,22 @@ using namespace std;
 /// Program starts here
 int main(int argc, char *argv[])
 {
-	cout << "-- Program starting\n";
+	TWLPrintf("-- Program starting\n");
 
 	srand(time(NULL));
 	init(argc, argv);
 
 	// register our call-back functions
-	cout << "-- Registering callbacks\n";
+	TWLPrintf("-- Registering callbacks\n");
+	
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
 	glutKeyboardFunc(keyboardInput);
 	glutSpecialFunc(keyboardInput);
 
 	// generate/load textures
-	cout << "-- Generating/Loading Textures\n";
+	TWLPrintf("-- Generating/Loading Textures\n");
+
 	getTextures();
 
 	// create the scene and set perspective projection as default
@@ -378,12 +390,14 @@ void getFishTexture(void)
 bool init(int argc, char *argv[])
 {
 	// initialise glut
-	cout << "-- Initialising GLUT\n";
+	TWLPrintf("-- Initialising GLUT\n");
+
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
 	// setup our widnow now
-	cout << "-- Creating window\n";
+
+	TWLPrintf("-- Creating window\n");
     glutCreateWindow("Aquarium Scene 3D");
 	glutFullScreen();
 
@@ -399,7 +413,7 @@ bool init(int argc, char *argv[])
 /// and blending are set up here
 void setupGL(void)
 {
-	cout << "-- Setting up OpenGL state\n";
+	TWLPrintf("-- Setting up OpenGL state\n");   
 
 	// blue green background colour
 	glClearColor(0.0, 0.5, 0.55, 1.0);
@@ -515,4 +529,18 @@ void setupGL(void)
 
 	glDisable(GL_CULL_FACE); 
 	glCullFace (GL_NONE);
+}
+
+int TWLPrintf(const char *fmt, ...){
+#ifdef ARM9
+	va_list args;
+	va_start (args, fmt);
+	vsnprintf ((sint8*)ConsolePrintfBuf, 64, fmt, args);
+	va_end (args);
+	
+	nocashMessage((char*)ConsolePrintfBuf);
+#endif
+#ifdef WIN32
+#endif
+	return 0;
 }

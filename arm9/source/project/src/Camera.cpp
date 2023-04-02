@@ -12,13 +12,13 @@
 */
 
 #include "Camera.h"
-
+#include "Renderable.h"
 using namespace std;
 
 /// Default Constructor. Initialises defaults.
 Camera::Camera()
 {
-	cout << "-- Creating camera\n";
+	TWLPrintf("-- Creating camera\n");
 	reset();
 }
 
@@ -26,7 +26,7 @@ Camera::Camera()
 /// Default destructor.
 Camera::~Camera()
 {
-	cout << "++ Destructing camera\n";
+	TWLPrintf("++ Destructing camera\n");
 }
 
 
