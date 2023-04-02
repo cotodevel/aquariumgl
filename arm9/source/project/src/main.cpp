@@ -437,4 +437,79 @@ void setupGL(void)
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 
+	DLSOLIDCUBE0_06F = (GLint)glGenLists(1);
+
+	//glut2SolidCube(); -> NDS GX Implementation
+	#ifdef _MSC_VER
+	glNewList(DLSOLIDCUBE0_06F, GL_COMPILE);
+	#endif
+	#ifdef ARM9
+	glNewList(DLSOLIDCUBE10F, GL_COMPILE, USERSPACE_TGDS_OGL_DL_POINTER);
+	#endif
+	{
+		float size = 0.06f;
+		GLfloat n[6][3] =
+		{
+			{-1.0f, 0.0f, 0.0f},
+			{0.0f, 1.0f, 0.0f},
+			{1.0f, 0.0f, 0.0f},
+			{0.0f, -1.0f, 0.0f},
+			{0.0f, 0.0f, 1.0f},
+			{0.0f, 0.0f, -1.0f}
+		};
+		GLint faces[6][4] =
+		{
+			{0, 1, 2, 3},
+			{3, 2, 6, 7},
+			{7, 6, 5, 4},
+			{4, 5, 1, 0},
+			{5, 6, 2, 1},
+			{7, 4, 0, 3}
+		};
+		GLfloat v[8][3];
+		GLint i;
+
+		v[0][0] = v[1][0] = v[2][0] = v[3][0] = -size / 2;
+		v[4][0] = v[5][0] = v[6][0] = v[7][0] = size / 2;
+		v[0][1] = v[1][1] = v[4][1] = v[5][1] = -size / 2;
+		v[2][1] = v[3][1] = v[6][1] = v[7][1] = size / 2;
+		v[0][2] = v[3][2] = v[4][2] = v[7][2] = -size / 2;
+		v[1][2] = v[2][2] = v[5][2] = v[6][2] = size / 2;
+
+		for (i = 5; i >= 0; i--)
+		{
+#ifdef _MSC_VER
+			glBegin(GL_QUADS);
+			glNormal3fv(&n[i][0]);
+			glTexCoord2f(0, 0);
+			glVertex3fv(&v[faces[i][0]][0]);
+			glTexCoord2f(1, 0);
+			glVertex3fv(&v[faces[i][1]][0]);
+			glTexCoord2f(1, 1);
+			glVertex3fv(&v[faces[i][2]][0]);
+			glTexCoord2f(0, 1);
+			glVertex3fv(&v[faces[i][3]][0]);
+			glEnd();
+#endif
+#ifdef ARM9
+			glBegin(GL_QUADS, USERSPACE_TGDS_OGL_DL_POINTER);
+			glNormal3fv(&n[i][0], USERSPACE_TGDS_OGL_DL_POINTER);
+			glTexCoord2f(0, 0, USERSPACE_TGDS_OGL_DL_POINTER);
+			glVertex3fv(&v[faces[i][0]][0], USERSPACE_TGDS_OGL_DL_POINTER);
+			glTexCoord2f(1, 0, USERSPACE_TGDS_OGL_DL_POINTER);
+			glVertex3fv(&v[faces[i][1]][0], USERSPACE_TGDS_OGL_DL_POINTER);
+			glTexCoord2f(1, 1, USERSPACE_TGDS_OGL_DL_POINTER);
+			glVertex3fv(&v[faces[i][2]][0], USERSPACE_TGDS_OGL_DL_POINTER);
+			glTexCoord2f(0, 1, USERSPACE_TGDS_OGL_DL_POINTER);
+			glVertex3fv(&v[faces[i][3]][0], USERSPACE_TGDS_OGL_DL_POINTER);
+			glEnd(USERSPACE_TGDS_OGL_DL_POINTER);
+#endif
+		}
+		#ifdef WIN32
+		glEndList();
+		#endif
+		#ifdef ARM9
+		glEndList(USERSPACE_TGDS_OGL_DL_POINTER);
+		#endif
+	}
 }

@@ -44,7 +44,7 @@ void Crab::_draw(void)
 	// draw crab body (squashed along Y axis
 	glPushMatrix();
 	glScalef(1.0f, 0.5f, 1.0f);
-	gluSphere(quadric, 0.3f, 16, 16);
+	drawSphere(0.3f, 16, 16);
 	glPopMatrix();
 
 	// draw all of the legs
@@ -61,11 +61,11 @@ void Crab::_draw(void)
 
 	// draw left crab eye
 	glTranslatef(-0.06f, 0.0f, 0.3f);
-	glutSolidSphere(0.05f, 12, 8);
+	drawSphere(0.05f, 12, 8);
 
 	// draw right crab eye
 	glTranslatef(0.12f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f, 12, 8);
+	drawSphere(0.05f, 12, 8);
 }
 
 
@@ -92,7 +92,7 @@ void Crab::drawLeg(GLfloat jointAngle, GLfloat jointOffset)
 	glPushMatrix();
 	glTranslatef(-0.38f, 0.0f, 0.0f);
 	glScalef(3.0f, 1.0f, 1.0f);
-	glutSolidCube(0.06f);
+	glut2SolidCube0_06f();
 	glPopMatrix();
 
 	// draw second part of a leg
@@ -100,7 +100,7 @@ void Crab::drawLeg(GLfloat jointAngle, GLfloat jointOffset)
 	glTranslatef(-0.53f, jointOffset, 0.0f);
 	glRotatef(jointAngle, 0.0f, 0.0f, 1.0f);
 	glScalef(4.0f, 1.0f, 1.0f);
-	glutSolidCube(0.06f);
+	glut2SolidCube0_06f();
 	glPopMatrix();
 }
 

@@ -71,16 +71,13 @@ void Plant::generate(int level, int number)
 
 		// cap the bottom
 		glFrontFace(GL_CW);
-		gluDisk(quadric, 0.0f, bottom, 8 - level, 1);
+		drawCircle(0.5f, bottom, 8 - level, 3.0f);
 		glFrontFace(GL_CCW);
 
-		// draw branch
-		gluCylinder(quadric, bottom, top, height, 8 - level, 1);
-		
 		// cap top
 		glTranslatef(0.0f, 0.0f, height);
-		gluDisk(quadric, 0.0f, top, 8 - level, 1);
-
+		drawCircle(0.5f, top, 8 - level, 3.0f);
+		
 		// call this function again to generate more branches
 		// rotate back to 'normal' position first i.e. facing up
 		// this avoids branches looking down and going through

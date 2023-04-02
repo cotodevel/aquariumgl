@@ -60,7 +60,6 @@ public:
 	bool isList;	/// is this a display list object?
 
 	static unsigned int textures[2];	/// texture id array
-	static GLUquadricObj *quadric;	/// quadric object for all renderables
 public:
 	Renderable();	/// default constructor
 	virtual ~Renderable();	/// default destructor
@@ -234,3 +233,9 @@ protected:
 	void _draw_dlist(void);	/// draws the display list of this object
 };
 #endif
+
+extern void drawSphere(float r, int lats, int longs);
+extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
+extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
+extern GLint DLSOLIDCUBE0_06F;
+extern void glut2SolidCube0_06f();

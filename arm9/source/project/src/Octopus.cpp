@@ -44,7 +44,7 @@ void Octopus::_draw(void)
 	// draw octopus body (stretched along Y axis)
 	glPushMatrix();
 	glScalef(1.0f, 3.0f, 1.0f);
-	glutSolidSphere(0.3f, 16, 8);
+	drawSphere(0.3f, 16, 8);
 	glPopMatrix();
 
 	legAngle += legAngleInc;
