@@ -46,18 +46,42 @@ Renderable::~Renderable()
 /// Builds a display list of this object.
 void Renderable::build(GLuint &dlist)
 {
-	dlist = glGenLists(1);
-	if (!glIsList(dlist)) {
+	dlist = glGenLists(1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	if (!glIsList(dlist
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	)) {
 		isList = false;
 		return;
 	}
 	isList = true;
 
-	glPushMatrix();
-	glNewList(dlist, GL_COMPILE);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glNewList(dlist, GL_COMPILE
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 		_draw();
-	glEndList();
-	glPopMatrix();
+	glEndList(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
@@ -111,15 +135,39 @@ void Renderable::scale(GLfloat x, GLfloat y, GLfloat z)
 */
 void Renderable::draw(void)
 {
-	glPushMatrix();
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
-	glTranslatef(this->x, this->y, this->z);
+	glTranslatef(this->x, this->y, this->z
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
-	glRotatef(this->rx, 1.0f, 0.0f, 0.0f);
-	glRotatef(this->ry, 0.0f, 1.0f, 0.0f);
-	glRotatef(this->rz, 0.0f, 0.0f, 1.0f);
+	glRotatef(this->rx, 1.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(this->ry, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(this->rz, 0.0f, 0.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
-	glScalef(sx, sy, sz);
+	glScalef(sx, sy, sz
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// if the object is flagged as a display list object, then call the
 	// display list drawing function of the object, otherwise just call
@@ -129,7 +177,11 @@ void Renderable::draw(void)
 	else
 		_draw();
 
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
@@ -241,13 +293,38 @@ void drawCylinder(int numMajor, int numMinor, float height, float radius){
 			double a = j * minorStep;
 			GLfloat x = radius * cos(a);
 			GLfloat y = radius * sin(a);
-			glNormal3f(x / radius, y / radius, 0.0);
-			glTexCoord2f(j / (GLfloat) numMinor, i / (GLfloat) numMajor);
-			glVertex3f(x, y, z0);
+			glNormal3f(x / radius, y / radius, 0.0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			
+			glTexCoord2f(j / (GLfloat) numMinor, i / (GLfloat) numMajor
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glVertex3f(x, y, z0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
 
-			glNormal3f(x / radius, y / radius, 0.0);
-			glTexCoord2f(j / (GLfloat) numMinor, (i + 1) / (GLfloat) numMajor);
-			glVertex3f(x, y, z1);
+			glNormal3f(x / radius, y / radius, 0.0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glTexCoord2f(j / (GLfloat) numMinor, (i + 1) / (GLfloat) numMajor
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glVertex3f(x, y, z1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
 		}
 		//glEnd();
 	}

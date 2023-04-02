@@ -31,30 +31,105 @@ Quad::~Quad()
 void Quad::_draw(void)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// enable texturing
 	glEnable(GL_TEXTURE_2D);
+	
+#ifdef WIN32
 	glBindTexture(GL_TEXTURE_2D, FLOOR_TEXTURE);
-
 	// set up texture parameters
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+#endif
 
-	glColor3f(0.9f, 0.6f, 0.0f);
-	glBegin(GL_QUADS);
-		glNormal3f(0.f, 0.f, 1.f);
-		glTexCoord2f(0.0f, 0.0f);	glVertex2f(-0.5f, -0.5f);
-		glTexCoord2f(1.0f, 0.0f);	glVertex2f(0.5f,  -0.5f);
-		glTexCoord2f(1.0f, 1.0f);	glVertex2f(0.5f, 0.5f);
-		glTexCoord2f(0.0f, 1.0f);	glVertex2f(-0.5f, 0.5f);
-	glEnd();
+#ifdef ARM9
+	//Todo
+#endif
+
+	glColor3f(0.9f, 0.6f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glBegin(GL_QUADS
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+		glNormal3f(0.f, 0.f, 1.f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glTexCoord2f(0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);	
+		glVertex2f(-0.5f, -0.5f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		
+		glTexCoord2f(1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);	
+		glVertex2f(0.5f,  -0.5f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glTexCoord2f(1.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);	
+		glVertex2f(0.5f, 0.5f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glTexCoord2f(0.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);	
+		glVertex2f(-0.5f, 0.5f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+	glEnd(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	glDisable(GL_TEXTURE_2D);
 }

@@ -32,40 +32,95 @@ Octopus::~Octopus()
 void Octopus::_draw(void)
 {
 	// select our colour
-	glColor3f(1.0f, 1.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	
+#ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
+#endif
 
 	// draw octopus body (stretched along Y axis)
-	glPushMatrix();
-	glScalef(1.0f, 3.0f, 1.0f);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+	);
+	glScalef(1.0f, 3.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+	);
 	drawSphere(0.3f, 16, 8);
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+	);
 
 	legAngle += legAngleInc;
 	if (legAngle < -legAngleCutOff || legAngle > legAngleCutOff) legAngleInc *= -1;
 
-	glRotatef(legAngle, 0.0f, 1.0f, 0.0f);
+	glRotatef(legAngle, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+	);
 
 	GLfloat step = 360.0f / 8;
 	for (int i = 0; i < 8;  i++)
 	{
-		glPushMatrix();
+		glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif	
+		);
 
-		glRotatef(i * step, 0.0f, 1.0f, 0.0f);
-		glTranslatef(0.1f, 0.5f + (legAngle / legAngleCutOff) / 7.0f, 0.0f);
+		glRotatef(i * step, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glTranslatef(0.1f, 0.5f + (legAngle / legAngleCutOff) / 7.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		Crab::drawLeg();
 
-		glTranslatef(0.2f, 0.725f, 0.0f);
-		glRotatef(120.0f, 0.0f, 0.0f, 1.0f);
+		glTranslatef(0.2f, 0.725f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glRotatef(120.0f, 0.0f, 0.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		
 		Crab::drawLeg();
 
-		glPopMatrix();
+		glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 	}
 
 	// turn of colour material tracking

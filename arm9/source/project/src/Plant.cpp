@@ -65,24 +65,48 @@ void Plant::generate(int level, int number)
 		GLfloat vertAngle = Renderable::getRand(0, 180);
 		int numChildren = Renderable::getRand(0, 6);
 
-		glPushMatrix();
-		glRotatef(horzAngle, 0.0f, 1.0f, 0.0f);
-		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f);
+		glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glRotatef(horzAngle, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 
 		// cap the bottom
 		drawCircle(0.5f, bottom, 8 - level, 3.0f);
 
 		// cap top
-		glTranslatef(0.0f, 0.0f, height);
+		glTranslatef(0.0f, 0.0f, height
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		drawCircle(0.5f, top, 8 - level, 3.0f);
 		
 		// call this function again to generate more branches
 		// rotate back to 'normal' position first i.e. facing up
 		// this avoids branches looking down and going through
 		// the floor
-		glRotatef(-vertAngle, 1.0f, 0.0f, 0.0f);
+		glRotatef(-vertAngle, 1.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		generate(level + 1, numChildren);
-		glPopMatrix();
+		glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif		
+		);
 	}
 }
 
@@ -91,11 +115,32 @@ void Plant::generate(int level, int number)
 void Plant::_draw_dlist(void)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material1);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material1);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material2);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, material1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, material1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material2
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+#ifdef WIN32
 	glColor4fv(material1);
-
-	glCallList(this->dlist);
+#endif
+	glCallList(this->dlist
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }

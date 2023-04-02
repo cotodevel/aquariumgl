@@ -43,7 +43,9 @@ Scene::Scene()
 {
 	TWLPrintf("-- Creating scene\n");
 
+#ifdef WIN32
 	error = GL_NO_ERROR;
+#endif	
 	polygonModel = GL_FILL;
 	elements = new std::list<Renderable*>;	// create our queue
 	showMenu = true;	// menu is on
@@ -60,14 +62,38 @@ Scene::Scene()
 	objects[OBJ_PLANT] = 0;
 
 	// set up light 0 colours
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// set up light 1 colours
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
@@ -98,15 +124,27 @@ bool Scene::render(void)
 	clear();
 
 	// set up the miner's hat light before moving the camera
-	glLightfv(GL_LIGHT1, GL_POSITION, position1);
+	glLightfv(GL_LIGHT1, GL_POSITION, position1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	
+//Unsupported by NDS GX
+#ifdef WIN32
 	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngle);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1);
+#endif
 
 	//position camera
 	camera.position();
 
 	// set up our directional overhead light
-	glLightfv(GL_LIGHT0, GL_POSITION, position0);
+	glLightfv(GL_LIGHT0, GL_POSITION, position0
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// check if there are any objects to draw
 	if (elements->size() > 0)
@@ -119,7 +157,14 @@ bool Scene::render(void)
 
 	drawHUD();
 
+#ifdef WIN32
 	glutSwapBuffers();
+#endif
+
+#ifdef ARM9
+//NDS: Todo 
+#endif
+
 	return true;
 }
 
@@ -133,8 +178,16 @@ bool Scene::render(void)
 void Scene::clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLoadIdentity(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
