@@ -32,13 +32,20 @@
 #include "posixHandleTGDS.h"
 #include "consoleTGDS.h"
 #include "debugNocash.h"
+#include "main.h"
+#include "spitscTGDS.h"
+#include "timerTGDS.h"
+#include "keypadTGDS.h"
+#include "biosTGDS.h"
+#include "InterruptsARMCores_h.h"
+#include "interrupts.h"
+
 extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list vlist );
 #endif
 
 #include "Scene.h"
 #include "Renderable.h"
 #include "Textures.h"
-#include "main.h"
 
 #define OBJ_CRAB 0
 #define OBJ_OCTOPUS 1
@@ -55,7 +62,7 @@ static void setupGL(void);	/// initialises OpenGL
 static void animator(int type);	/// animates the aquarium
 static void resizeWindow(int w, int h);	/// resizes the window
 static void keyboardInput(unsigned char key, int x, int y);	/// handles keyboard input
-static void keyboardInput(int key, int x, int y);	/// handles keyboard input (special)
+static void keyboardInputSpecial(int key, int x, int y);	/// handles keyboard input (special)
 static void drawScene(void);	/// draws the scene
 static void addObject(int type);	/// adds an object to the scene
 static void setupViewVolume(void);	/// sets up the viewing volume
@@ -89,7 +96,7 @@ int startAquarium(int argc, char *argv[])
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
 	glutKeyboardFunc(keyboardInput);
-	glutSpecialFunc(keyboardInput);
+	glutSpecialFunc(keyboardInputSpecial);
 #endif
 
 	// generate/load textures
@@ -142,8 +149,28 @@ int startAquarium(int argc, char *argv[])
 	glutMainLoop();
 #endif
 
-#ifdef ARM9
-//Todo
+#if defined(ARM9)
+    startTimerCounter(tUnitsMilliseconds, 1);
+
+	while(1==1){
+		
+		//Handle Input & game logic
+		scanKeys();
+		
+		if(runGameTick == true){
+			//next(1);
+			runGameTick = false;
+		}
+		
+		struct touchPosition touch;
+		XYReadScrPosUser(&touch);
+		//mouse(0, 0, touch.px, touch.py); 	//OnTSCTouch todo
+		keyboardInput(keysDown(), touch.px, touch.py); //Keys
+		
+		//Render
+		//drawScene(); //bugged. so far
+
+	}
 #endif
 	return 0;
 }
@@ -252,7 +279,7 @@ void keyboardInput(unsigned char key, int x, int y)
 
 
 /// Processes special keyboard keys like F1, F2, etc
-void keyboardInput(int key, int x, int y)
+void keyboardInputSpecial(int key, int x, int y)
 {
 	switch (key){
 	

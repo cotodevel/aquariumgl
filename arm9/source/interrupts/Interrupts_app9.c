@@ -79,13 +79,11 @@ void Timer2handlerUser(){
 __attribute__((section(".itcm")))
 #endif
 void Timer3handlerUser(){
-	/* //todo
-	if(msCounter > TIME_INTERVAL){
+	if(msCounter > 25){ //every 25ms scene runs
 		runGameTick = true;
 		msCounter = 0;	
 	}
 	msCounter++;
-	*/
 }
 
 #ifdef ARM9
