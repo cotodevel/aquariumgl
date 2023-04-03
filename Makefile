@@ -117,7 +117,6 @@ compile	:
 ifeq ($(SOURCE_MAKEFILE7),default)
 	cp	-r	$(TARGET_LIBRARY_MAKEFILES_SRC7_NOFPIC)	$(CURDIR)/$(DIR_ARM7)
 endif
-	$(MAKE)	-R	-C	$(DIR_ARM7)/
 ifeq ($(SOURCE_MAKEFILE9),default)
 	cp	-r	$(TARGET_LIBRARY_MAKEFILES_SRC9_NOFPIC)	$(CURDIR)/$(DIR_ARM9)
 endif
@@ -135,7 +134,6 @@ $(EXECUTABLE_FNAME)	:	compile
 each_obj = $(foreach dirres,$(dir_read_arm9_files),$(dirres).)
 	
 clean:
-	$(MAKE)	clean	-C	$(DIR_ARM7)/
 	$(MAKE) clean	-C	$(PosIndCodeDIR_FILENAME)/$(DIR_ARM7)/
 ifeq ($(SOURCE_MAKEFILE7),default)
 	-@rm -rf $(CURDIR)/$(DIR_ARM7)/Makefile

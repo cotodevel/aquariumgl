@@ -46,6 +46,7 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 #include "Scene.h"
 #include "Renderable.h"
 #include "Textures.h"
+#include "Camera.h"
 
 #define OBJ_CRAB 0
 #define OBJ_OCTOPUS 1
@@ -53,27 +54,17 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 #define OBJ_FISH 3
 #define OBJ_PLANT 4
 
-static Scene *scene;	/// the scene we render
-static bool wireMode = false;	/// wireframe mode on / off
-static bool flatShading = false;	/// flat shading on / off
-
-static bool init(int argc, char *argv[]);	/// initialises the application
-static void setupGL(void);	/// initialises OpenGL
-static void animator(int type);	/// animates the aquarium
-static void resizeWindow(int w, int h);	/// resizes the window
-static void keyboardInput(unsigned char key, int x, int y);	/// handles keyboard input
-static void keyboardInputSpecial(int key, int x, int y);	/// handles keyboard input (special)
-static void drawScene(void);	/// draws the scene
-static void addObject(int type);	/// adds an object to the scene
-static void setupViewVolume(void);	/// sets up the viewing volume
-static void getTextures(void);	/// initiates all textures
-static void getSandTexture(void);	/// loads the sand texture
-static void getFishTexture(void);	/// loads the fish texture
+Scene *scene;	/// the scene we render
+bool wireMode = false;	/// wireframe mode on / off
+bool flatShading = false;	/// flat shading on / off
 
 
 using namespace std;
 
 #ifdef WIN32
+
+extern int startAquarium(int argc, char *argv[]);
+
 /// Program starts here
 int main(int argc, char *argv[])
 {
@@ -168,7 +159,7 @@ int startAquarium(int argc, char *argv[])
 		keyboardInput(keysDown(), touch.px, touch.py); //Keys
 		
 		//Render
-		//drawScene(); //bugged. so far
+		drawScene();
 
 	}
 #endif

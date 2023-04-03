@@ -91,3 +91,20 @@ private:
 };
 
 #endif
+
+extern bool init(int argc, char *argv[]);	/// initialises the application
+extern void setupGL(void);	/// initialises OpenGL
+extern void animator(int type);	/// animates the aquarium
+extern void resizeWindow(int w, int h);	/// resizes the window
+extern void keyboardInput(unsigned char key, int x, int y);	/// handles keyboard input
+extern void keyboardInputSpecial(int key, int x, int y);	/// handles keyboard input (special)
+extern void drawScene(void);	/// draws the scene
+extern void addObject(int type);	/// adds an object to the scene
+extern void setupViewVolume(void);	/// sets up the viewing volume
+extern void getTextures(void);	/// initiates all textures
+extern void getSandTexture(void);	/// loads the sand texture
+extern void getFishTexture(void);	/// loads the fish texture
+
+extern Scene *scene;	/// the scene we render
+extern bool wireMode;	/// wireframe mode on / off
+extern bool flatShading;	/// flat shading on / off

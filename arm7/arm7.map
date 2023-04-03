@@ -1,0 +1,1648 @@
+Archive member included because of file (symbol)
+
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                              build/tinynew.o (TGDSARM7Malloc)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                              ./build/nds_arm_ld_crt0.o (exception_sysexit)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+                              ./build/nds_arm_ld_crt0.o (initHardware)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDSasm.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o) (DebugException)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(InterruptsARMCores_s.o)
+                              build/main.o (HaltUntilIRQ)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o) (IRQInit)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o) (handleARM7InitSVC)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o) (DLDIARM7Address)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o) (SendFIFOWordsITCM)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o) (powerON)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o) (sdio_Startup)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o) (PowerManagementDeviceRead)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o) (touchReadXY)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o) (LoadFirmwareSettingsFromFlash)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o) (cdcIsAvailable)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o) (reportTGDSPayloadMode7)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSAsm.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o) (swiDelay)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(debugNocash.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o) (nocashMessage)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o) (dmaFillWord)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o) (RWSPICNT)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+                              build/main.o (__aeabi_atexit)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+                              build/ima_adpcm.o (__aeabi_idiv)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+                              build/pff.o (__aeabi_uidiv)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o) (__udivmodsi4)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o) (__cxa_atexit)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o) (memcmp)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+                              build/pff.o (memset)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+                              build/main.o (strcpy)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(arm-asm-memcpy.o)
+                              build/diskio_impl.o (memcpy)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o) (__register_exitproc)
+c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+                              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o) (_global_impure_ptr)
+
+Allocating common symbols
+Common symbol       size              file
+
+xoffset             0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+scratchPadSector    0x200             build/diskio_impl.o
+yoffset             0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+xmem_table          0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+xscale              0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+yscale              0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+fifoFunc            0x80              c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+xmem_blocks         0x4               c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+
+Discarded input sections
+
+ .fini          0x00000000        0xc c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+ .init_array    0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .fini_array    0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .text.mem_set  0x00000000       0x1c build/pff.o
+ .text.mem_cmp  0x00000000       0x2c build/pff.o
+ .text._ZN16IMA_Adpcm_StreamC2Ev
+                0x00000000        0x4 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_StreamD2Ev
+                0x00000000        0x4 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Stream5get32Ev
+                0x00000000       0x40 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Stream10get_formatEv
+                0x00000000       0x64 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_PlayerC2Ev
+                0x00000000       0x10 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player5pauseEv
+                0x00000000       0x3c build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player6resumeEv
+                0x00000000       0x3c build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player9getvolumeEv
+                0x00000000       0x34 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player8isactiveEv
+                0x00000000       0x2c build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player9getStreamEv
+                0x00000000       0x28 build/ima_adpcm.o
+ .text._ZN16IMA_Adpcm_Player6updateEv
+                0x00000000        0x4 build/ima_adpcm.o
+ .group         0x00000000        0x8 build/main.o
+ .text._ZN16IMA_Adpcm_PlayerD2Ev
+                0x00000000       0x1c build/main.o
+ .text.handleARM7FSRender
+                0x00000000       0x54 build/main.o
+ .text.startup._GLOBAL__sub_I_backgroundMusicPlayer
+                0x00000000       0x5c build/main.o
+ .init_array    0x00000000        0x4 build/main.o
+ .text._Znwj    0x00000000       0x10 build/tinynew.o
+ .text._Znaj    0x00000000       0x10 build/tinynew.o
+ .text._ZdlPv   0x00000000       0x10 build/tinynew.o
+ .text._ZdaPv   0x00000000       0x10 build/tinynew.o
+ .text._ZnwjRKSt9nothrow_t
+                0x00000000       0x10 build/tinynew.o
+ .text._ZnajRKSt9nothrow_t
+                0x00000000       0x10 build/tinynew.o
+ .text._ZdlPvRKSt9nothrow_t
+                0x00000000       0x10 build/tinynew.o
+ .text._ZdaPvRKSt9nothrow_t
+                0x00000000       0x10 build/tinynew.o
+ .text.__cxa_pure_virtual
+                0x00000000        0x4 build/tinynew.o
+ .text.Xmalloc  0x00000000      0x224 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.Xcalloc  0x00000000       0xb4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.Xfree    0x00000000      0x138 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.XMEM_FreeMem
+                0x00000000       0x98 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.TGDSARM7Malloc
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.TGDSARM7Calloc
+                0x00000000       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.TGDSARM7Free
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.TGDSARM7Realloc
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.TGDSARM7MallocFreeMemory
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.getTGDSARM7MallocBaseAddress
+                0x00000000       0x24 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text.setupCustomExceptionHandler
+                0x00000000       0x24 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .bss.TGDSInitLoopCount
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .text.irqEnable
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .text.irqDisable
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .text.swiFastCopy
+                0x00000000      0x124 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .text.readAddr
+                0x00000000       0x3c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.writeAddr
+                0x00000000       0x40 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.quickFind
+                0x00000000       0xf4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.dldi_handler_deinit
+                0x00000000       0x48 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.dldi_handler_write_sectors
+                0x00000000       0x74 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.dldiRelocateLoader
+                0x00000000      0x3ac c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.dldiPatchLoader
+                0x00000000      0x604 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .rodata.dldiMagicString
+                0x00000000        0xc c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .rodata.DLDI_MAGIC_STRING_BACKWARDS
+                0x00000000        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .rodata.DLDI_MAGIC_NUMBER
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text.Write8bitAddrExtArm
+                0x00000000       0x6c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .text.Write16bitAddrExtArm
+                0x00000000       0x6c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .text.Write32bitAddrExtArm
+                0x00000000       0x68 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .text.ReadMemoryExt
+                0x00000000       0xac c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .text.SaveMemoryExt
+                0x00000000       0x88 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ COMMON         0x00000000       0x80 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .itcm          0x00000000       0x58 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .text.sdio_ClearStatus
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .text.sdio_Shutdown
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .rodata.__io_dsisd
+                0x00000000       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .text.touchRead
+                0x00000000       0xd4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.touchReadTemperature
+                0x00000000       0xa0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.touchPenDown
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.doSPIARM7IO
+                0x00000000       0x24 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.penIRQread
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.TWLSetTouchscreenTWLMode
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.TWLSetTouchscreenNTRMode
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text.ParseFWSettings
+                0x00000000       0x74 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .text.getLanguage
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .text.shutdownNDSHardware
+                0x00000000       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.setBacklight
+                0x00000000       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.getValueSafeInt
+                0x00000000        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.setValueSafeInt
+                0x00000000        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.enterCriticalSection
+                0x00000000       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.leaveCriticalSection
+                0x00000000       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.PowerChip_ReadWrite
+                0x00000000       0x84 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.SetLedState
+                0x00000000       0xfc c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.enableTGDSDebugging
+                0x00000000       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.getTGDSDebuggingState
+                0x00000000       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .bss.wifiswitchDsWnifiModeARM9LibUtilsCallback
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .data.pollCount
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .bss.timerWifiInterruptARM9LibUtilsCallback
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .bss.micBufLoc
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text.dmaFillWord
+                0x00000000       0x40 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text.dmaFillHalfWord
+                0x00000000       0x40 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text.dmaTransferHalfWord
+                0x00000000       0x34 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text.dmaTransferHalfWordAsync
+                0x00000000       0x24 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text.dmaTransferWord
+                0x00000000       0x34 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text.__aeabi_atexit
+                0x00000000       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .ARM.extab.text.__aeabi_atexit
+                0x00000000        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .ARM.exidx.text.__aeabi_atexit
+                0x00000000        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .text.__cxa_atexit
+                0x00000000       0x28 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .text.memcmp   0x00000000       0x38 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .text.__register_exitproc
+                0x00000000       0x94 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .data.rel.local._impure_ptr
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .data.rel.ro.local._global_impure_ptr
+                0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .rodata.str1.1
+                0x00000000        0x2 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .data.rel.local.impure_data
+                0x00000000      0x428 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .eh_frame      0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .jcr           0x00000000        0x4 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .fini          0x00000000        0xc c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x03800000                _iwram_start = 0x3800000
+                0x03810000                _iwram_end = (_iwram_start + 0x10000)
+                0x0380fe00                sp_SVC = (_iwram_end - 0x200)
+                0x0380fc00                sp_IRQ = (sp_SVC - 0x200)
+                0x0380fa00                sp_FIQ = (sp_IRQ - 0x200)
+                0x0380f800                sp_ABT = (sp_FIQ - 0x200)
+                0x0380f600                sp_UND = (sp_ABT - 0x200)
+                0x0380f400                sp_USR = (sp_UND - 0x200)
+                0x0380f400                sp_SYS = sp_USR
+                0x0380fff8                _arm7_irqcheckbits = 0x380fff8
+                0x03ffffc0                __irq_flagsaux = 0x3ffffc0
+                0x0380fffc                _arm7_irqhandler = 0x380fffc
+                0x03800000                . = _iwram_start
+
+.init           0x03800000      0x1e0
+ *(.init.boot)
+ *(.init)
+ .init          0x03800000      0x1c8 ./build/nds_arm_ld_crt0.o
+                0x03800000                _start
+                0x0380009c                argvIntraTGDSMB
+ .init          0x038001c8        0xc c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+                0x038001c8                _init
+ .init          0x038001d4        0xc c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+                0x038001e0                . = ALIGN (0x4)
+                0x038001e0                . = ALIGN (0x4)
+
+.text           0x038001e0      0xc00
+ *(.text.boot)
+ *(.text)
+ .text          0x038001e0        0x0 ./build/nds_arm_ld_crt0.o
+ .text          0x038001e0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+ .text          0x038001e0      0x108 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .text          0x038002e8        0x0 build/Interrupts_app7.o
+ .text          0x038002e8        0x0 build/diskio_impl.o
+ .text          0x038002e8        0x0 build/pff.o
+ .text          0x038002e8        0x0 build/dswnifi.o
+ .text          0x038002e8        0x0 build/fileBrowse.o
+ .text          0x038002e8        0x0 build/loader.o
+ .text          0x038002e8      0x3ac build/ima_adpcm_decode.o
+                0x038002e8                decode_mono_ima_adpcm
+                0x0380037c                decode_stereo_ima_adpcm
+ .text          0x03800694        0x0 build/ima_adpcm.o
+ .text          0x03800694        0x0 build/main.o
+ .text          0x03800694        0x0 build/tinynew.o
+ .text          0x03800694        0x0 build/ipcfifoTGDSUser.o
+ .text          0x03800694        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .text          0x03800694        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .text          0x03800694        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+ .text          0x03800694      0x124 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDSasm.o)
+                0x03800694                DebugException
+                0x03800714                CustomDebugException
+                0x03800798                LeaveExceptionMode
+ *fill*         0x038007b8        0x8 
+ .text          0x038007c0       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(InterruptsARMCores_s.o)
+                0x038007c0                HaltUntilIRQ
+                0x038007c8                IRQWait
+                0x038007d0                IRQVBlankWait
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+ .text          0x038007e0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .text          0x038007e0       0xd0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSAsm.o)
+                0x038007e0                swiDelay
+                0x038007e8                swiCRC16
+                0x038007f0                swiSleep
+                0x038007f8                swiIsDebugger
+                0x03800800                swiDivide
+                0x03800808                swiRemainder
+                0x03800814                swiDivMod
+                0x0380082c                swiSqrt
+                0x03800834                swiHalt
+                0x0380083c                swiGetSineTable
+                0x03800844                swiGetPitchTable
+                0x0380084c                swiGetVolumeTable
+                0x03800854                swiSetHaltCR
+                0x03800860                swiChangeSoundBias
+                0x03800868                swiSoftReset
+                0x03800874                swiSoftResetByAddress
+                0x03800890                swiDecompressLZSSWram
+                0x03800898                swiDecompressLZSSVramByCallback
+ .text          0x038008b0       0xa4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(debugNocash.o)
+                0x038008b0                nocashWrite
+                0x038008b2                nocashMessage
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+ .text          0x03800954        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+ .text          0x03800954      0x48c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(arm-asm-memcpy.o)
+                0x03800954                memcpy
+ .text          0x03800de0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .text          0x03800de0        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .text          0x03800de0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .text          0x03800de0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+                0x03800de0                . = ALIGN (0x4)
+
+.glue_7         0x03800de0        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x03800de0        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x03800de0        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x03800de0        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x03800de0        0x0
+ .iplt          0x00000000        0x0 ./build/nds_arm_ld_crt0.o
+
+.text.IpcSynchandlerUser
+                0x03800de0        0x4
+ .text.IpcSynchandlerUser
+                0x03800de0        0x4 build/Interrupts_app7.o
+                0x03800de0                IpcSynchandlerUser
+
+.text.Timer0handlerUser
+                0x03800de4        0x4
+ .text.Timer0handlerUser
+                0x03800de4        0x4 build/Interrupts_app7.o
+                0x03800de4                Timer0handlerUser
+
+.text.Timer1handlerUser
+                0x03800de8        0x4
+ .text.Timer1handlerUser
+                0x03800de8        0x4 build/Interrupts_app7.o
+                0x03800de8                Timer1handlerUser
+
+.text.Timer2handlerUser
+                0x03800dec       0x10
+ .text.Timer2handlerUser
+                0x03800dec       0x10 build/Interrupts_app7.o
+                0x03800dec                Timer2handlerUser
+
+.text.Timer3handlerUser
+                0x03800dfc        0x4
+ .text.Timer3handlerUser
+                0x03800dfc        0x4 build/Interrupts_app7.o
+                0x03800dfc                Timer3handlerUser
+
+.text.HblankUser
+                0x03800e00        0x4
+ .text.HblankUser
+                0x03800e00        0x4 build/Interrupts_app7.o
+                0x03800e00                HblankUser
+
+.text.VblankUser
+                0x03800e04        0x4
+ .text.VblankUser
+                0x03800e04        0x4 build/Interrupts_app7.o
+                0x03800e04                VblankUser
+
+.text.VcounterUser
+                0x03800e08        0x4
+ .text.VcounterUser
+                0x03800e08        0x4 build/Interrupts_app7.o
+                0x03800e08                VcounterUser
+
+.text.screenLidHasOpenedhandlerUser
+                0x03800e0c       0x10
+ .text.screenLidHasOpenedhandlerUser
+                0x03800e0c       0x10 build/Interrupts_app7.o
+                0x03800e0c                screenLidHasOpenedhandlerUser
+
+.text.screenLidHasClosedhandlerUser
+                0x03800e1c       0x10
+ .text.screenLidHasClosedhandlerUser
+                0x03800e1c       0x10 build/Interrupts_app7.o
+                0x03800e1c                screenLidHasClosedhandlerUser
+
+.text.disk_initialize
+                0x03800e2c        0x8
+ .text.disk_initialize
+                0x03800e2c        0x8 build/diskio_impl.o
+                0x03800e2c                disk_initialize
+
+.text.disk_readp
+                0x03800e34       0x50
+ .text.disk_readp
+                0x03800e34       0x50 build/diskio_impl.o
+                0x03800e34                disk_readp
+
+.text.get_fat.part.1
+                0x03800e84      0x160
+ .text.get_fat.part.1
+                0x03800e84      0x160 build/pff.o
+
+.text.follow_path
+                0x03800fe4      0x410
+ .text.follow_path
+                0x03800fe4      0x410 build/pff.o
+                0x03800fe4                follow_path
+
+.text.pf_mount  0x038013f4      0x360
+ .text.pf_mount
+                0x038013f4      0x360 build/pff.o
+                0x038013f4                pf_mount
+
+.text.pf_open   0x03801754       0xd0
+ .text.pf_open  0x03801754       0xd0 build/pff.o
+                0x03801754                pf_open
+
+.text.pf_read   0x03801824      0x174
+ .text.pf_read  0x03801824      0x174 build/pff.o
+                0x03801824                pf_read
+
+.text.pf_size   0x03801998        0x8
+ .text.pf_size  0x03801998        0x8 build/pff.o
+                0x03801998                pf_size
+
+.text.pf_tell   0x038019a0        0x8
+ .text.pf_tell  0x038019a0        0x8 build/pff.o
+                0x038019a0                pf_tell
+
+.text.pf_lseek  0x038019a8      0x2a4
+ .text.pf_lseek
+                0x038019a8      0x2a4 build/pff.o
+                0x038019a8                pf_lseek
+
+.text.reloadNDSBootstub
+                0x03801c4c       0xf4
+ .text.reloadNDSBootstub
+                0x03801c4c       0xf4 build/loader.o
+                0x03801c4c                reloadNDSBootstub
+
+.text._ZL13checkClippingi
+                0x03801d40       0x30
+ .text._ZL13checkClippingi
+                0x03801d40       0x30 build/ima_adpcm.o
+
+.text._ZN16IMA_Adpcm_Stream10stream_pcmEPsi
+                0x03801d70      0x3d4
+ .text._ZN16IMA_Adpcm_Stream10stream_pcmEPsi
+                0x03801d70      0x3d4 build/ima_adpcm.o
+                0x03801d70                _ZN16IMA_Adpcm_Stream10stream_pcmEPsi
+
+.text._ZN16IMA_Adpcm_Stream5closeEv
+                0x03802144       0x34
+ .text._ZN16IMA_Adpcm_Stream5closeEv
+                0x03802144       0x34 build/ima_adpcm.o
+                0x03802144                _ZN16IMA_Adpcm_Stream5closeEv
+
+.text._ZN16IMA_Adpcm_Stream13capture_frameEv
+                0x03802178       0xb4
+ .text._ZN16IMA_Adpcm_Stream13capture_frameEv
+                0x03802178       0xb4 build/ima_adpcm.o
+                0x03802178                _ZN16IMA_Adpcm_Stream13capture_frameEv
+
+.text._ZN16IMA_Adpcm_Stream5fget8Ev
+                0x0380222c       0x44
+ .text._ZN16IMA_Adpcm_Stream5fget8Ev
+                0x0380222c       0x44 build/ima_adpcm.o
+                0x0380222c                _ZN16IMA_Adpcm_Stream5fget8Ev
+
+.text._ZN16IMA_Adpcm_Stream6fget16Ev
+                0x03802270       0x40
+ .text._ZN16IMA_Adpcm_Stream6fget16Ev
+                0x03802270       0x40 build/ima_adpcm.o
+                0x03802270                _ZN16IMA_Adpcm_Stream6fget16Ev
+
+.text._ZN16IMA_Adpcm_Stream6fget32Ev
+                0x038022b0       0x40
+ .text._ZN16IMA_Adpcm_Stream6fget32Ev
+                0x038022b0       0x40 build/ima_adpcm.o
+                0x038022b0                _ZN16IMA_Adpcm_Stream6fget32Ev
+
+.text._ZN16IMA_Adpcm_Stream5resetEb
+                0x038022f0      0x674
+ .text._ZN16IMA_Adpcm_Stream5resetEb
+                0x038022f0      0x674 build/ima_adpcm.o
+                0x038022f0                _ZN16IMA_Adpcm_Stream5resetEb
+
+.text._ZN16IMA_Adpcm_Stream4get8Ev
+                0x03802964       0x40
+ .text._ZN16IMA_Adpcm_Stream4get8Ev
+                0x03802964       0x40 build/ima_adpcm.o
+                0x03802964                _ZN16IMA_Adpcm_Stream4get8Ev
+
+.text._ZN16IMA_Adpcm_Stream5get16Ev
+                0x038029a4       0x40
+ .text._ZN16IMA_Adpcm_Stream5get16Ev
+                0x038029a4       0x40 build/ima_adpcm.o
+                0x038029a4                _ZN16IMA_Adpcm_Stream5get16Ev
+
+.text._ZN16IMA_Adpcm_Stream8getblockEv
+                0x038029e4       0xb8
+ .text._ZN16IMA_Adpcm_Stream8getblockEv
+                0x038029e4       0xb8 build/ima_adpcm.o
+                0x038029e4                _ZN16IMA_Adpcm_Stream8getblockEv
+
+.text._ZN16IMA_Adpcm_Stream13restore_frameEv
+                0x03802a9c       0xe4
+ .text._ZN16IMA_Adpcm_Stream13restore_frameEv
+                0x03802a9c       0xe4 build/ima_adpcm.o
+                0x03802a9c                _ZN16IMA_Adpcm_Stream13restore_frameEv
+
+.text._ZN16IMA_Adpcm_Stream10decode_imaEPsi
+                0x03802b80      0x6a0
+ .text._ZN16IMA_Adpcm_Stream10decode_imaEPsi
+                0x03802b80      0x6a0 build/ima_adpcm.o
+                0x03802b80                _ZN16IMA_Adpcm_Stream10decode_imaEPsi
+
+.text._ZN16IMA_Adpcm_Stream6streamEPsi
+                0x03803220       0x68
+ .text._ZN16IMA_Adpcm_Stream6streamEPsi
+                0x03803220       0x68 build/ima_adpcm.o
+                0x03803220                _ZN16IMA_Adpcm_Stream6streamEPsi
+
+.text._ZN16IMA_Adpcm_Stream12get_channelsEv
+                0x03803288       0x2c
+ .text._ZN16IMA_Adpcm_Stream12get_channelsEv
+                0x03803288       0x2c build/ima_adpcm.o
+                0x03803288                _ZN16IMA_Adpcm_Stream12get_channelsEv
+
+.text._ZN16IMA_Adpcm_Stream17get_sampling_rateEv
+                0x038032b4       0x2c
+ .text._ZN16IMA_Adpcm_Stream17get_sampling_rateEv
+                0x038032b4       0x2c build/ima_adpcm.o
+                0x038032b4                _ZN16IMA_Adpcm_Stream17get_sampling_rateEv
+
+.text._ZN16IMA_Adpcm_Player9setvolumeEi
+                0x038032e0       0x38
+ .text._ZN16IMA_Adpcm_Player9setvolumeEi
+                0x038032e0       0x38 build/ima_adpcm.o
+                0x038032e0                _ZN16IMA_Adpcm_Player9setvolumeEi
+
+.text._ZN16IMA_Adpcm_Player4stopEv
+                0x03803318       0x4c
+ .text._ZN16IMA_Adpcm_Player4stopEv
+                0x03803318       0x4c build/ima_adpcm.o
+                0x03803318                _ZN16IMA_Adpcm_Player4stopEv
+
+.text._ZN16IMA_Adpcm_Player16i_stream_requestEiPvi
+                0x03803364       0xe0
+ .text._ZN16IMA_Adpcm_Player16i_stream_requestEiPvi
+                0x03803364       0xe0 build/ima_adpcm.o
+                0x03803364                _ZN16IMA_Adpcm_Player16i_stream_requestEiPvi
+
+.text.IMAADPCMDecode
+                0x03803444      0x1d0
+ .text.IMAADPCMDecode
+                0x03803444      0x1d0 build/ima_adpcm.o
+                0x03803444                IMAADPCMDecode
+
+.text.setupSoundTGDSVideoPlayerARM7
+                0x03803614      0x1cc
+ .text.setupSoundTGDSVideoPlayerARM7
+                0x03803614      0x1cc build/ima_adpcm.o
+                0x03803614                setupSoundTGDSVideoPlayerARM7
+
+.text._ZN16IMA_Adpcm_Player4playEbbiPFbvEP5FATFSi
+                0x038037e0      0x1a8
+ .text._ZN16IMA_Adpcm_Player4playEbbiPFbvEP5FATFSi
+                0x038037e0      0x1a8 build/ima_adpcm.o
+                0x038037e0                _ZN16IMA_Adpcm_Player4playEbbiPFbvEP5FATFSi
+
+.text.timerAudioCallback
+                0x03803988      0x500
+ .text.timerAudioCallback
+                0x03803988      0x500 build/ima_adpcm.o
+                0x03803988                timerAudioCallback
+
+.text.stopSoundStreamUser
+                0x03803e88        0x4
+ .text.stopSoundStreamUser
+                0x03803e88        0x4 build/main.o
+                0x03803e88                stopSoundStreamUser
+
+.text.playSoundStreamARM7
+                0x03803e8c      0x1e0
+ .text.playSoundStreamARM7
+                0x03803e8c      0x1e0 build/main.o
+                0x03803e8c                playSoundStreamARM7
+
+.text.main      0x0380406c       0x38
+ .text.main     0x0380406c       0x38 build/main.o
+                0x0380406c                main
+
+.text.playerStopARM7
+                0x038040a4      0x178
+ .text.playerStopARM7
+                0x038040a4      0x178 build/main.o
+                0x038040a4                playerStopARM7
+
+.text.getsIPCSharedTGDSSpecific
+                0x0380421c        0xc
+ .text.getsIPCSharedTGDSSpecific
+                0x0380421c        0xc build/ipcfifoTGDSUser.o
+                0x0380421c                getsIPCSharedTGDSSpecific
+
+.text.HandleFifoNotEmptyWeakRef
+                0x03804228       0x3c
+ .text.HandleFifoNotEmptyWeakRef
+                0x03804228       0x3c build/ipcfifoTGDSUser.o
+                0x03804228                HandleFifoNotEmptyWeakRef
+
+.text.HandleFifoEmptyWeakRef
+                0x03804264        0x4
+ .text.HandleFifoEmptyWeakRef
+                0x03804264        0x4 build/ipcfifoTGDSUser.o
+                0x03804264                HandleFifoEmptyWeakRef
+
+.text.setupLibUtils
+                0x03804268       0x44
+ .text.setupLibUtils
+                0x03804268       0x44 build/ipcfifoTGDSUser.o
+                0x03804268                setupLibUtils
+
+.text.XmemSetup
+                0x038042ac       0x1c
+ .text.XmemSetup
+                0x038042ac       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x038042ac                XmemSetup
+
+.text.XmemInit  0x038042c8      0x120
+ .text.XmemInit
+                0x038042c8      0x120 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x038042c8                XmemInit
+
+.text.setTGDSARM7MallocBaseAddress
+                0x038043e8       0x2c
+ .text.setTGDSARM7MallocBaseAddress
+                0x038043e8       0x2c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x038043e8                setTGDSARM7MallocBaseAddress
+
+.text.initARM7Malloc
+                0x03804414       0x98
+ .text.initARM7Malloc
+                0x03804414       0x98 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x03804414                initARM7Malloc
+
+.text.setupDefaultExceptionHandler
+                0x038044ac       0x18
+ .text.setupDefaultExceptionHandler
+                0x038044ac       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                0x038044ac                setupDefaultExceptionHandler
+
+.text.exception_sysexit
+                0x038044c4       0x28
+ .text.exception_sysexit
+                0x038044c4       0x28 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                0x038044c4                exception_sysexit
+
+.text.generalARMExceptionHandler
+                0x038044ec       0x20
+ .text.generalARMExceptionHandler
+                0x038044ec       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                0x038044ec                generalARMExceptionHandler
+
+.text.resetMemory_ARMCores
+                0x0380450c       0xf8
+ .text.resetMemory_ARMCores
+                0x0380450c       0xf8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+                0x0380450c                resetMemory_ARMCores
+
+.text.initHardware
+                0x03804604       0x84
+ .text.initHardware
+                0x03804604       0x84 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+                0x03804604                initHardware
+
+.text.receiveByteIPC
+                0x03804688       0x14
+ .text.receiveByteIPC
+                0x03804688       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+
+.text.NDS_IRQHandler
+                0x0380469c      0x77c
+ .text.NDS_IRQHandler
+                0x0380469c      0x77c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+                0x0380469c                NDS_IRQHandler
+
+.text.IRQInit   0x03804e18      0x110
+ .text.IRQInit  0x03804e18      0x100 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+                0x03804e18                IRQInit
+ .text.IRQInit.__stub
+                0x03804f18        0xc linker stubs
+
+.text.handleARM7InitSVC
+                0x03804f28       0x40
+ .text.handleARM7InitSVC
+                0x03804f28       0x40 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+                0x03804f28                handleARM7InitSVC
+
+.text.handleARM7SVC
+                0x03804f68       0x4c
+ .text.handleARM7SVC
+                0x03804f68       0x4c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+                0x03804f68                handleARM7SVC
+
+.text.dldiGet   0x03804fb4       0x30
+ .text.dldiGet  0x03804fb4       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                0x03804fb4                dldiGet
+
+.text.dldi_handler_init
+                0x03804fe4       0x78
+ .text.dldi_handler_init
+                0x03804fe4       0x78 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                0x03804fe4                dldi_handler_init
+
+.text.dldi_handler_read_sectors
+                0x0380505c       0x74
+ .text.dldi_handler_read_sectors
+                0x0380505c       0x74 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                0x0380505c                dldi_handler_read_sectors
+
+.text.checkClipping
+                0x038050d0       0x30
+ .text.checkClipping
+                0x038050d0       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+
+.text.reloadARMCore
+                0x03805100       0x40
+ .text.reloadARMCore
+                0x03805100       0x40 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+
+.text.getsIPCSharedTGDS
+                0x03805140        0xc
+ .text.getsIPCSharedTGDS
+                0x03805140        0xc c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+                0x03805140                getsIPCSharedTGDS
+
+.text.SendFIFOWordsITCM
+                0x0380514c       0x3c
+ .text.SendFIFOWordsITCM
+                0x0380514c       0x3c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+                0x0380514c                SendFIFOWordsITCM
+
+.text.HandleFifoEmpty
+                0x03805188       0x20
+ .text.HandleFifoEmpty
+                0x03805188       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+                0x03805188                HandleFifoEmpty
+
+.text.HandleFifoNotEmpty
+                0x038051a8      0xb60
+ .text.HandleFifoNotEmpty
+                0x038051a8      0xb60 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+                0x038051a8                HandleFifoNotEmpty
+
+.text.powerON   0x03805d08       0x20
+ .text.powerON  0x03805d08       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+                0x03805d08                powerON
+
+.text.powerOFF  0x03805d28       0x18
+ .text.powerOFF
+                0x03805d28       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+                0x03805d28                powerOFF
+
+.text.SoundPowerON
+                0x03805d40       0x50
+ .text.SoundPowerON
+                0x03805d40       0x50 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+                0x03805d40                SoundPowerON
+
+.text.sdio_Startup
+                0x03805d90       0x1c
+ .text.sdio_Startup
+                0x03805d90       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+                0x03805d90                sdio_Startup
+
+.text.sdio_IsInserted
+                0x03805dac       0x1c
+ .text.sdio_IsInserted
+                0x03805dac       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+                0x03805dac                sdio_IsInserted
+
+.text.readFirmwareSPI
+                0x03805dc8       0x88
+ .text.readFirmwareSPI
+                0x03805dc8       0x88 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+                0x03805dc8                readFirmwareSPI
+
+.text.PowerManagementDeviceRead
+                0x03805e50       0x70
+ .text.PowerManagementDeviceRead
+                0x03805e50       0x70 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+                0x03805e50                PowerManagementDeviceRead
+
+.text.PowerManagementDeviceWrite
+                0x03805ec0       0x78
+ .text.PowerManagementDeviceWrite
+                0x03805ec0       0x78 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+                0x03805ec0                PowerManagementDeviceWrite
+
+.text.SerialWaitBusy
+                0x03805f38       0x34
+ .text.SerialWaitBusy
+                0x03805f38       0x34 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+
+.text.CheckStylus
+                0x03805f6c      0x148
+ .text.CheckStylus
+                0x03805f6c      0x148 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x03805f6c                CheckStylus
+
+.text.readTouchValue
+                0x038060b4      0x4b0
+ .text.readTouchValue
+                0x038060b4      0x4b0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x038060b4                readTouchValue
+
+.text.UpdateRange
+                0x03806564      0x18c
+ .text.UpdateRange
+                0x03806564      0x18c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x03806564                UpdateRange
+
+.text.touchReadXY
+                0x038066f0      0x570
+ .text.touchReadXY
+                0x038066f0      0x570 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x038066f0                touchReadXY
+
+.text.LoadFirmwareSettingsFromFlash
+                0x03806c60      0x140
+ .text.LoadFirmwareSettingsFromFlash
+                0x03806c60      0x140 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+                0x03806c60                LoadFirmwareSettingsFromFlash
+
+.text.cdcIsAvailable
+                0x03806da0       0x10
+ .text.cdcIsAvailable
+                0x03806da0       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+                0x03806da0                cdcIsAvailable
+
+.text.reportTGDSPayloadMode7
+                0x03806db0       0x1c
+ .text.reportTGDSPayloadMode7
+                0x03806db0       0x1c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806db0                reportTGDSPayloadMode7
+
+.text.isDSiMode
+                0x03806dcc       0x10
+ .text.isDSiMode
+                0x03806dcc       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806dcc                isDSiMode
+
+.text.ucs2tombs
+                0x03806ddc      0x1f4
+ .text.ucs2tombs
+                0x03806ddc      0x1f4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806ddc                ucs2tombs
+
+.text.getValueSafe
+                0x03806fd0        0x8
+ .text.getValueSafe
+                0x03806fd0        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806fd0                getValueSafe
+
+.text.setValueSafe
+                0x03806fd8        0x8
+ .text.setValueSafe
+                0x03806fd8        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806fd8                setValueSafe
+
+.text.TurnOnScreens
+                0x03806fe0      0x110
+ .text.TurnOnScreens
+                0x03806fe0      0x110 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03806fe0                TurnOnScreens
+
+.text.TurnOffScreens
+                0x038070f0      0x10c
+ .text.TurnOffScreens
+                0x038070f0      0x10c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x038070f0                TurnOffScreens
+
+.text.initSound
+                0x038071fc       0x14
+ .text.initSound
+                0x038071fc       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x038071fc                initSound
+
+.text.initializeLibUtils7
+                0x03807210       0x8c
+ .text.initializeLibUtils7
+                0x03807210       0x8c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x03807210                initializeLibUtils7
+
+.text.disableTGDSDebugging
+                0x0380729c       0x14
+ .text.disableTGDSDebugging
+                0x0380729c       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380729c                disableTGDSDebugging
+
+.text.RWSPICNT  0x038072b0       0x2c
+ .text.RWSPICNT
+                0x038072b0       0x2c c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+                0x038072b0                RWSPICNT
+
+.text.SPICSHIGH
+                0x038072dc       0x14
+ .text.SPICSHIGH
+                0x038072dc       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+                0x038072dc                SPICSHIGH
+
+.text.SPIWAITCNT
+                0x038072f0       0x18
+ .text.SPIWAITCNT
+                0x038072f0       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+                0x038072f0                SPIWAITCNT
+
+.text.__aeabi_idiv
+                0x03807308       0x70
+ .text.__aeabi_idiv
+                0x03807308       0x70 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+                0x03807308                __aeabi_idiv
+
+.text.__aeabi_uidiv
+                0x03807378       0x14
+ .text.__aeabi_uidiv
+                0x03807378       0x14 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+                0x03807378                __aeabi_uidiv
+
+.text.__udivmodsi4
+                0x0380738c       0x58
+ .text.__udivmodsi4
+                0x0380738c       0x58 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+                0x0380738c                __udivmodsi4
+
+.text.memset    0x038073e4       0x18
+ .text.memset   0x038073e4       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+                0x038073e4                memset
+
+.text.strcpy    0x038073fc       0x18
+ .text.strcpy   0x038073fc       0x18 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+                0x038073fc                strcpy
+
+.rel.dyn        0x03807414        0x0
+ .rel.iplt      0x00000000        0x0 ./build/nds_arm_ld_crt0.o
+ .rel.got       0x00000000        0x0 ./build/nds_arm_ld_crt0.o
+                0x03807414                . = ALIGN (0x4)
+                0x03807414                __text_end = .
+                0x03807414                __rodata_start = .
+
+.rodata         0x03807414        0x0
+ *(.rodata)
+                0x03807414                . = ALIGN (0x4)
+
+.rodata.cvt.4604
+                0x03807414       0x80
+ .rodata.cvt.4604
+                0x03807414       0x80 build/pff.o
+
+.rodata.str1.4  0x03807494       0x48
+ .rodata.str1.4
+                0x03807494       0x35 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+                                 0x38 (size before relaxing)
+ *fill*         0x038074c9        0x3 
+ .rodata.str1.4
+                0x038074cc       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+
+.rodata.min_range
+                0x038074dc        0x1
+ .rodata.min_range
+                0x038074dc        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x038074e0                . = ALIGN (0x4)
+                0x038074e0                __rodata_end = .
+                0x038074e0                __data_start = .
+
+.data           0x038074e0        0x4
+ *(.data)
+ .data          0x038074e0        0x0 ./build/nds_arm_ld_crt0.o
+ .data          0x038074e0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+ .data          0x038074e0        0x4 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+                0x038074e0                __dso_handle
+ .data          0x038074e4        0x0 build/Interrupts_app7.o
+ .data          0x038074e4        0x0 build/diskio_impl.o
+ .data          0x038074e4        0x0 build/pff.o
+ .data          0x038074e4        0x0 build/dswnifi.o
+ .data          0x038074e4        0x0 build/fileBrowse.o
+ .data          0x038074e4        0x0 build/loader.o
+ .data          0x038074e4        0x0 build/ima_adpcm_decode.o
+ .data          0x038074e4        0x0 build/ima_adpcm.o
+ .data          0x038074e4        0x0 build/main.o
+ .data          0x038074e4        0x0 build/tinynew.o
+ .data          0x038074e4        0x0 build/ipcfifoTGDSUser.o
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDSasm.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(InterruptsARMCores_s.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSAsm.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(debugNocash.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(arm-asm-memcpy.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .data          0x038074e4        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+                0x038074e4                . = ALIGN (0x4)
+
+.igot.plt       0x038074e4        0x0
+ .igot.plt      0x00000000        0x0 ./build/nds_arm_ld_crt0.o
+
+.got            0x038074e4        0x0
+ .got           0x00000000        0x0 ./build/nds_arm_ld_crt0.o
+
+.got.plt        0x038074e4        0xc
+ .got.plt       0x038074e4        0xc ./build/nds_arm_ld_crt0.o
+                0x038074e4                _GLOBAL_OFFSET_TABLE_
+
+.eh_frame       0x038074f0        0x0
+ .eh_frame      0x038074f0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+
+.jcr            0x038074f0        0x0
+ .jcr           0x038074f0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+
+.tm_clone_table
+                0x038074f0        0x0
+ .tm_clone_table
+                0x038074f0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .tm_clone_table
+                0x038074f0        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+
+.data.XMEMTOTALSIZE
+                0x038074f0        0x4
+ .data.XMEMTOTALSIZE
+                0x038074f0        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x038074f0                XMEMTOTALSIZE
+
+.data.XMEM_BLOCKSIZE
+                0x038074f4        0x2
+ .data.XMEM_BLOCKSIZE
+                0x038074f4        0x2 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x038074f4                XMEM_BLOCKSIZE
+
+.data.range     0x038074f6        0x1
+ .data.range    0x038074f6        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+
+.data.TGDSPayloadMode
+                0x038074f8        0x4
+ .data.TGDSPayloadMode
+                0x038074f8        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x038074f8                TGDSPayloadMode
+
+.data.multRate  0x038074fc        0x4
+ .data.multRate
+                0x038074fc        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x038074fc                multRate
+                0x03807500                . = ALIGN (0x4)
+                0x03807500                __data_end = .
+                0x03807500                __bss_start = .
+
+.bss            0x03807500      0x234
+                0x03807500                bss = .
+ *(.bss)
+ .bss           0x03807500        0x0 ./build/nds_arm_ld_crt0.o
+ .bss           0x03807500        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+ .bss           0x03807500       0x1c c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .bss           0x0380751c        0x0 build/Interrupts_app7.o
+ .bss           0x0380751c        0x0 build/diskio_impl.o
+ .bss           0x0380751c        0x0 build/pff.o
+ .bss           0x0380751c        0x0 build/dswnifi.o
+ .bss           0x0380751c        0x0 build/fileBrowse.o
+ .bss           0x0380751c        0x0 build/loader.o
+ .bss           0x0380751c        0x0 build/ima_adpcm_decode.o
+ .bss           0x0380751c        0x0 build/ima_adpcm.o
+ .bss           0x0380751c        0x0 build/main.o
+ .bss           0x0380751c        0x0 build/tinynew.o
+ .bss           0x0380751c        0x0 build/ipcfifoTGDSUser.o
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDSasm.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(InterruptsARMCores_s.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSAsm.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(debugNocash.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(arm-asm-memcpy.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .bss           0x0380751c        0x0 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+                0x0380751c                . = ALIGN (0x4)
+ COMMON         0x0380751c      0x200 build/diskio_impl.o
+                0x0380751c                scratchPadSector
+ COMMON         0x0380771c        0x8 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x0380771c                xmem_table
+                0x03807720                xmem_blocks
+ COMMON         0x03807724       0x10 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x03807724                xoffset
+                0x03807728                yoffset
+                0x0380772c                xscale
+                0x03807730                yscale
+
+.bss.adpcmWorkBuffer
+                0x03807734     0x4000
+ .bss.adpcmWorkBuffer
+                0x03807734     0x4000 build/ima_adpcm.o
+                0x03807734                adpcmWorkBuffer
+
+.bss.ADPCMchunksize
+                0x0380b734        0x4
+ .bss.ADPCMchunksize
+                0x0380b734        0x4 build/ima_adpcm.o
+                0x0380b734                ADPCMchunksize
+
+.bss.ADPCMchannels
+                0x0380b738        0x4
+ .bss.ADPCMchannels
+                0x0380b738        0x4 build/ima_adpcm.o
+                0x0380b738                ADPCMchannels
+
+.bss.fname      0x0380b73c      0x100
+ .bss.fname     0x0380b73c      0x100 build/main.o
+                0x0380b73c                fname
+
+.bss.FatfsFILESoundSample0
+                0x0380b83c       0x2c
+ .bss.FatfsFILESoundSample0
+                0x0380b83c       0x2c build/main.o
+                0x0380b83c                FatfsFILESoundSample0
+
+.bss.FatfsFILEBgMusic
+                0x0380b868       0x2c
+ .bss.FatfsFILEBgMusic
+                0x0380b868       0x2c build/main.o
+                0x0380b868                FatfsFILEBgMusic
+
+.bss.SoundEffect0Player
+                0x0380b894     0x10c4
+ .bss.SoundEffect0Player
+                0x0380b894     0x10c4 build/main.o
+                0x0380b894                SoundEffect0Player
+
+.bss.soundData  0x0380c958      0x1e4
+ .bss.soundData
+                0x0380c958      0x1e4 build/main.o
+                0x0380c958                soundData
+
+.bss.backgroundMusicPlayer
+                0x0380cb3c     0x10c4
+ .bss.backgroundMusicPlayer
+                0x0380cb3c     0x10c4 build/main.o
+                0x0380cb3c                backgroundMusicPlayer
+
+.bss.ARM7MallocTop
+                0x0380dc00        0x4
+ .bss.ARM7MallocTop
+                0x0380dc00        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x0380dc00                ARM7MallocTop
+
+.bss.ARM7MallocBaseAddress
+                0x0380dc04        0x4
+ .bss.ARM7MallocBaseAddress
+                0x0380dc04        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x0380dc04                ARM7MallocBaseAddress
+
+.bss.XMEM_TABLESIZE
+                0x0380dc08        0x4
+ .bss.XMEM_TABLESIZE
+                0x0380dc08        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x0380dc08                XMEM_TABLESIZE
+
+.bss.XMEM_BLOCKCOUNT
+                0x0380dc0c        0x4
+ .bss.XMEM_BLOCKCOUNT
+                0x0380dc0c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+                0x0380dc0c                XMEM_BLOCKCOUNT
+
+.bss.CustomHandler
+                0x0380dc10        0x4
+ .bss.CustomHandler
+                0x0380dc10        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                0x0380dc10                CustomHandler
+
+.bss.exceptionArmRegsShared
+                0x0380dc14        0x4
+ .bss.exceptionArmRegsShared
+                0x0380dc14        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+                0x0380dc14                exceptionArmRegsShared
+
+.bss.penDown    0x0380dc18        0x1
+ .bss.penDown   0x0380dc18        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+
+.bss.isArm7ClosedLid
+                0x0380dc19        0x1
+ .bss.isArm7ClosedLid
+                0x0380dc19        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+                0x0380dc19                isArm7ClosedLid
+
+.bss.DLDIARM7Address
+                0x0380dc1c        0x4
+ .bss.DLDIARM7Address
+                0x0380dc1c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                0x0380dc1c                DLDIARM7Address
+
+.bss.TWLModeInternalSDAccess
+                0x0380dc20        0x4
+ .bss.TWLModeInternalSDAccess
+                0x0380dc20        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+                0x0380dc20                TWLModeInternalSDAccess
+
+.bss.useTWLTSC  0x0380dc24        0x1
+ .bss.useTWLTSC
+                0x0380dc24        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x0380dc24                useTWLTSC
+
+.bss.touchInit  0x0380dc25        0x1
+ .bss.touchInit
+                0x0380dc25        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+                0x0380dc25                touchInit
+
+.bss.range_counter_2
+                0x0380dc26        0x1
+ .bss.range_counter_2
+                0x0380dc26        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+
+.bss.range_counter_1
+                0x0380dc27        0x1
+ .bss.range_counter_1
+                0x0380dc27        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+
+.bss.last_time_touched
+                0x0380dc28        0x1
+ .bss.last_time_touched
+                0x0380dc28        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+
+.bss.strpcmL1   0x0380dc2c        0x4
+ .bss.strpcmL1  0x0380dc2c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc2c                strpcmL1
+
+.bss.wifiUpdateVBLANKARM7LibUtilsCallback
+                0x0380dc30        0x4
+ .bss.wifiUpdateVBLANKARM7LibUtilsCallback
+                0x0380dc30        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc30                wifiUpdateVBLANKARM7LibUtilsCallback
+
+.bss.initMallocARM7LibUtilsCallback
+                0x0380dc34        0x4
+ .bss.initMallocARM7LibUtilsCallback
+                0x0380dc34        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc34                initMallocARM7LibUtilsCallback
+
+.bss.wifiDeinitARM7ARM9LibUtilsCallback
+                0x0380dc38        0x4
+ .bss.wifiDeinitARM7ARM9LibUtilsCallback
+                0x0380dc38        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc38                wifiDeinitARM7ARM9LibUtilsCallback
+
+.bss.strpcmL0   0x0380dc3c        0x4
+ .bss.strpcmL0  0x0380dc3c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc3c                strpcmL0
+
+.bss.sndCursor  0x0380dc40        0x4
+ .bss.sndCursor
+                0x0380dc40        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc40                sndCursor
+
+.bss.__dsimode  0x0380dc44        0x1
+ .bss.__dsimode
+                0x0380dc44        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc44                __dsimode
+
+.bss.lastL      0x0380dc48        0x4
+ .bss.lastL     0x0380dc48        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc48                lastL
+
+.bss.sndRate    0x0380dc4c        0x4
+ .bss.sndRate   0x0380dc4c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc4c                sndRate
+
+.bss.lastR      0x0380dc50        0x4
+ .bss.lastR     0x0380dc50        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc50                lastR
+
+.bss.SoundStreamTimerHandlerARM7LibUtilsCallback
+                0x0380dc54        0x4
+ .bss.SoundStreamTimerHandlerARM7LibUtilsCallback
+                0x0380dc54        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc54                SoundStreamTimerHandlerARM7LibUtilsCallback
+
+.bss.SoundStreamStopSoundARM7LibUtilsCallback
+                0x0380dc58        0x4
+ .bss.SoundStreamStopSoundARM7LibUtilsCallback
+                0x0380dc58        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc58                SoundStreamStopSoundARM7LibUtilsCallback
+
+.bss.led_state  0x0380dc5c        0x4
+ .bss.led_state
+                0x0380dc5c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc5c                led_state
+
+.bss.SoundStreamSetupSoundARM7LibUtilsCallback
+                0x0380dc60        0x4
+ .bss.SoundStreamSetupSoundARM7LibUtilsCallback
+                0x0380dc60        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc60                SoundStreamSetupSoundARM7LibUtilsCallback
+
+.bss.sampleLen  0x0380dc64        0x4
+ .bss.sampleLen
+                0x0380dc64        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc64                sampleLen
+
+.bss.libutilisFifoNotEmptyCallback
+                0x0380dc68        0x4
+ .bss.libutilisFifoNotEmptyCallback
+                0x0380dc68        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc68                libutilisFifoNotEmptyCallback
+
+.bss.wifiInterruptARM7LibUtilsCallback
+                0x0380dc6c        0x4
+ .bss.wifiInterruptARM7LibUtilsCallback
+                0x0380dc6c        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc6c                wifiInterruptARM7LibUtilsCallback
+
+.bss.MicInterruptARM7LibUtilsCallback
+                0x0380dc70        0x4
+ .bss.MicInterruptARM7LibUtilsCallback
+                0x0380dc70        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc70                MicInterruptARM7LibUtilsCallback
+
+.bss.strpcmR0   0x0380dc74        0x4
+ .bss.strpcmR0  0x0380dc74        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc74                strpcmR0
+
+.bss.strpcmR1   0x0380dc78        0x4
+ .bss.strpcmR1  0x0380dc78        0x4 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc78                strpcmR1
+
+.bss.debugEnabled
+                0x0380dc7c        0x1
+ .bss.debugEnabled
+                0x0380dc7c        0x1 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+                0x0380dc7c                debugEnabled
+                0x0380dc80                . = ALIGN (0x4)
+                0x0380dc80                __bss_end = .
+                0x0380dc80                __exidx_start = .
+
+.ARM.exidx      0x0380dc80        0x0
+                0x0380dc80                ARM.exidx = .
+ *(.ARM.exidx)
+                0x0380dc80                . = ALIGN (0x4)
+                0x0380dc80                . = ALIGN (0x4)
+                0x0380dc80                __exidx_end = .
+                0x0380dc80                . = (ADDR (.ARM.exidx) + SIZEOF (.ARM.exidx))
+                0x0380dc80                __vma_stub_end__ = .
+                0x0380dd80                __end = (__vma_stub_end__ + 0x100)
+
+.pad            0x0380dc80        0x8 load address 0x0380dd80
+                0x0380dc80        0x4 LONG 0x70c070c0
+                0x0380dc84        0x4 LONG 0xeeeeffc0
+                0x0380dc88                . = ALIGN (0x4)
+                0x0380dc84                __arm7i_lma__ = (__vma_stub_end__ + 0x4)
+                0x0380dc88                __arm7i_start__ = (__arm7i_lma__ + 0x4)
+                0x0380dc8c                __arm7i_end__ = (__arm7i_start__ + 0x4)
+                0x0380dc90                __arm7_lma__ = (__arm7i_end__ + 0x4)
+                0x0380dc94                __arm7_start__ = (__arm7_lma__ + 0x4)
+                0x0380dc98                __arm7_end__ = (__arm7_start__ + 0x4)
+LOAD ./build/nds_arm_ld_crt0.o
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+LOAD build/Interrupts_app7.o
+LOAD build/diskio_impl.o
+LOAD build/pff.o
+LOAD build/dswnifi.o
+LOAD build/fileBrowse.o
+LOAD build/loader.o
+LOAD build/ima_adpcm_decode.o
+LOAD build/ima_adpcm.o
+LOAD build/main.o
+LOAD build/tinynew.o
+LOAD build/ipcfifoTGDSUser.o
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2\libgcc.a
+START GROUP
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2\libgcc.a
+LOAD c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libc.a
+END GROUP
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+LOAD c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+OUTPUT(build/arm7-nonstripped.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2c
+ .ARM.attributes
+                0x00000000       0x20 ./build/nds_arm_ld_crt0.o
+ .ARM.attributes
+                0x00000020       0x16 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crti.o
+ .ARM.attributes
+                0x00000036       0x30 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+ .ARM.attributes
+                0x00000066       0x2c build/Interrupts_app7.o
+ .ARM.attributes
+                0x00000092       0x2c build/diskio_impl.o
+ .ARM.attributes
+                0x000000be       0x2c build/pff.o
+ .ARM.attributes
+                0x000000ea       0x2c build/dswnifi.o
+ .ARM.attributes
+                0x00000116       0x2c build/fileBrowse.o
+ .ARM.attributes
+                0x00000142       0x2c build/loader.o
+ .ARM.attributes
+                0x0000016e       0x20 build/ima_adpcm_decode.o
+ .ARM.attributes
+                0x0000018e       0x2c build/ima_adpcm.o
+ .ARM.attributes
+                0x000001ba       0x2c build/main.o
+ .ARM.attributes
+                0x000001e6       0x2c build/tinynew.o
+ .ARM.attributes
+                0x00000212       0x2c build/ipcfifoTGDSUser.o
+ .ARM.attributes
+                0x0000023e       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .ARM.attributes
+                0x00000264       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .ARM.attributes
+                0x00000294       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+ .ARM.attributes
+                0x000002c4       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDSasm.o)
+ .ARM.attributes
+                0x000002e4       0x20 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(InterruptsARMCores_s.o)
+ .ARM.attributes
+                0x00000304       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .ARM.attributes
+                0x0000032a       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .ARM.attributes
+                0x00000350       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .ARM.attributes
+                0x00000376       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .ARM.attributes
+                0x0000039c       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+ .ARM.attributes
+                0x000003c2       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .ARM.attributes
+                0x000003e8       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+ .ARM.attributes
+                0x0000040e       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .ARM.attributes
+                0x00000434       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .ARM.attributes
+                0x0000045a       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+ .ARM.attributes
+                0x00000480       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .ARM.attributes
+                0x000004a6       0x1a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSAsm.o)
+ .ARM.attributes
+                0x000004c0       0x1a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(debugNocash.o)
+ .ARM.attributes
+                0x000004da       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .ARM.attributes
+                0x00000500       0x26 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+ .ARM.attributes
+                0x00000526       0x30 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .ARM.attributes
+                0x00000556       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+ .ARM.attributes
+                0x00000580       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+ .ARM.attributes
+                0x000005aa       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+ .ARM.attributes
+                0x000005d4       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .ARM.attributes
+                0x000005fe       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .ARM.attributes
+                0x00000628       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+ .ARM.attributes
+                0x00000652       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+ .ARM.attributes
+                0x0000067c       0x1a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(arm-asm-memcpy.o)
+ .ARM.attributes
+                0x00000696       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .ARM.attributes
+                0x000006c0       0x2a c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .ARM.attributes
+                0x000006ea       0x30 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o
+ .ARM.attributes
+                0x0000071a       0x18 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtn.o
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtbegin.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 build/Interrupts_app7.o
+ .comment       0x00000000       0x12 build/diskio_impl.o
+ .comment       0x00000000       0x12 build/pff.o
+ .comment       0x00000000       0x12 build/dswnifi.o
+ .comment       0x00000000       0x12 build/fileBrowse.o
+ .comment       0x00000000       0x12 build/loader.o
+ .comment       0x00000000       0x12 build/ima_adpcm.o
+ .comment       0x00000000       0x12 build/main.o
+ .comment       0x00000000       0x12 build/tinynew.o
+ .comment       0x00000000       0x12 build/ipcfifoTGDSUser.o
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libutils7.a(xmem.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(exceptionTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libtoolchaingen7.a(initNDSTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(InterruptsARMCores_c.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(biosTGDSC.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dldi.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(ipcfifoTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(powerTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(sd.twl.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spifwTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spitscTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(usrsettingsTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utils.twl.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(utilsTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(dmaTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libhardware7.a(spiTGDS.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/\libstdc++.a(atexit_arm.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_idiv.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__aeabi_uidiv.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__udivmodsi4.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(cxa_atexit.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memcmp.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(memset.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(strcpy.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(__atexit.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/arm-eabi/lib/newlib-nano-2.1-nds/\libcnano7.a(impure.o)
+ .comment       0x00000000       0x12 c:/toolchain_generic/6.2_2016q4/bin/../lib/gcc/arm-eabi/4.9.2/crtend.o

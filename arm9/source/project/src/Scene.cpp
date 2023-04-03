@@ -112,14 +112,7 @@ Scene::~Scene()
 */
 bool Scene::render(void)
 {
-	GLenum error;
 
-	// check for errors and print them to stdout if any
-	/*
-	while ((error = glGetError()) != GL_NO_ERROR){
-		cout << ">> Error: " << gluErrorString(error) << endl;
-	}
-	*/
 	// clear scene
 	clear();
 
@@ -151,8 +144,9 @@ bool Scene::render(void)
 	{
 		// draw all elements in the scene
 		iter = elements->begin();
-		while (iter != elements->end())
+		while (iter != elements->end()){ //broken on NDS C++ 
 			(*iter++)->draw();
+		}
 	}
 
 	drawHUD();

@@ -17,6 +17,7 @@
 #include "VideoGL.h"
 #endif
 
+#ifdef __cplusplus
 #include <iostream>
 #include <math.h>
 
@@ -42,5 +43,6 @@ public:
 	void tiltup(void);	/// tilts camera upwards
 	void tiltdown(void);	/// tilts camera downwards
 };
+#endif
 
 #endif
