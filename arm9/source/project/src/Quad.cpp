@@ -14,9 +14,12 @@ GLfloat Quad::shininess = 120.f;
 
 
 /// Default Constructor. Initialises defaults.
-Quad::Quad() : Renderable()
+Quad::Quad(void * drawQuadFn) : Renderable()
 {
 	TWLPrintf("-- Creating quad\n");
+	buildDL = drawQuadFn;
+	callerArg0 = this; //cast this object for later usage
+	callerType = RENDERABLE_QUAD;
 }
 
 
@@ -28,25 +31,25 @@ Quad::~Quad()
 
 
 /// Draws the quad
-void Quad::_draw(void)
+void _drawQuad(Quad * quadObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material
+	glMaterialfv(GL_FRONT, GL_AMBIENT, quadObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, quadObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, quadObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, quadObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif

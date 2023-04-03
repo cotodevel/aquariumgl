@@ -13,9 +13,12 @@ GLfloat Fish::material[4] = {1.f, 1.f, 1.f, 1.f};
 GLfloat Fish::shininess = 120.f;
 
 
-Fish::Fish()
+Fish::Fish(void * drawFishFn)
 {
 	TWLPrintf("-- Creating fish\n");
+	buildDL = drawFishFn;
+	callerArg0 = this; //cast this object for later usage
+	callerType = RENDERABLE_FISH;
 	// angles and cut offs for tail animation
 	tailAngle = 0.0f;
 	tailAngleCutOff = 20.0f;
@@ -29,41 +32,41 @@ Fish::~Fish()
 }
 
 /// Draws the full fish
-void Fish::_draw(void)
+void _drawFish(Fish * fishObj)
 {
 	// work out how much to advance the fish by relative to its orientation
-	GLfloat xInc = cos(ry * (3.14156 ) / 180) / 10.0f;
-	GLfloat zInc = sin(ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat xInc = cos(fishObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat zInc = sin(fishObj->ry * (3.14156 ) / 180) / 10.0f;
 
 	// the floor is 70.0 x 70.0, but i want to keep the fish inside a
 	// 65.0 x 65.0 area, so work out the circular boundaries if the fish goes
 	// outside of this area
-	if (x < -35) x += 65.f;
-	if (x > 35) x -= 65.f;
-	if (z < -35) z += 65.f;
-	if (z > 35) z -= 65.f;
+	if (fishObj->x < -35) fishObj->x += 65.f;
+	if (fishObj->x > 35) fishObj->x -= 65.f;
+	if (fishObj->z < -35) fishObj->z += 65.f;
+	if (fishObj->z > 35) fishObj->z -= 65.f;
 
 	// increment the fish position
-	x -= xInc;
-	z += zInc;
+	fishObj->x -= xInc;
+	fishObj->z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material
+	glMaterialfv(GL_FRONT, GL_AMBIENT, fishObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, fishObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, fishObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, fishObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -87,10 +90,10 @@ void Fish::_draw(void)
 #endif
 	
 	// set up vertex arrays
-	glVertexPointer(3, GL_FLOAT, 0, vertex);
-	glNormalPointer(GL_FLOAT, 0, normal);
-	glTexCoordPointer(2, GL_FLOAT, 0, texels);
-	glColorPointer(3, GL_FLOAT, 0, colours);
+	glVertexPointer(3, GL_FLOAT, 0, fishObj->vertex);
+	glNormalPointer(GL_FLOAT, 0, fishObj->normal);
+	glTexCoordPointer(2, GL_FLOAT, 0, fishObj->texels);
+	glColorPointer(3, GL_FLOAT, 0, fishObj->colours);
 
 	// enable vertex arrays
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -99,7 +102,7 @@ void Fish::_draw(void)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// draw first side of the fish
-	drawSide();
+	fishObj->drawSide();
 	
 	// draw second side of the fish
 	glScalef(1.0f, 1.0f, -1.0f
@@ -107,16 +110,16 @@ void Fish::_draw(void)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawSide();
+	fishObj->drawSide();
 
 	// work out new fish tail position
-	GLfloat pt = sin(tailAngle * 3.14159 / 180);
-	tailAngle += tailAngleInc;
-	if (tailAngle < -tailAngleCutOff || tailAngle > tailAngleCutOff)
-		tailAngleInc *= -1;
+	GLfloat pt = sin(fishObj->tailAngle * 3.14159 / 180);
+	fishObj->tailAngle += fishObj->tailAngleInc;
+	if (fishObj->tailAngle < -fishObj->tailAngleCutOff || fishObj->tailAngle > fishObj->tailAngleCutOff)
+		fishObj->tailAngleInc *= -1;
 	
 	// draw one side of flexible part of the tail
-	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = pt;
+	fishObj->vertex[143] = fishObj->vertex[152] = fishObj->vertex[149] = fishObj->vertex[158] = fishObj->vertex[167] = pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	glScalef(1.0f, 1.0f, -1.0f
 #ifdef ARM9
@@ -125,7 +128,7 @@ void Fish::_draw(void)
 	);
 
 	// draw second side of flexible part of the tail
-	vertex[143] = vertex[152] = vertex[149] = vertex[158] = vertex[167] = -pt;
+	fishObj->vertex[143] = fishObj->vertex[152] = fishObj->vertex[149] = fishObj->vertex[158] = fishObj->vertex[167] = -pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	
 	// disable all vertex arrays and texturing

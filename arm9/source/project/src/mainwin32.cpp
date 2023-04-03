@@ -105,7 +105,7 @@ int startAquarium(int argc, char *argv[])
 	{
 		for (GLfloat j = -9.5; j <= 9.5; j++)
 		{
-			quad = new Quad();
+			quad = new Quad((void*)&_drawQuad);
 			quad->ry = 0.0f;	// we don't want random rotation
 			quad->rx = 90.0f;
 			quad->x = 3.5f * i;
@@ -354,23 +354,23 @@ void addObject(int type)
 	{
 	case OBJ_STARFISH:
 		y = -0.3f;
-		object = new StarFish();
+		object = new StarFish((void*)&_drawStarFish);
 		break;
 	case OBJ_CRAB:
 		y = -0.4f;
-		object = new Crab();
+		object = new Crab((void*)&_drawCrab);
 		break;
 	case OBJ_FISH:
 		y = Renderable::getRand(-26.0f, 25.0f);
-		object = new Fish();
+		object = new Fish((void*)&_drawFish);
 		break;
 	case OBJ_OCTOPUS:
 		y = Renderable::getRand(-27.0f, 25.0f);
-		object = new Octopus();
+		object = new Octopus((void*)&_drawOctopus);
 		break;
 	case OBJ_PLANT:
 		y = 0.0f;
-		object = new Plant();
+		object = new Plant((void*)&_drawPlant);
 		object->ry = 0.0f;
 		break;
 	}

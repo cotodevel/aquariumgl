@@ -15,9 +15,12 @@ GLfloat Plant::shininess = 100.f;
 
 
 /// Default Constructor. Initialises defaults.
-Plant::Plant() : Renderable()
+Plant::Plant(void * drawPlantFn) : Renderable()
 {
 	TWLPrintf("-- Creating Plant\n");
+	buildDL = drawPlantFn;
+	callerArg0 = this; //cast this object for later usage
+	callerType = RENDERABLE_PLANT;
 	build(dlist);
 }
 
@@ -30,7 +33,7 @@ Plant::~Plant()
 
 
 /// Draws the Plant
-void Plant::_draw(void)
+void _drawPlant(Plant * plantObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -41,7 +44,7 @@ void Plant::_draw(void)
 	// in the start we generate a plant with AT LEAST one branch
 	// so that we never get a situation where a plant is created
 	// with 0 branches
-	generate(0, Renderable::getRand(1, 6));
+	plantObj->generate(0, Renderable::getRand(1, 6));
 }
 
 

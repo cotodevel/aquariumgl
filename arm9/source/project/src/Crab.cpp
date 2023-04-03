@@ -14,9 +14,12 @@ GLfloat Crab::shininess = 50.f;
 
 
 /// Default Constructor. Builds the display list for the crab.
-Crab::Crab() : Renderable()
+Crab::Crab(void * drawCrabFn) : Renderable()
 {
 	TWLPrintf("-- Creating crab\n");
+	buildDL = drawCrabFn;
+	callerArg0 = this; //cast this object for later usage
+	callerType = RENDERABLE_CRAB;
 	sy = sx = sz = 2.f; // make crab twice as big
 	build(dlist);
 }
@@ -30,7 +33,7 @@ Crab::~Crab()
 
 
 /// Draws the crab
-void Crab::_draw(void)
+void _drawCrab(Crab * crabObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -69,13 +72,13 @@ void Crab::_draw(void)
 		USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-	drawLegs();
+	crabObj->drawLegs();
 	glScalef(-1.f, 1.f, 1.f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawLegs();
+	crabObj->drawLegs();
 	glPopMatrix(
 #ifdef ARM9	
 		1, USERSPACE_TGDS_OGL_DL_POINTER

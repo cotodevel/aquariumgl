@@ -13,9 +13,12 @@ GLfloat Octopus::material[4] = {0.0f, 0.0f, 2.0f, 1.f};
 GLfloat Octopus::shininess = 50.f;
 
 
-Octopus::Octopus()
+Octopus::Octopus(void * drawOctopusFn)
 {
 	TWLPrintf("-- Creating octopus\n");
+	buildDL = drawOctopusFn;
+	callerArg0 = this; //cast this object for later usage
+	callerType = RENDERABLE_OCTOPUS;
 	// leg rotation angles
 	legAngle = 0.0f;
 	legAngleCutOff = 30.0f;
@@ -29,7 +32,7 @@ Octopus::~Octopus()
 }
 
 
-void Octopus::_draw(void)
+void _drawOctopus(Octopus * octopusObj)
 {
 	// select our colour
 	glColor3f(1.0f, 1.0f, 0.0f
@@ -39,12 +42,12 @@ void Octopus::_draw(void)
 	);
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, octopusObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, octopusObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -73,10 +76,10 @@ void Octopus::_draw(void)
 #endif		
 	);
 
-	legAngle += legAngleInc;
-	if (legAngle < -legAngleCutOff || legAngle > legAngleCutOff) legAngleInc *= -1;
+	octopusObj->legAngle += octopusObj->legAngleInc;
+	if (octopusObj->legAngle < -octopusObj->legAngleCutOff || octopusObj->legAngle > octopusObj->legAngleCutOff) octopusObj->legAngleInc *= -1;
 
-	glRotatef(legAngle, 0.0f, 1.0f, 0.0f
+	glRotatef(octopusObj->legAngle, 0.0f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif		
@@ -96,7 +99,7 @@ void Octopus::_draw(void)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-		glTranslatef(0.1f, 0.5f + (legAngle / legAngleCutOff) / 7.0f, 0.0f
+		glTranslatef(0.1f, 0.5f + (octopusObj->legAngle / octopusObj->legAngleCutOff) / 7.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif

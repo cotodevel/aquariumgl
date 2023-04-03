@@ -14,9 +14,12 @@ GLfloat StarFish::shininess = 32.f;
 
 
 /// Default Constructor. Initialises defaults.
-StarFish::StarFish() : Renderable()
+StarFish::StarFish(void * drawStarFishFn) : Renderable()
 {
 	TWLPrintf("-- Creating StarFish\n");
+	buildDL = drawStarFishFn;
+	callerType = RENDERABLE_STARFISH;
+	callerArg0 = this; //cast this object for later usage
 }
 
 
@@ -28,15 +31,15 @@ StarFish::~StarFish()
 
 
 /// Draws the StarFish
-void StarFish::_draw(void)
+void _drawStarFish(StarFish * starFishObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, starFishObj->material
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, starFishObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -48,9 +51,9 @@ void StarFish::_draw(void)
 #endif
 
 	// set up vertex arrays
-	glVertexPointer(3, GL_FLOAT, 0, vertex);
-	glNormalPointer(GL_FLOAT, 0, normal);
-	glColorPointer(3, GL_FLOAT, 0, colours);
+	glVertexPointer(3, GL_FLOAT, 0, starFishObj->vertex);
+	glNormalPointer(GL_FLOAT, 0, starFishObj->normal);
+	glColorPointer(3, GL_FLOAT, 0, starFishObj->colours);
 
 	// enable vertex arrays
 	glEnableClientState(GL_VERTEX_ARRAY);

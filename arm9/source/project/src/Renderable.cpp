@@ -71,7 +71,19 @@ void Renderable::build(GLuint &dlist)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-		_draw();
+		switch(callerType){
+				case(RENDERABLE_CRAB):{
+					draw_objectCrab fn = (draw_objectCrab)buildDL;
+					Crab thisCrab = (*(Crab *)callerArg0);
+					fn(thisCrab);
+				}break;
+
+				case(RENDERABLE_PLANT):{
+					draw_objectPlant fn = (draw_objectPlant)buildDL;
+					Plant thisPlant = (*(Plant *)callerArg0);
+					fn(thisPlant);
+				}break;
+		}
 	glEndList(
 #ifdef ARM9
 		USERSPACE_TGDS_OGL_DL_POINTER
@@ -172,10 +184,43 @@ void Renderable::draw(void)
 	// if the object is flagged as a display list object, then call the
 	// display list drawing function of the object, otherwise just call
 	// the normal draw function of the object
-	if (this->isList)
-		_draw_dlist();
-	else
-		_draw();
+	switch(callerType){
+		case(RENDERABLE_STARFISH):{
+			_drawStarFish((StarFish *)callerArg0);
+		}break;
+
+		case(RENDERABLE_FISH):{
+			_drawFish((Fish *)callerArg0);
+		}break;
+
+		case(RENDERABLE_CRAB):{
+			if (isList){
+				Crab thisCrab = (*(Crab *)callerArg0);
+				thisCrab._draw_dlist();
+			}
+			else{
+				_drawCrab((Crab *)callerArg0);
+			}
+		}break;
+
+		case(RENDERABLE_OCTOPUS):{
+			_drawOctopus((Octopus *)callerArg0);
+		}break;
+
+		case(RENDERABLE_QUAD):{
+			_drawQuad((Quad *)callerArg0);
+		}break;
+
+		case(RENDERABLE_PLANT):{
+			if (isList){
+				Plant thisPlant = (*(Plant *)callerArg0);
+				thisPlant._draw_dlist();
+			}
+			else{
+				_drawPlant((Plant *)callerArg0);
+			}
+		}break;
+	}
 
 	glPopMatrix(
 #ifdef ARM9
