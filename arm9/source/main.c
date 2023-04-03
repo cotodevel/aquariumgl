@@ -435,24 +435,22 @@ int main(int argc, char **argv) {
 	//init sound
 	bgMusicEnabled = false;
 	
-	setupOGLDisplayLists(); //DL for speedup
-	init();
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
 		
 		if(runGameTick == true){
-			next(1);
+			//next(1);
 			runGameTick = false;
 		}
 		
 		struct touchPosition touch;
 		XYReadScrPosUser(&touch);
-		mouse(0, 0, touch.px, touch.py); 	//OnTSCTouch
-		keyboard(keysDown(), touch.px, touch.py); //Keys
+		//mouse(0, 0, touch.px, touch.py); 	//OnTSCTouch
+		//keyboard(keysDown(), touch.px, touch.py); //Keys
 		
 		//Render
-		display();
+		//display();
 	}
 	
 	return 0;

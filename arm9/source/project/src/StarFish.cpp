@@ -31,10 +31,21 @@ StarFish::~StarFish()
 void StarFish::_draw(void)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+
+#ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
+#endif
 
 	// set up vertex arrays
 	glVertexPointer(3, GL_FLOAT, 0, vertex);
@@ -50,12 +61,25 @@ void StarFish::_draw(void)
 	GLfloat step = 360.0f / 5;
 	for (int i = 0; i < 5;  i++)
 	{
-		glPushMatrix();
-		glRotatef(i * step, 0.0f, 1.0f, 0.0f);
+		glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+		glRotatef(i * step, 0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		glDrawArrays(GL_QUADS, 0, 4 * 5);
-		glPopMatrix();
+		glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 	}
 
+#ifdef WIN32
 	// disable vertex arrays
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -63,6 +87,7 @@ void StarFish::_draw(void)
 
 	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);
+#endif
 }
 
 

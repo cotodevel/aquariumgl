@@ -221,19 +221,51 @@ void Scene::drawHUD(void)
 	glDisable(GL_LIGHTING);
 
 	// grab and save the current projection
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLoadIdentity(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// setup new projection
-	glOrtho(-0.1f, 10.0f, 10.0f, -0.4f, -1.0f, 10.0f);
+	glOrtho(-0.1f, 10.0f, 10.0f, -0.4f, -1.0f, 10.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// grab and save current view
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glPushMatrix(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLoadIdentity(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// print all of the stats
 	printGL(0.0f, 0.0f, 0.0f, "Crabs:    ", objects[OBJ_CRAB]);
@@ -269,14 +301,30 @@ void Scene::drawHUD(void)
 		printMenu();
 
 	// restore old view
-	glPopMatrix();
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif	
+	);
 
 	// grab and restore old projection
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
+	glMatrixMode(GL_PROJECTION
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glPopMatrix(
+#ifdef ARM9
+		1, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// return to view mode
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// enable depth testing again
 	glEnable(GL_DEPTH_TEST);
@@ -301,6 +349,7 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count)
 /// Prints a string in the window
 void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
 {
+#ifdef WIN32
 	glRasterPos3f(x, y, z);
 
 	// print character one by one
@@ -308,16 +357,25 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
 		int c = str[j];
 		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, c);
 	}
+#endif
 }
 
 
 /// Displays the menu screen
 void Scene::printMenu(void)
 {
-	glColor3f(0.0f, 0.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
 
-	glColor3f(1.0f, 1.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 2.0f, -1.0f, "F1    - Toggle Help Screen      ");
 	printGL(0.0f, 2.3f, -1.0f, "F2    - Add a crab              ");
 	printGL(0.0f, 2.6f, -1.0f, "F3    - Add an octopus          ");
@@ -325,22 +383,38 @@ void Scene::printMenu(void)
 	printGL(0.0f, 3.2f, -1.0f, "F5    - Add a fish              ");
 	printGL(0.0f, 3.5f, -1.0f, "F6    - Add a plant             ");
 
-	glColor3f(0.5f, 1.0f, 0.0f);
+	glColor3f(0.5f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
 	printGL(0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
 	printGL(0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
 	printGL(0.0f, 4.7f, -1.0f, "1/0   - Toggle light 1/0 on/off ");
 
-	glColor3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 5.0f, -1.0f, "A/Z   - Inc/Dec elevation angl  ");
 	printGL(0.0f, 5.3f, -1.0f, "UP    - Dec distance to origin  ");
 	printGL(0.0f, 5.6f, -1.0f, "DOWN  - Inc distance to origin  ");
 	printGL(0.0f, 5.9f, -1.0f, "LEFT  - Rotate clockwise        ");
 	printGL(0.0f, 6.2f, -1.0f, "RIGHT - Rotate anticlockwise    ");
 
-	glColor3f(0.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 6.5f, -1.0f, "ESC   - Exit                    ");
 
-	glColor3f(0.0f, 0.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 0.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	printGL(0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
 }

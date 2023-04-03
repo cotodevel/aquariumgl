@@ -243,4 +243,12 @@ extern void drawCylinder(int numMajor, int numMinor, float height, float radius)
 extern GLint DLSOLIDCUBE0_06F;
 extern void glut2SolidCube0_06f();
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 extern int TWLPrintf(const char *fmt, ...);
+
+#ifdef __cplusplus
+}
+#endif
