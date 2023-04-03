@@ -83,6 +83,7 @@ extern GLfloat	yrot;
 extern GLuint texturesgliard[11];
 
 extern int TWLPrintf(const char *fmt, ...);
+extern int startAquarium(int argc, char *argv[]);
 
 #ifdef __cplusplus
 }

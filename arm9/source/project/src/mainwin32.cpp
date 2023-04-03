@@ -10,7 +10,14 @@
 * Igor Kromin 40125374
 */
 
+#ifdef _MSC_VER
 #include <GL/glut.h>
+#endif
+
+#ifdef ARM9
+#include "VideoGL.h"
+#endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -21,11 +28,17 @@
 #include <stdlib.h>
 #include <_ansi.h>
 #include <reent.h>
+#include "videoTGDS.h"
+#include "posixHandleTGDS.h"
+#include "consoleTGDS.h"
+#include "debugNocash.h"
+extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list vlist );
 #endif
 
 #include "Scene.h"
 #include "Renderable.h"
 #include "Textures.h"
+#include "main.h"
 
 #define OBJ_CRAB 0
 #define OBJ_OCTOPUS 1
@@ -53,8 +66,16 @@ static void getFishTexture(void);	/// loads the fish texture
 
 using namespace std;
 
+#ifdef WIN32
 /// Program starts here
 int main(int argc, char *argv[])
+{
+	startAquarium(argc, argv);
+	return 0;
+}
+#endif
+
+int startAquarium(int argc, char *argv[])
 {
 	TWLPrintf("-- Program starting\n");
 
@@ -64,10 +85,12 @@ int main(int argc, char *argv[])
 	// register our call-back functions
 	TWLPrintf("-- Registering callbacks\n");
 	
+#ifdef WIN32
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
 	glutKeyboardFunc(keyboardInput);
 	glutSpecialFunc(keyboardInput);
+#endif
 
 	// generate/load textures
 	TWLPrintf("-- Generating/Loading Textures\n");
@@ -114,9 +137,14 @@ int main(int argc, char *argv[])
 	}
 
 	// start the timer and enter the mail GLUT loop
+#ifdef WIN32
 	glutTimerFunc(50, animator, 0);
 	glutMainLoop();
-	
+#endif
+
+#ifdef ARM9
+//Todo
+#endif
 	return 0;
 }
 
@@ -127,11 +155,14 @@ int main(int argc, char *argv[])
 /// at way too different speeds on different computers
 void animator(int type)
 {
+#ifdef WIN32
 	glutPostRedisplay();
 	glutTimerFunc(25, animator, 0);
+#endif
 }
 
 
+#ifdef WIN32
 /// Resizes the current viewport to the full window size
 void resizeWindow(int w, int h)
 {
@@ -143,12 +174,14 @@ void resizeWindow(int w, int h)
 
 	setupViewVolume();
 }
-
+#endif
 
 /// Handles keyboard input for normal keys
 void keyboardInput(unsigned char key, int x, int y)
 {
 	switch(key) {
+	
+#ifdef WIN32
 	case 27:	// ESC key (Quits)
 		exit(0);
 		break;
@@ -212,6 +245,8 @@ void keyboardInput(unsigned char key, int x, int y)
 		if (scene->light1On) glEnable(GL_LIGHT1);
 		else glDisable(GL_LIGHT1);
 		break;
+#endif
+
 	}
 }
 
@@ -219,8 +254,9 @@ void keyboardInput(unsigned char key, int x, int y)
 /// Processes special keyboard keys like F1, F2, etc
 void keyboardInput(int key, int x, int y)
 {
-	switch (key)
-	{
+	switch (key){
+	
+#ifdef WIN32
 	case GLUT_KEY_F1:
 		scene->showMenu = !scene->showMenu;
 		break;
@@ -260,7 +296,9 @@ void keyboardInput(int key, int x, int y)
 	case GLUT_KEY_DOWN:
 		scene->camera.dec();
 		break;
+#endif
 	}
+
 }
 
 
@@ -334,50 +372,87 @@ void setupViewVolume(void)
 	GLfloat aspect = (GLfloat)scene->width / (GLfloat)scene->height;
 	GLfloat iaspect = (GLfloat)scene->height / (GLfloat)scene->width;
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLoadIdentity(
+#ifdef ARM9
+		USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// setup new viewing volume based on the aspect ratio and projection type
-	if (scene->perspectiveMode == true)
-		gluPerspective(-45.0f, aspect, 1.0f, 250.0f);
+	if (scene->perspectiveMode == true){
+		gluPerspective(-45.0f, aspect, 1.0f, 250.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+	}
 	else {
 		// orthographic mode correction depends on whether the ratio is greater
 		// or less than 1.0 as the viewport must be scaled in different
 		// directions to look right
-		if (aspect >= 1.0f)
-			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f);
-		else 
-			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f);
+		if (aspect >= 1.0f){
+			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+		}
+		else {
+			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+		}
 	}
 
-	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 
 /// Initiates all textures
 void getTextures(void)
 {
+#ifdef WIN32
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(2, Renderable::textures);
 
 	getSandTexture();
 	getFishTexture();
+#endif
+
+#ifdef ARM9
+//ARM9 Todo
+#endif
 }
 
 
 /// Loads the sand texture
 void getSandTexture(void)
 {
+#ifdef WIN32
 	glBindTexture(GL_TEXTURE_2D, Renderable::textures[0]);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 64, 64, GL_RGB, GL_UNSIGNED_BYTE, sand_image.pixel_data);
+#endif
 }
 
 
 /// Loads the fish texture
 void getFishTexture(void)
 {
+#ifdef WIN32
 	glBindTexture(GL_TEXTURE_2D, Renderable::textures[1]);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 128, 128, GL_RGB, GL_UNSIGNED_BYTE, fish_image.pixel_data);
+#endif
 }
 
 
@@ -392,14 +467,18 @@ bool init(int argc, char *argv[])
 	// initialise glut
 	TWLPrintf("-- Initialising GLUT\n");
 
+#ifdef WIN32
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-
+#endif
 	// setup our widnow now
 
 	TWLPrintf("-- Creating window\n");
-    glutCreateWindow("Aquarium Scene 3D");
+
+#ifdef WIN32
+	glutCreateWindow("Aquarium Scene 3D");
 	glutFullScreen();
+#endif
 
 	// initialise opengl initial state
 	setupGL();
@@ -416,14 +495,21 @@ void setupGL(void)
 	TWLPrintf("-- Setting up OpenGL state\n");   
 
 	// blue green background colour
-	glClearColor(0.0, 0.5, 0.55, 1.0);
+	glClearColor(0.0, 0.5, 0.55
+#ifdef WIN32
+		, 1.0
+#endif	
+	);
 	glShadeModel(GL_SMOOTH);
 
 	// depth testing used on with less than testing
+#ifdef WIN32
 	glDepthFunc(GL_LESS);
 	glEnable(GL_DEPTH_TEST);
+#endif
 
 	// setup  fog, but disable for now
+#ifdef WIN32
 	glDisable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP);
 	GLfloat fogColor[4] = {0.0f, 0.5f, 0.55f, 1.0f};
@@ -432,9 +518,10 @@ void setupGL(void)
 	
 	// enable normalising of normals after scaling
 	glEnable(GL_NORMALIZE);
-
+#endif
 	// setup lighting, but disable for nwo
 	glDisable(GL_LIGHTING);
+#ifdef WIN32
 	GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
@@ -446,19 +533,23 @@ void setupGL(void)
 	// set up line antialiasing
 	glLineWidth(1.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+#endif
 	// setup backface culling
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 
-	DLSOLIDCUBE0_06F = (GLint)glGenLists(1);
+	DLSOLIDCUBE0_06F = (GLint)glGenLists(1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	//glut2SolidCube(); -> NDS GX Implementation
 	#ifdef _MSC_VER
 	glNewList(DLSOLIDCUBE0_06F, GL_COMPILE);
 	#endif
 	#ifdef ARM9
-	glNewList(DLSOLIDCUBE10F, GL_COMPILE, USERSPACE_TGDS_OGL_DL_POINTER);
+	glNewList(DLSOLIDCUBE0_06F, GL_COMPILE, USERSPACE_TGDS_OGL_DL_POINTER);
 	#endif
 	{
 		float size = 0.06f;
@@ -531,16 +622,9 @@ void setupGL(void)
 	glCullFace (GL_NONE);
 }
 
-int TWLPrintf(const char *fmt, ...){
-#ifdef ARM9
-	va_list args;
-	va_start (args, fmt);
-	vsnprintf ((sint8*)ConsolePrintfBuf, 64, fmt, args);
-	va_end (args);
-	
-	nocashMessage((char*)ConsolePrintfBuf);
-#endif
+//ARM9 version is in main.c
 #ifdef WIN32
-#endif
+int TWLPrintf(const char *fmt, ...){
 	return 0;
 }
+#endif

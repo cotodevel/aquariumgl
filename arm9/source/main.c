@@ -43,6 +43,7 @@ USA
 #include "InterruptsARMCores_h.h"
 #include "interrupts.h"
 
+
 char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH];
 bool pendingPlay = false;
 float rotateX=0.0;
@@ -395,46 +396,25 @@ int main(int argc, char **argv) {
 	}
 	*/
 	
-	//test start
-	/*
-	clrscr();
-	printf("----");
-	printf("----");
-	printf("----");
-	
-	#define TEST(eq) TWLPrintf("%-56s%s\n", "" # eq ":", (eq) ? "true" : "false")
-	double d = 1.0 / 10.0;
-    long double ld = 1.0L / 10.0L;
-
-    TWLPrintf("sizeof (double) = %d\n", (int)sizeof (double));
-    TWLPrintf("sizeof (long double) == %d\n", (int)sizeof (long double));
-
-    TWLPrintf("\nExpect true:\n");
-    TEST(d == (double)(0.1));
-    TEST(ld == (long double)(0.1L));
-    TEST(d == (double)(1.0 / 10.0));
-    TEST(ld == (long double)(1.0L / 10.0L));
-    TEST(d == (double)(ld));
-    TEST((double)(1.0L/10.0L) == (double)(0.1));
-    TEST((long double)(1.0L/10.0L) == (long double)(0.1L));
-
-    TWLPrintf("\nExpect false:\n");
-    TEST(d == ld);
-    TEST((long double)(d) == ld);
-    TEST(d == 0.1L);
-    TEST(ld == 0.1);
-    TEST(d == (long double)(1.0L / 10.0L));
-    TEST(ld == (double)(1.0L / 10.0));
-	
-	while(1==1){
-		swiDelay(1);
-	}
-	*/
-	//test end
-	
 	//init sound
 	bgMusicEnabled = false;
 	
+	clrscr();
+	printf("---");
+	printf("---");
+	printf("---");
+	printf("starting Aquarium");
+
+	ret = startAquarium(argc, argv);
+
+	clrscr();
+	printf("---");
+	printf("---");
+	printf("---");
+	printf("ending Aquarium. Halt");
+	while(1==1){
+
+	}
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
