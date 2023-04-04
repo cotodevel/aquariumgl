@@ -44,7 +44,7 @@ void _drawPlant(Plant * plantObj)
 	// in the start we generate a plant with AT LEAST one branch
 	// so that we never get a situation where a plant is created
 	// with 0 branches
-	plantObj->generate(0, Renderable::getRand(1, 6));
+	plantObj->generate(0, getRand(1, 6));
 }
 
 
@@ -64,9 +64,9 @@ void Plant::generate(int level, int number)
 	for (int i = 0; i < number; i++)
 	{
 		
-		GLfloat horzAngle = Renderable::getRand(0, 180);
-		GLfloat vertAngle = Renderable::getRand(0, 180);
-		int numChildren = Renderable::getRand(0, 6);
+		GLfloat horzAngle = getRand(0, 180);
+		GLfloat vertAngle = getRand(0, 180);
+		int numChildren = getRand(0, 6);
 
 		glPushMatrix(
 #ifdef ARM9

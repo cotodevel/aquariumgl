@@ -70,8 +70,7 @@ public:
 	GLfloat sz;	/// z scale of object
 
 	bool isList;	/// is this a display list object?
-
-public:
+	
 	Renderable();	/// default constructor
 	virtual ~Renderable();	/// default destructor
 
@@ -80,8 +79,6 @@ public:
 	void rotate(GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
 	void scale(GLfloat x, GLfloat y, GLfloat z);	/// scales the object
 	void draw(void);
-
-	static GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 
 	//specific generic draw members
 	void * buildDL; //a.k.a _draw()
@@ -93,6 +90,7 @@ public:
 #endif
 
 extern unsigned int texturesRenderable[2];	/// texture id array
+extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 
 /*
 * StarFish class. Draws a yellowish colour StarFish.

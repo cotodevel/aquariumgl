@@ -231,7 +231,7 @@ void Renderable::draw(void)
 
 
 /// Generates a random value to use
-GLfloat Renderable::getRand(GLfloat minimum, GLfloat range)
+GLfloat getRand(GLfloat minimum, GLfloat range)
 {
 	return (((GLfloat)rand() / (GLfloat)RAND_MAX) * range) + minimum;
 }

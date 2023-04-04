@@ -341,8 +341,8 @@ void addObject(int type)
 	*/
 
 	// first pick the x and z locations
-	GLfloat x = Renderable::getRand(-25.0f, 50.0f);
-	GLfloat z = Renderable::getRand(-25.0f, 50.0f);
+	GLfloat x = getRand(-25.0f, 50.0f);
+	GLfloat z = getRand(-25.0f, 50.0f);
 
 	// the height is a bit different, differnt objects need a different
 	// offset above the sea floor
@@ -361,11 +361,11 @@ void addObject(int type)
 		object = new Crab((void*)&_drawCrab);
 		break;
 	case OBJ_FISH:
-		y = Renderable::getRand(-26.0f, 25.0f);
+		y = getRand(-26.0f, 25.0f);
 		object = new Fish((void*)&_drawFish);
 		break;
 	case OBJ_OCTOPUS:
-		y = Renderable::getRand(-27.0f, 25.0f);
+		y = getRand(-27.0f, 25.0f);
 		object = new Octopus((void*)&_drawOctopus);
 		break;
 	case OBJ_PLANT:
