@@ -47,7 +47,7 @@ Scene::Scene()
 	error = GL_NO_ERROR;
 #endif	
 	polygonModel = GL_FILL;
-	elements = new std::list<Renderable*>;	// create our queue
+	elements.clear();	// clear our queue
 	showMenu = true;	// menu is on
 	light0On = false;	// light 0 is off
 	light1On = false;	// light 1 is off
@@ -101,7 +101,6 @@ Scene::Scene()
 Scene::~Scene()
 {
 	TWLPrintf("++ Destructing scene\n");
-	delete elements;
 }
 
 
@@ -140,13 +139,10 @@ bool Scene::render(void)
 	);
 
 	// check if there are any objects to draw
-	if (elements->size() > 0)
+	for (int i = 0; i < elements.size(); i++)
 	{
 		// draw all elements in the scene
-		iter = elements->begin();
-		while (iter != elements->end()){ //broken on NDS C++ 
-			(*iter++)->draw();
-		}
+		elements.at(i)->draw();
 	}
 
 	drawHUD();
@@ -192,7 +188,7 @@ void Scene::clear()
 */
 void Scene::add(Renderable *object)
 {
-	elements->push_back(object);
+	elements.push_back(object);
 }
 
 

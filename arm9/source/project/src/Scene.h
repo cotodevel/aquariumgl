@@ -19,7 +19,7 @@
 #ifdef ARM9
 #include "VideoGL.h"
 #endif
-#include <list>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <stdio.h>
@@ -42,9 +42,8 @@ private:
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
-	std::list<Renderable*> *elements;	/// list of elements
-	std::list<Renderable*>::iterator iter;	/// iterator for the elements
-
+	std::vector<Renderable*> elements;	/// list of elements
+	
 	/// light 0 data
 	static GLfloat ambient0[4];
 	static GLfloat diffuse0[4];
