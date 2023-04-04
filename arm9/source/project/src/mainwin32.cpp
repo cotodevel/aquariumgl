@@ -442,7 +442,7 @@ void getTextures(void)
 {
 #ifdef WIN32
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(2, Renderable::textures);
+	glGenTextures(2, texturesRenderable);
 
 	getSandTexture();
 	getFishTexture();
@@ -458,7 +458,7 @@ void getTextures(void)
 void getSandTexture(void)
 {
 #ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, Renderable::textures[0]);
+	glBindTexture(GL_TEXTURE_2D, texturesRenderable[0]);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 64, 64, GL_RGB, GL_UNSIGNED_BYTE, sand_image.pixel_data);
 #endif
 }
@@ -468,7 +468,7 @@ void getSandTexture(void)
 void getFishTexture(void)
 {
 #ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, Renderable::textures[1]);
+	glBindTexture(GL_TEXTURE_2D, texturesRenderable[1]);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 128, 128, GL_RGB, GL_UNSIGNED_BYTE, fish_image.pixel_data);
 #endif
 }

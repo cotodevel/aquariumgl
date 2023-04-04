@@ -11,7 +11,7 @@
 #include "Renderable.h"
 
 // create the static parts of all objects
-unsigned int Renderable::textures[2];
+unsigned int texturesRenderable[2];
 
 GLint DLSOLIDCUBE0_06F=-1;
 

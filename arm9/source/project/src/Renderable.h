@@ -71,7 +71,6 @@ public:
 
 	bool isList;	/// is this a display list object?
 
-	static unsigned int textures[2];	/// texture id array
 public:
 	Renderable();	/// default constructor
 	virtual ~Renderable();	/// default destructor
@@ -93,6 +92,7 @@ public:
 };
 #endif
 
+extern unsigned int texturesRenderable[2];	/// texture id array
 
 /*
 * StarFish class. Draws a yellowish colour StarFish.
