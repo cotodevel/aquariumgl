@@ -36,9 +36,8 @@
 
 #define SIGN(x) (x < 0 ? (-1) : 1)
 
-class Scene
-{
-private:
+struct Scene{
+public:
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
@@ -58,8 +57,7 @@ private:
 	static GLfloat direction1[4];
 
 	static GLfloat spotAngle;
-		
-public:
+	
 	Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
 	bool perspectiveMode;	/// perspective on / off
@@ -88,6 +86,21 @@ private:
 	void distort(void);
 	void eval(int i, int j, GLfloat *ix, GLfloat *iy);
 };
+
+
+// light 0 colours
+extern GLfloat ambient0Scene[4];
+extern GLfloat diffuse0Scene[4];
+extern GLfloat specular0Scene[4];
+extern GLfloat position0Scene[4];
+
+// light 1 colours
+extern GLfloat ambient1Scene[4];
+extern GLfloat diffuse1Scene[4];
+extern GLfloat specular1Scene[4];
+extern GLfloat position1Scene[4];
+extern GLfloat direction1Scene[4];
+
 
 #endif
 

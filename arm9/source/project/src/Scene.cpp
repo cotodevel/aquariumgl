@@ -22,17 +22,17 @@ int Scene::width;	/// the width of the window
 int Scene::height;	/// the height of the window
 
 // light 0 colours
-GLfloat Scene::ambient0[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat Scene::diffuse0[4]	= {0.4f, 0.4f, 0.4f, 1.01f};
-GLfloat Scene::specular0[4]	= {0.2f, 0.2f, 0.2f, 1.0f};
-GLfloat Scene::position0[4]	= {0.0f, -1.0f, 0.0f, 0.0f};
+GLfloat ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
+GLfloat diffuse0Scene[4]	= {0.4f, 0.4f, 0.4f, 1.01f};
+GLfloat specular0Scene[4]	= {0.2f, 0.2f, 0.2f, 1.0f};
+GLfloat position0Scene[4]	= {0.0f, -1.0f, 0.0f, 0.0f};
 
 // light 1 colours
-GLfloat Scene::ambient1[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat Scene::diffuse1[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
-GLfloat Scene::specular1[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
-GLfloat Scene::position1[4]	= {0.0f, 0.0f, 1.0f, 1.0f};
-GLfloat Scene::direction1[4]	= {0.0f, 0.0f, -1.0f};
+GLfloat ambient1Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
+GLfloat diffuse1Scene[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
+GLfloat specular1Scene[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
+GLfloat position1Scene[4]	= {0.0f, 0.0f, 1.0f, 1.0f};
+GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
 
 // spotlight cut-off angle
 GLfloat Scene::spotAngle	= 15.f;
@@ -62,34 +62,34 @@ Scene::Scene()
 	objects[OBJ_PLANT] = 0;
 
 	// set up light 0 colours
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 
 	// set up light 1 colours
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -116,7 +116,7 @@ bool Scene::render(void)
 	clear();
 
 	// set up the miner's hat light before moving the camera
-	glLightfv(GL_LIGHT1, GL_POSITION, position1
+	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -125,14 +125,14 @@ bool Scene::render(void)
 //Unsupported by NDS GX
 #ifdef WIN32
 	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngle);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
 #endif
 
 	//position camera
 	camera.position();
 
 	// set up our directional overhead light
-	glLightfv(GL_LIGHT0, GL_POSITION, position0
+	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
