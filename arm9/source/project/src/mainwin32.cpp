@@ -97,6 +97,7 @@ int startAquarium(int argc, char *argv[])
 
 	// create the scene and set perspective projection as default
 	scene = new Scene();
+	SceneInit1(scene);
 	scene->perspectiveMode = true;
 
 	// create all quads for the floor of the aquarium
@@ -111,7 +112,7 @@ int startAquarium(int argc, char *argv[])
 			quad->x = 3.5f * i;
 			quad->z = 3.5f * j;
 			quad->scale(3.5f, 3.5f, 1.0f);
-			scene->add(quad);
+			add(scene, quad);
 		}
 	}
 
@@ -327,7 +328,7 @@ void keyboardInputSpecial(int key, int x, int y)
 */
 void drawScene()
 {
-	scene->render();
+	render(scene);
 }
 
 
@@ -377,7 +378,7 @@ void addObject(int type)
 
 	if(object != NULL){
 		object->move(x, y, z);	// set objects new position
-		scene->add(object);	// adds object to rendering queue
+		add(scene, object);	// adds object to rendering queue
 		scene->objects[type]++;	// increments the count of this type of object
 	}
 }

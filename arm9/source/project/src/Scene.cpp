@@ -39,27 +39,26 @@ GLfloat spotAngleScene	= 15.f;
 
 
 /// Default Constructor. Initialises defaults.
-Scene::Scene()
-{
+void SceneInit1(struct Scene * Inst){
 	TWLPrintf("-- Creating scene\n");
 
 #ifdef WIN32
-	error = GL_NO_ERROR;
+	Inst->error = GL_NO_ERROR;
 #endif	
-	polygonModel = GL_FILL;
-	elements.clear();	// clear our queue
-	showMenu = true;	// menu is on
-	light0On = false;	// light 0 is off
-	light1On = false;	// light 1 is off
-	fogMode = false;	// fog is off
-	lightMode = false;	// lighting is off
+	Inst->polygonModel = GL_FILL;
+	Inst->elements.clear();	// clear our queue
+	Inst->showMenu = true;	// menu is on
+	Inst->light0On = false;	// light 0 is off
+	Inst->light1On = false;	// light 1 is off
+	Inst->fogMode = false;	// fog is off
+	Inst->lightMode = false;	// lighting is off
 
 	// set all counters to zero
-	objects[OBJ_CRAB] = 0;
-	objects[OBJ_STARFISH] = 0;
-	objects[OBJ_OCTOPUS] = 0;
-	objects[OBJ_FISH] = 0;
-	objects[OBJ_PLANT] = 0;
+	Inst->objects[OBJ_CRAB] = 0;
+	Inst->objects[OBJ_STARFISH] = 0;
+	Inst->objects[OBJ_OCTOPUS] = 0;
+	Inst->objects[OBJ_FISH] = 0;
+	Inst->objects[OBJ_PLANT] = 0;
 
 	// set up light 0 colours
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0Scene
@@ -97,24 +96,16 @@ Scene::Scene()
 }
 
 
-/// Default destructor.
-Scene::~Scene()
-{
-	TWLPrintf("++ Destructing scene\n");
-}
-
-
 /// Renders a single frame of the scene
 /*
 * This function renders all of the objects that are attached
 * to the rendering queue of the Scene.
 */
-bool Scene::render(void)
-{
+bool render(struct Scene * Inst){
 
 	// clear scene
-	clear();
-
+	clearScene();
+	
 	// set up the miner's hat light before moving the camera
 	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene
 #ifdef ARM9
@@ -129,7 +120,7 @@ bool Scene::render(void)
 #endif
 
 	//position camera
-	camera.position();
+	Inst->camera.position();
 
 	// set up our directional overhead light
 	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
@@ -139,13 +130,13 @@ bool Scene::render(void)
 	);
 
 	// check if there are any objects to draw
-	for (int i = 0; i < elements.size(); i++)
+	for (int i = 0; i < Inst->elements.size(); i++)
 	{
 		// draw all elements in the scene
-		elements.at(i)->draw();
+		Inst->elements.at(i)->draw();
 	}
 
-	drawHUD();
+	drawHUD(Inst);
 
 #ifdef WIN32
 	glutSwapBuffers();
@@ -165,8 +156,7 @@ bool Scene::render(void)
 * and the depth buffers are cleared. The cameara position is
 * also reset here.
 */
-void Scene::clear()
-{
+void clearScene(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW
 #ifdef ARM9
@@ -186,9 +176,8 @@ void Scene::clear()
 * This method simply adds on the passed object to the end
 * of the rendering queue.
 */
-void Scene::add(Renderable *object)
-{
-	elements.push_back(object);
+void add(struct Scene * Inst, Renderable *object){
+	Inst->elements.push_back(object);
 }
 
 
@@ -200,8 +189,7 @@ void Scene::add(Renderable *object)
 * MODELVIEW matrices are restored to their original states when
 * this method returns.
 */
-void Scene::drawHUD(void)
-{
+void drawHUD(struct Scene * Inst){
 	// disable depth testing to HUD is drawn on top of everything
 	glDisable(GL_DEPTH_TEST);
 
@@ -258,11 +246,11 @@ void Scene::drawHUD(void)
 	);
 
 	// print all of the stats
-	printGL(0.0f, 0.0f, 0.0f, "Crabs:    ", objects[OBJ_CRAB]);
-	printGL(1.5f, 0.0f, 0.0f, "Starfish: ", objects[OBJ_STARFISH]);
-	printGL(3.0f, 0.0f, 0.0f, "Octopi:   ", objects[OBJ_OCTOPUS]);
-	printGL(4.5f, 0.0f, 0.0f, "Fish:     ", objects[OBJ_FISH]);
-	printGL(6.0f, 0.0f, 0.0f, "Plants:   ", objects[OBJ_PLANT]);
+	printGL1(Inst, 0.0f, 0.0f, 0.0f, "Crabs:    ", Inst->objects[OBJ_CRAB]);
+	printGL1(Inst, 1.5f, 0.0f, 0.0f, "Starfish: ", Inst->objects[OBJ_STARFISH]);
+	printGL1(Inst, 3.0f, 0.0f, 0.0f, "Octopi:   ", Inst->objects[OBJ_OCTOPUS]);
+	printGL1(Inst, 4.5f, 0.0f, 0.0f, "Fish:     ", Inst->objects[OBJ_FISH]);
+	printGL1(Inst, 6.0f, 0.0f, 0.0f, "Plants:   ", Inst->objects[OBJ_PLANT]);
 
 	/*
 	* the printGL() function expects the string to be 30 characters in length
@@ -271,24 +259,24 @@ void Scene::drawHUD(void)
 	*/
 	
 	// print lighting mode calculations
-	if (lightMode) printGL(0.0f, 0.3f, -1.0f, "Lighting Calculations: On     ");
-	else printGL(0.0f, 0.3f, -1.0f, "Lighting Calculations: Off    ");
+	if (Inst->lightMode) printGL2(Inst, 0.0f, 0.3f, -1.0f, "Lighting Calculations: On     ");
+	else printGL2(Inst, 0.0f, 0.3f, -1.0f, "Lighting Calculations: Off    ");
 
 	// print light 0 status
-	if (light0On) printGL(0.0f, 0.6f, -1.0f, "Overhead Light: On            ");
-	else printGL(0.0f, 0.6f, -1.0f, "Overhead Light: Off           ");
+	if (Inst->light0On) printGL2(Inst, 0.0f, 0.6f, -1.0f, "Overhead Light: On            ");
+	else printGL2(Inst, 0.0f, 0.6f, -1.0f, "Overhead Light: Off           ");
 
 	// print light 1 status
-	if (light1On) printGL(0.0f, 0.9f, -1.0f, "Miner's Hat Light: On         ");
-	else printGL(0.0f, 0.9f, -1.0f, "Miner's Hat Light: Off        ");
+	if (Inst->light1On) printGL2(Inst, 0.0f, 0.9f, -1.0f, "Miner's Hat Light: On         ");
+	else printGL2(Inst, 0.0f, 0.9f, -1.0f, "Miner's Hat Light: Off        ");
 
 	// print fog status
-	if (fogMode) printGL(0.0f, 1.2f, -1.0f, "Fog: On                       ");
-	else printGL(0.0f, 1.2f, -1.0f, "Fog: Off                      ");
+	if (Inst->fogMode) printGL2(Inst, 0.0f, 1.2f, -1.0f, "Fog: On                       ");
+	else printGL2(Inst, 0.0f, 1.2f, -1.0f, "Fog: Off                      ");
 
 	// print the menu if needed
-	if (showMenu)
-		printMenu();
+	if (Inst->showMenu)
+		printMenu(Inst);
 
 	// restore old view
 	glPopMatrix(
@@ -325,20 +313,18 @@ void Scene::drawHUD(void)
 
 
 /// Prints a string with a count attached
-void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count)
-{
+void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count){
 	char buffer[30];
 	for (int i = 0; i < 30; ++i)
 		buffer[i] = ' ';
 
 	sprintf(buffer,"%s %i", str, count);
-	printGL(x, y, z, buffer);
+	printGL2(Inst, x, y, z, buffer);
 }
 
 
 /// Prints a string in the window
-void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
-{
+void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str){
 #ifdef WIN32
 	glRasterPos3f(x, y, z);
 
@@ -352,59 +338,58 @@ void Scene::printGL(GLfloat x, GLfloat y, GLfloat z, const char *str)
 
 
 /// Displays the menu screen
-void Scene::printMenu(void)
-{
+void printMenu(struct Scene * Inst){
 	glColor3f(0.0f, 0.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
+	printGL2(Inst, 0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
 
 	glColor3f(1.0f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 2.0f, -1.0f, "F1    - Toggle Help Screen      ");
-	printGL(0.0f, 2.3f, -1.0f, "F2    - Add a crab              ");
-	printGL(0.0f, 2.6f, -1.0f, "F3    - Add an octopus          ");
-	printGL(0.0f, 2.9f, -1.0f, "F4    - Add a starfish          ");
-	printGL(0.0f, 3.2f, -1.0f, "F5    - Add a fish              ");
-	printGL(0.0f, 3.5f, -1.0f, "F6    - Add a plant             ");
+	printGL2(Inst, 0.0f, 2.0f, -1.0f, "F1    - Toggle Help Screen      ");
+	printGL2(Inst, 0.0f, 2.3f, -1.0f, "F2    - Add a crab              ");
+	printGL2(Inst, 0.0f, 2.6f, -1.0f, "F3    - Add an octopus          ");
+	printGL2(Inst, 0.0f, 2.9f, -1.0f, "F4    - Add a starfish          ");
+	printGL2(Inst, 0.0f, 3.2f, -1.0f, "F5    - Add a fish              ");
+	printGL2(Inst, 0.0f, 3.5f, -1.0f, "F6    - Add a plant             ");
 
 	glColor3f(0.5f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
-	printGL(0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
-	printGL(0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
-	printGL(0.0f, 4.7f, -1.0f, "1/0   - Toggle light 1/0 on/off ");
+	printGL2(Inst, 0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
+	printGL2(Inst, 0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
+	printGL2(Inst, 0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
+	printGL2(Inst, 0.0f, 4.7f, -1.0f, "1/0   - Toggle light 1/0 on/off ");
 
 	glColor3f(0.0f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 5.0f, -1.0f, "A/Z   - Inc/Dec elevation angl  ");
-	printGL(0.0f, 5.3f, -1.0f, "UP    - Dec distance to origin  ");
-	printGL(0.0f, 5.6f, -1.0f, "DOWN  - Inc distance to origin  ");
-	printGL(0.0f, 5.9f, -1.0f, "LEFT  - Rotate clockwise        ");
-	printGL(0.0f, 6.2f, -1.0f, "RIGHT - Rotate anticlockwise    ");
+	printGL2(Inst, 0.0f, 5.0f, -1.0f, "A/Z   - Inc/Dec elevation angl  ");
+	printGL2(Inst, 0.0f, 5.3f, -1.0f, "UP    - Dec distance to origin  ");
+	printGL2(Inst, 0.0f, 5.6f, -1.0f, "DOWN  - Inc distance to origin  ");
+	printGL2(Inst, 0.0f, 5.9f, -1.0f, "LEFT  - Rotate clockwise        ");
+	printGL2(Inst, 0.0f, 6.2f, -1.0f, "RIGHT - Rotate anticlockwise    ");
 
 	glColor3f(0.0f, 0.0f, 1.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 6.5f, -1.0f, "ESC   - Exit                    ");
+	printGL2(Inst, 0.0f, 6.5f, -1.0f, "ESC   - Exit                    ");
 
 	glColor3f(0.0f, 0.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	printGL(0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
+	printGL2(Inst, 0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
 }

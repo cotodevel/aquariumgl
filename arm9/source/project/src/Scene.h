@@ -37,7 +37,6 @@
 #define SIGN(x) (x < 0 ? (-1) : 1)
 
 struct Scene{
-public:
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
@@ -52,22 +51,19 @@ public:
 	bool fogMode;	/// fog on / off
 	bool lightMode;	/// lighting on / off
 
-	Scene();	/// default constructor
-	virtual ~Scene();	/// default destructor
-
-	bool render(void);	/// renders a frame
-	void add(Renderable *object);	/// add object to rendering queue
-
-	void clear(void);	/// clears the scene for drawing
-	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
-	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str);
-	void printMenu(void);	/// display the menu
-	void drawHUD(void);	/// draw the heads up display
-	void distort(void);
-	void eval(int i, int j, GLfloat *ix, GLfloat *iy);
 };
 
+extern void clearScene();	/// clears the scene for drawing
 
+extern void SceneInit1(struct Scene * Inst);	/// default constructor
+extern bool render(struct Scene * Inst);	/// renders a frame
+extern void drawHUD(struct Scene * Inst);	/// draw the heads up display
+extern void add(struct Scene * Inst, Renderable *object);	/// add object to rendering queue
+
+extern void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
+extern void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str);
+extern void printMenu(struct Scene * Inst);	/// display the menu
+	
 // light 0 colours
 extern GLfloat ambient0Scene[4];
 extern GLfloat diffuse0Scene[4];
