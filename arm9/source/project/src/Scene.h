@@ -43,21 +43,6 @@ public:
 
 	std::vector<Renderable*> elements;	/// list of elements
 	
-	/// light 0 data
-	static GLfloat ambient0[4];
-	static GLfloat diffuse0[4];
-	static GLfloat specular0[4];
-	static GLfloat position0[4];
-
-	/// light 1 data
-	static GLfloat ambient1[4];
-	static GLfloat diffuse1[4];
-	static GLfloat specular1[4];
-	static GLfloat position1[4];
-	static GLfloat direction1[4];
-
-	static GLfloat spotAngle;
-	
 	Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
 	bool perspectiveMode;	/// perspective on / off
@@ -66,18 +51,13 @@ public:
 	bool light1On;	/// light 1 on / off
 	bool fogMode;	/// fog on / off
 	bool lightMode;	/// lighting on / off
-	
-	static int width;	/// the width of the window
-	static int height;	/// the height of the window
 
-public:
 	Scene();	/// default constructor
 	virtual ~Scene();	/// default destructor
 
 	bool render(void);	/// renders a frame
 	void add(Renderable *object);	/// add object to rendering queue
 
-private:
 	void clear(void);	/// clears the scene for drawing
 	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
 	void printGL(GLfloat x, GLfloat y, GLfloat z, const char *str);
@@ -101,6 +81,8 @@ extern GLfloat specular1Scene[4];
 extern GLfloat position1Scene[4];
 extern GLfloat direction1Scene[4];
 
+extern int widthScene;	/// the width of the window
+extern int heightScene;	/// the height of the window
 
 #endif
 
@@ -120,3 +102,5 @@ extern void getFishTexture(void);	/// loads the fish texture
 extern Scene *scene;	/// the scene we render
 extern bool wireMode;	/// wireframe mode on / off
 extern bool flatShading;	/// flat shading on / off
+
+extern GLfloat spotAngleScene;

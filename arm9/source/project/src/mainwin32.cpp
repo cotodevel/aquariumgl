@@ -187,8 +187,8 @@ void resizeWindow(int w, int h)
 	glViewport(0, 0, w, h);
 
 	// update the width and height we are using
-	scene->width = w;
-	scene->height = h;
+	widthScene = w;
+	heightScene = h;
 
 	setupViewVolume();
 }
@@ -387,8 +387,8 @@ void addObject(int type)
 void setupViewVolume(void)
 {
 	// work out the aspect ratio for width and height
-	GLfloat aspect = (GLfloat)scene->width / (GLfloat)scene->height;
-	GLfloat iaspect = (GLfloat)scene->height / (GLfloat)scene->width;
+	GLfloat aspect = (GLfloat)widthScene / (GLfloat)heightScene;
+	GLfloat iaspect = (GLfloat)heightScene / (GLfloat)widthScene;
 
 	glMatrixMode(GL_PROJECTION
 #ifdef ARM9

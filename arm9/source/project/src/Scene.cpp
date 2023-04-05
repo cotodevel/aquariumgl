@@ -18,8 +18,8 @@
 
 using namespace std;
 
-int Scene::width;	/// the width of the window
-int Scene::height;	/// the height of the window
+int widthScene;	/// the width of the window
+int heightScene;	/// the height of the window
 
 // light 0 colours
 GLfloat ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
@@ -35,7 +35,7 @@ GLfloat position1Scene[4]	= {0.0f, 0.0f, 1.0f, 1.0f};
 GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
 
 // spotlight cut-off angle
-GLfloat Scene::spotAngle	= 15.f;
+GLfloat spotAngleScene	= 15.f;
 
 
 /// Default Constructor. Initialises defaults.
@@ -124,7 +124,7 @@ bool Scene::render(void)
 	
 //Unsupported by NDS GX
 #ifdef WIN32
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngle);
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngleScene);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
 #endif
 
