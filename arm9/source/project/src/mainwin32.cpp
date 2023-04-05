@@ -54,7 +54,7 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 #define OBJ_FISH 3
 #define OBJ_PLANT 4
 
-Scene *scene;	/// the scene we render
+Scene scene;	/// the scene we render
 bool wireMode = false;	/// wireframe mode on / off
 bool flatShading = false;	/// flat shading on / off
 
@@ -96,9 +96,9 @@ int startAquarium(int argc, char *argv[])
 	getTextures();
 
 	// create the scene and set perspective projection as default
-	scene = new Scene();
-	SceneInit1(scene);
-	scene->perspectiveMode = true;
+	scene ;
+	SceneInit1(&scene);
+	scene.perspectiveMode = true;
 
 	// create all quads for the floor of the aquarium
 	Quad *quad;
@@ -112,7 +112,7 @@ int startAquarium(int argc, char *argv[])
 			quad->x = 3.5f * i;
 			quad->z = 3.5f * j;
 			quad->scale(3.5f, 3.5f, 1.0f);
-			add(scene, quad);
+			add(&scene, quad);
 		}
 	}
 
@@ -213,12 +213,12 @@ void keyboardInput(unsigned char key, int x, int y)
 
 	case 'A':
 	case 'a':
-		scene->camera.tiltdown();
+		scene.camera.tiltdown();
 		break;
 
 	case 'Z':
 	case 'z':
-		scene->camera.tiltup();
+		scene.camera.tiltup();
 		break;
 
 	case 'W':
@@ -235,33 +235,33 @@ void keyboardInput(unsigned char key, int x, int y)
 
 	case 'P':
 	case 'p':	// toglles between perspective/orthographic projections
-		scene->perspectiveMode = !scene->perspectiveMode;
+		scene.perspectiveMode = !scene.perspectiveMode;
 		setupViewVolume();
 		break;
 
 	case 'f':
 	case 'F':	// toggles fog on/off
-		scene->fogMode = !scene->fogMode;
-		if (scene->fogMode) glEnable(GL_FOG);
+		scene.fogMode = !scene.fogMode;
+		if (scene.fogMode) glEnable(GL_FOG);
 		else glDisable(GL_FOG);
 		break;
 
 	case 'l':
 	case 'L':	// toggles lighting calculations on/off
-		scene->lightMode = !scene->lightMode;
-		if (scene->lightMode) glEnable(GL_LIGHTING);
+		scene.lightMode = !scene.lightMode;
+		if (scene.lightMode) glEnable(GL_LIGHTING);
 		else glDisable(GL_LIGHTING);
 		break;
 
 	case '0':	// toggles light 0 on / off
-		scene->light0On = ! scene->light0On;
-		if (scene->light0On) glEnable(GL_LIGHT0);
+		scene.light0On = ! scene.light0On;
+		if (scene.light0On) glEnable(GL_LIGHT0);
 		else glDisable(GL_LIGHT0);
 		break;
 
 	case '1':	// toggles light 1 on / off
-		scene->light1On = ! scene->light1On;
-		if (scene->light1On) glEnable(GL_LIGHT1);
+		scene.light1On = ! scene.light1On;
+		if (scene.light1On) glEnable(GL_LIGHT1);
 		else glDisable(GL_LIGHT1);
 		break;
 #endif
@@ -277,7 +277,7 @@ void keyboardInputSpecial(int key, int x, int y)
 	
 #ifdef WIN32
 	case GLUT_KEY_F1:
-		scene->showMenu = !scene->showMenu;
+		scene.showMenu = !scene.showMenu;
 		break;
 
 	case GLUT_KEY_F2:
@@ -301,19 +301,19 @@ void keyboardInputSpecial(int key, int x, int y)
 		break;
 
 	case GLUT_KEY_LEFT:
-		scene->camera.anticlockwise();
+		scene.camera.anticlockwise();
 		break;
 
 	case GLUT_KEY_RIGHT:
-		scene->camera.clockwise();
+		scene.camera.clockwise();
 		break;
 
 	case GLUT_KEY_UP:
-		scene->camera.inc();
+		scene.camera.inc();
 		break;
 
 	case GLUT_KEY_DOWN:
-		scene->camera.dec();
+		scene.camera.dec();
 		break;
 #endif
 	}
@@ -328,7 +328,7 @@ void keyboardInputSpecial(int key, int x, int y)
 */
 void drawScene()
 {
-	render(scene);
+	render(&scene);
 }
 
 
@@ -378,8 +378,8 @@ void addObject(int type)
 
 	if(object != NULL){
 		object->move(x, y, z);	// set objects new position
-		add(scene, object);	// adds object to rendering queue
-		scene->objects[type]++;	// increments the count of this type of object
+		add(&scene, object);	// adds object to rendering queue
+		scene.objects[type]++;	// increments the count of this type of object
 	}
 }
 
@@ -403,7 +403,7 @@ void setupViewVolume(void)
 	);
 
 	// setup new viewing volume based on the aspect ratio and projection type
-	if (scene->perspectiveMode == true){
+	if (scene.perspectiveMode == true){
 		gluPerspective(-45.0f, aspect, 1.0f, 250.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER

@@ -95,7 +95,7 @@ extern void getTextures(void);	/// initiates all textures
 extern void getSandTexture(void);	/// loads the sand texture
 extern void getFishTexture(void);	/// loads the fish texture
 
-extern Scene *scene;	/// the scene we render
+extern Scene scene;	/// the scene we render
 extern bool wireMode;	/// wireframe mode on / off
 extern bool flatShading;	/// flat shading on / off
 
