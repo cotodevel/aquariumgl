@@ -6,67 +6,60 @@
 
 #include "Renderable.h"
 
-using namespace std;
-
-// setup the static variables
-GLfloat Fish::material[4] = {1.f, 1.f, 1.f, 1.f};
-GLfloat Fish::shininess = 120.f;
-
-
-Fish::Fish(void * drawFishFn)
+class MarineObject BuildFish(
+	void * drawFishFn, 
+	GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+	) 
 {
 	TWLPrintf("-- Creating fish\n");
-	buildDL = drawFishFn;
-	callerArg0 = this; //cast this object for later usage
-	callerType = RENDERABLE_FISH;
+	MarineObject obj(drawFishFn, NULL, RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// angles and cut offs for tail animation
-	tailAngle = 0.0f;
-	tailAngleCutOff = 20.0f;
-	tailAngleInc = 1.0f;
-}
-
-
-Fish::~Fish()
-{
-	TWLPrintf("++ Destructing fish\n");
+	obj.tailAngle = 0.0f;
+	obj.tailAngleCutOff = 20.0f;
+	obj.tailAngleInc = 1.0f;
+	return obj;
 }
 
 /// Draws the full fish
-void _drawFish(Fish * fishObj)
+void _drawFish(MarineObject * marineObj)
 {
 	// work out how much to advance the fish by relative to its orientation
-	GLfloat xInc = cos(fishObj->ry * (3.14156 ) / 180) / 10.0f;
-	GLfloat zInc = sin(fishObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat xInc = cos(marineObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat zInc = sin(marineObj->ry * (3.14156 ) / 180) / 10.0f;
 
 	// the floor is 70.0 x 70.0, but i want to keep the fish inside a
 	// 65.0 x 65.0 area, so work out the circular boundaries if the fish goes
 	// outside of this area
-	if (fishObj->x < -35) fishObj->x += 65.f;
-	if (fishObj->x > 35) fishObj->x -= 65.f;
-	if (fishObj->z < -35) fishObj->z += 65.f;
-	if (fishObj->z > 35) fishObj->z -= 65.f;
+	if (marineObj->x < -35) marineObj->x += 65.f;
+	if (marineObj->x > 35) marineObj->x -= 65.f;
+	if (marineObj->z < -35) marineObj->z += 65.f;
+	if (marineObj->z > 35) marineObj->z -= 65.f;
 
 	// increment the fish position
-	fishObj->x -= xInc;
-	fishObj->z += zInc;
+	marineObj->x -= xInc;
+	marineObj->z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, fishObj->material
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, fishObj->material
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, fishObj->material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, fishObj->shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -90,10 +83,10 @@ void _drawFish(Fish * fishObj)
 #endif
 	
 	// set up vertex arrays
-	glVertexPointer(3, GL_FLOAT, 0, fishObj->vertex);
-	glNormalPointer(GL_FLOAT, 0, fishObj->normal);
-	glTexCoordPointer(2, GL_FLOAT, 0, fishObj->texels);
-	glColorPointer(3, GL_FLOAT, 0, fishObj->colours);
+	glVertexPointer(3, GL_FLOAT, 0, marineObj->vertex);
+	glNormalPointer(GL_FLOAT, 0, marineObj->normal);
+	glTexCoordPointer(2, GL_FLOAT, 0, marineObj->texels);
+	glColorPointer(3, GL_FLOAT, 0, marineObj->colours);
 
 	// enable vertex arrays
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -102,7 +95,7 @@ void _drawFish(Fish * fishObj)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// draw first side of the fish
-	fishObj->drawSide();
+	marineObj->drawSideFish();
 	
 	// draw second side of the fish
 	glScalef(1.0f, 1.0f, -1.0f
@@ -110,16 +103,16 @@ void _drawFish(Fish * fishObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	fishObj->drawSide();
+	marineObj->drawSideFish();
 
 	// work out new fish tail position
-	GLfloat pt = sin(fishObj->tailAngle * 3.14159 / 180);
-	fishObj->tailAngle += fishObj->tailAngleInc;
-	if (fishObj->tailAngle < -fishObj->tailAngleCutOff || fishObj->tailAngle > fishObj->tailAngleCutOff)
-		fishObj->tailAngleInc *= -1;
+	GLfloat pt = sin(marineObj->tailAngle * 3.14159 / 180);
+	marineObj->tailAngle += marineObj->tailAngleInc;
+	if (marineObj->tailAngle < -marineObj->tailAngleCutOff || marineObj->tailAngle > marineObj->tailAngleCutOff)
+		marineObj->tailAngleInc *= -1;
 	
 	// draw one side of flexible part of the tail
-	fishObj->vertex[143] = fishObj->vertex[152] = fishObj->vertex[149] = fishObj->vertex[158] = fishObj->vertex[167] = pt;
+	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	glScalef(1.0f, 1.0f, -1.0f
 #ifdef ARM9
@@ -128,7 +121,7 @@ void _drawFish(Fish * fishObj)
 	);
 
 	// draw second side of flexible part of the tail
-	fishObj->vertex[143] = fishObj->vertex[152] = fishObj->vertex[149] = fishObj->vertex[158] = fishObj->vertex[167] = -pt;
+	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = -pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
 	
 	// disable all vertex arrays and texturing
@@ -141,7 +134,7 @@ void _drawFish(Fish * fishObj)
 
 
 /// Draws a side of the fish
-void Fish::drawSide(void)
+void MarineObject::drawSideFish(void)
 {
 	glDrawArrays(GL_TRIANGLES, 0, 3 * 2);
     glDrawArrays(GL_QUADS, 6, 4 * 6);
@@ -194,8 +187,8 @@ void Fish::drawSide(void)
 *                  \|  I is on the bottom
 * 
 */
-
-GLfloat Fish::vertex[] =
+//GLfloat * vertexIn,
+GLfloat vertexFish[] =
 {
 	// 2				|					|					|
 	0.0f, 0.0f, 0.0f,	0.5f, -0.5f, 0.0f,	0.5f, 0.0f, 0.45f,
@@ -237,7 +230,8 @@ GLfloat Fish::vertex[] =
 	3.75f, -0.4f, -0.1f,4.3f, -0.8f, 0.0f,	3.75f, -0.4f, 0.1f
 };
 
-GLfloat Fish::normal[] =
+//GLfloat * normalIn 
+GLfloat normalFish[] =
 {
 	// 2				|					|					|
 	-1.0f, 0.0f, 0.0f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f, 1.0f,
@@ -280,7 +274,8 @@ GLfloat Fish::normal[] =
 	0.0f, -1.0f, 0.0f,	0.0f, -1.0f, 0.0f,	0.0f, -1.0f, 0.0f
 };
 
-GLfloat Fish::texels[] =
+//GLfloat * texelsIn
+GLfloat texelsFish[] =
 {
 	// 2					|						|						|
 	126.f/128.f,68.f/128.0f,119.f/128.f,47.f/128.f,	112.f/128.f, 68.f/128.f,
@@ -322,7 +317,8 @@ GLfloat Fish::texels[] =
 	20.f/128.f, 69.f/128.f,	5.f/128.f, 69.f/128.f,	20.f/128.f, 69.f/128.f
 };
 
-GLfloat Fish::colours[] =
+//GLfloat * coloursIn
+GLfloat coloursFish[] =
 {
 	// 2				|					|					|
 	0.0f, 0.0f, 0.2f,	0.0f, 0.0f, 0.2f,	0.0f, 0.2f, 0.8f,

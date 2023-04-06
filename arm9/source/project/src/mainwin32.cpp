@@ -101,17 +101,17 @@ int startAquarium(int argc, char *argv[])
 	scene.perspectiveMode = true;
 
 	// create all quads for the floor of the aquarium
-	Quad *quad;
 	for (GLfloat i = -9.5; i <= 9.5; i++)
 	{
 		for (GLfloat j = -9.5; j <= 9.5; j++)
 		{
-			quad = new Quad((void*)&_drawQuad);
-			quad->ry = 0.0f;	// we don't want random rotation
-			quad->rx = 90.0f;
-			quad->x = 3.5f * i;
-			quad->z = 3.5f * j;
-			quad->scale(3.5f, 3.5f, 1.0f);
+			GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
+			MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
+			quad.ry = 0.0f;	// we don't want random rotation
+			quad.rx = 90.0f;
+			quad.x = 3.5f * i;
+			quad.z = 3.5f * j;
+			scale(&quad, 3.5f, 3.5f, 1.0f);
 			add(&scene, quad);
 		}
 	}
@@ -349,35 +349,43 @@ void addObject(int type)
 	// offset above the sea floor
 	GLfloat y;
 
-	Renderable *object = NULL;
+	GLfloat mat1Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	GLfloat mat2Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	MarineObject object(NULL, NULL, RENDERABLE_NONE, mat1Init, mat2Init, 0.0f, NULL , NULL, NULL, NULL);
 
 	switch (type)
 	{
-	case OBJ_STARFISH:
+	case OBJ_STARFISH:{
 		y = -0.3f;
-		object = new StarFish((void*)&_drawStarFish);
-		break;
-	case OBJ_CRAB:
+		GLfloat mat1[] = {0.3f, 0.3f, 0.3f, 1.f};
+		object = BuildStarfish((void*)&_drawStarFish, mat1, 32.f, vertexStarFish, normalStarFish, NULL, coloursStarFish);
+	}break;
+	case OBJ_CRAB:{
 		y = -0.4f;
-		object = new Crab((void*)&_drawCrab);
-		break;
-	case OBJ_FISH:
+		GLfloat mat1[] = {0.5f, 0.5f, 0.5f, 1.f};
+		object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);
+	}break;
+	case OBJ_FISH:{
 		y = getRand(-26.0f, 25.0f);
-		object = new Fish((void*)&_drawFish);
-		break;
-	case OBJ_OCTOPUS:
+		GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
+		object = BuildFish((void*)&_drawFish, mat1, 120.f, vertexFish, normalFish, texelsFish, coloursFish);
+	}break;
+	case OBJ_OCTOPUS:{
 		y = getRand(-27.0f, 25.0f);
-		object = new Octopus((void*)&_drawOctopus);
-		break;
-	case OBJ_PLANT:
+		GLfloat mat1[] = {0.0f, 0.0f, 2.0f, 1.f};
+		object = BuildOctopus((void*)&_drawOctopus, mat1, 50.f, NULL, NULL, NULL, NULL);
+	}break;
+	case OBJ_PLANT:{
 		y = 0.0f;
-		object = new Plant((void*)&_drawPlant);
-		object->ry = 0.0f;
-		break;
+		GLfloat mat1[] = {0.1f, 0.3f, 0.15f, 1.f};
+		GLfloat mat2[] = {0.6f, 1.f, 0.8f, 1.f};
+		object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, 100.f, NULL, NULL, NULL, NULL);
+		object.ry = 0.0f;
+	}break;
 	}
 
-	if(object != NULL){
-		object->move(x, y, z);	// set objects new position
+	if(object.callerType != RENDERABLE_NONE){
+		move(&object, x, y, z);	// set objects new position
 		add(&scene, object);	// adds object to rendering queue
 		scene.objects[type]++;	// increments the count of this type of object
 	}

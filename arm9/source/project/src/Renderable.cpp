@@ -15,10 +15,49 @@ unsigned int texturesRenderable[2];
 
 GLint DLSOLIDCUBE0_06F=-1;
 
+MarineObject::MarineObject(
+	void * drawPlantFn, void * displayListFn, int callerType,
+	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+) : Renderable (drawPlantFn, callerType, displayListFn)
+{
+	vertex = vertexIn;
+	normal = normalIn;
+	texels = texelsIn;
+	colours = coloursIn;
+
+	material1[0] = materialIn1[0];
+	material1[1] = materialIn1[1];
+	material1[2] = materialIn1[2];
+	material1[3] = materialIn1[3];
+
+	material2[0] = materialIn2[0];
+	material2[1] = materialIn2[1];
+	material2[2] = materialIn2[2];
+	material2[3] = materialIn2[3];
+	shininess = shininessIn;
+	dlist = -1;
+
+	tailAngle = 0;
+	tailAngleCutOff = 0;
+	tailAngleInc = 0;
+	legAngle = 0;
+	legAngleCutOff = 0;
+	legAngleInc = 0;
+}
+
+MarineObject::~MarineObject()
+{
+	TWLPrintf("++ Destructing MarineObject\n");
+}
+
 /// Default Constructor. Initialises the position to zero.
 /// The rotation around the Y axis is picked randomly to allow random
 /// spinning of objects. Display lists are off by default
-Renderable::Renderable()
+Renderable::Renderable(void * buildDLIn, int callerTypeIn, void * _draw_dlistIn)
 {
 	this->x = 0.0f;
 	this->y = 0.0f;
@@ -33,6 +72,10 @@ Renderable::Renderable()
 	this->sz = 1.0f;
 
 	isList = false;
+
+	buildDL = buildDLIn;
+	callerType = callerTypeIn;
+	_draw_dlist = _draw_dlistIn;
 }
 
 
@@ -44,44 +87,40 @@ Renderable::~Renderable()
 
 
 /// Builds a display list of this object.
-void Renderable::build(GLuint &dlist)
-{
-	dlist = glGenLists(1
+void build(MarineObject * marineObjRef, GLuint *dlist){
+	*dlist = glGenLists(1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	if (!glIsList(dlist
+	if (!glIsList(*dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	)) {
-		isList = false;
+		marineObjRef->isList = false;
 		return;
 	}
-	isList = true;
+	marineObjRef->isList = true;
 
 	glPushMatrix(
 #ifdef ARM9
 		USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glNewList(dlist, GL_COMPILE
+	glNewList(*dlist, GL_COMPILE
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-		switch(callerType){
+		//Build display lists once for these objects
+		switch(marineObjRef->callerType){
 				case(RENDERABLE_CRAB):{
-					draw_objectCrab fn = (draw_objectCrab)buildDL;
-					Crab thisCrab = (*(Crab *)callerArg0);
-					fn(thisCrab);
+					_draw_dlistCrab(marineObjRef);
 				}break;
 
 				case(RENDERABLE_PLANT):{
-					draw_objectPlant fn = (draw_objectPlant)buildDL;
-					Plant thisPlant = (*(Plant *)callerArg0);
-					fn(thisPlant);
+					_drawPlant(marineObjRef);
 				}break;
 		}
 	glEndList(
@@ -102,11 +141,10 @@ void Renderable::build(GLuint &dlist)
 * This method moves the object coordinates to the specified position along
 * the x, y and z axes.
 */
-void Renderable::move(GLfloat x, GLfloat y, GLfloat z)
-{
-	this->x = x;
-	this->y = y;
-	this->z = z;
+void move(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+	marineObjRef->x = x;
+	marineObjRef->y = y;
+	marineObjRef->z = z;
 }
 
 
@@ -117,20 +155,18 @@ void Renderable::move(GLfloat x, GLfloat y, GLfloat z)
 * performed around the point (1.0f, 1.0f, 1.0f) and happen in
 * the following manner: x-rot, y-rot, z-rot
 */
-void Renderable::rotate(GLfloat x, GLfloat y, GLfloat z)
-{
-	this->rx = x;
-	this->ry = y;
-	this->rz = z;
+void rotate(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+	marineObjRef->rx = x;
+	marineObjRef->ry = y;
+	marineObjRef->rz = z;
 }
 
 
 /// Scales the object
-void Renderable::scale(GLfloat x, GLfloat y, GLfloat z)
-{
-	this->sx = x;
-	this->sy = y;
-	this->sz = z;
+void scale(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+	marineObjRef->sx = x;
+	marineObjRef->sy = y;
+	marineObjRef->sz = z;
 }
 
 
@@ -145,37 +181,36 @@ void Renderable::scale(GLfloat x, GLfloat y, GLfloat z)
 * If a display list has been built for this object, then it is
 * draw instead of re-drawing the object.
 */
-void Renderable::draw(void)
-{
+void draw(MarineObject * marineObjRef){
 	glPushMatrix(
 #ifdef ARM9
 		USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 
-	glTranslatef(this->x, this->y, this->z
+	glTranslatef(marineObjRef->x, marineObjRef->y, marineObjRef->z
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 
-	glRotatef(this->rx, 1.0f, 0.0f, 0.0f
+	glRotatef(marineObjRef->rx, 1.0f, 0.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glRotatef(this->ry, 0.0f, 1.0f, 0.0f
+	glRotatef(marineObjRef->ry, 0.0f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glRotatef(this->rz, 0.0f, 0.0f, 1.0f
+	glRotatef(marineObjRef->rz, 0.0f, 0.0f, 1.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 
-	glScalef(sx, sy, sz
+	glScalef(marineObjRef->sx, marineObjRef->sy, marineObjRef->sz
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -184,40 +219,38 @@ void Renderable::draw(void)
 	// if the object is flagged as a display list object, then call the
 	// display list drawing function of the object, otherwise just call
 	// the normal draw function of the object
-	switch(callerType){
+	switch(marineObjRef->callerType){
 		case(RENDERABLE_STARFISH):{
-			_drawStarFish((StarFish *)callerArg0);
+			_drawStarFish(marineObjRef);
 		}break;
 
 		case(RENDERABLE_FISH):{
-			_drawFish((Fish *)callerArg0);
+			_drawFish(marineObjRef);
 		}break;
 
 		case(RENDERABLE_CRAB):{
-			if (isList){
-				Crab thisCrab = (*(Crab *)callerArg0);
-				thisCrab._draw_dlist();
+			if (marineObjRef->isList){
+				_draw_dlistCrab(marineObjRef);
 			}
 			else{
-				_drawCrab((Crab *)callerArg0);
+				_drawCrab(marineObjRef);
 			}
 		}break;
 
 		case(RENDERABLE_OCTOPUS):{
-			_drawOctopus((Octopus *)callerArg0);
+			_drawOctopus(marineObjRef);
 		}break;
 
 		case(RENDERABLE_QUAD):{
-			_drawQuad((Quad *)callerArg0);
+			_drawQuad(marineObjRef);
 		}break;
 
 		case(RENDERABLE_PLANT):{
-			if (isList){
-				Plant thisPlant = (*(Plant *)callerArg0);
-				thisPlant._draw_dlist();
+			if (marineObjRef->isList){
+				_draw_dlistPlant(marineObjRef);
 			}
 			else{
-				_drawPlant((Plant *)callerArg0);
+				_drawPlant(marineObjRef);
 			}
 		}break;
 	}

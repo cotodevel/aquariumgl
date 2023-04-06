@@ -8,38 +8,32 @@
 
 using namespace std;
 
-// setup the static variables
-GLfloat StarFish::material[4] = {0.3f, 0.3f, 0.3f, 1.f};
-GLfloat StarFish::shininess = 32.f;
-
 
 /// Default Constructor. Initialises defaults.
-StarFish::StarFish(void * drawStarFishFn) : Renderable()
+class MarineObject BuildStarfish(
+		void * drawStarFishFn,
+		GLfloat materialIn[4], GLfloat shininessIn,
+		GLfloat * vertexIn,
+		GLfloat * normalIn,
+		GLfloat * texelsIn,
+		GLfloat * coloursIn
+	)
 {
 	TWLPrintf("-- Creating StarFish\n");
-	buildDL = drawStarFishFn;
-	callerType = RENDERABLE_STARFISH;
-	callerArg0 = this; //cast this object for later usage
+	MarineObject obj(drawStarFishFn, NULL, RENDERABLE_STARFISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	return obj;
 }
-
-
-/// Default destructor.
-StarFish::~StarFish()
-{
-	TWLPrintf("++ Destructing StarFish\n");
-}
-
 
 /// Draws the StarFish
-void _drawStarFish(StarFish * starFishObj)
+void _drawStarFish(MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, starFishObj->material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, starFishObj->shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -51,9 +45,9 @@ void _drawStarFish(StarFish * starFishObj)
 #endif
 
 	// set up vertex arrays
-	glVertexPointer(3, GL_FLOAT, 0, starFishObj->vertex);
-	glNormalPointer(GL_FLOAT, 0, starFishObj->normal);
-	glColorPointer(3, GL_FLOAT, 0, starFishObj->colours);
+	glVertexPointer(3, GL_FLOAT, 0, marineObj->vertex);
+	glNormalPointer(GL_FLOAT, 0, marineObj->normal);
+	glColorPointer(3, GL_FLOAT, 0, marineObj->colours);
 
 	// enable vertex arrays
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -118,7 +112,7 @@ void _drawStarFish(StarFish * starFishObj)
 *      \/
 */
 
-GLfloat StarFish::vertex[] =
+GLfloat vertexStarFish[] =
 {
 	//3					|					|					|
     0.0f, 0.2f, 0.0f,	0.0f, 0.0f, 0.6f,	1.5f, 0.0f, 0.3f,	1.5f, 0.2f, 0.0f,
@@ -132,7 +126,7 @@ GLfloat StarFish::vertex[] =
 	1.5f, 0.2f, 0.0f,	1.5f, 0.0f, 0.3f,	1.5f, -0.2f, 0.0f,	1.5f, 0.0f, -0.3f
 };
 
-GLfloat StarFish::normal[] =
+GLfloat normalStarFish[] =
 {
     //3					|					|					|
 	0.f, 0.71f, -0.71f,	0.f, 1.f, 0.0f,		0.f, 1.0f, 0.f,		0.f, 0.71f, -0.71f,
@@ -147,7 +141,7 @@ GLfloat StarFish::normal[] =
 
 };
 
-GLfloat StarFish::colours[] =
+GLfloat coloursStarFish[] =
 {
     //3					|					|					|
 	0.1f, 0.0f, 0.0f,	0.9f, 0.4f, 0.0f,	0.9f, 0.4f, 0.0f,	0.1f, 0.0f, 0.0f,

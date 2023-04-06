@@ -8,32 +8,25 @@
 
 using namespace std;
 
-// setup the static variables
-GLfloat Plant::material1[4] = {0.1f, 0.3f, 0.15f, 1.f};
-GLfloat Plant::material2[4] = {0.6f, 1.f, 0.8f, 1.f};
-GLfloat Plant::shininess = 100.f;
-
 
 /// Default Constructor. Initialises defaults.
-Plant::Plant(void * drawPlantFn) : Renderable()
+class MarineObject BuildPlant(
+		void * drawPlantFn, void * displayListFn,
+		GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
+		GLfloat * vertexIn,
+		GLfloat * normalIn,
+		GLfloat * texelsIn,
+		GLfloat * coloursIn
+	)
 {
 	TWLPrintf("-- Creating Plant\n");
-	buildDL = drawPlantFn;
-	callerArg0 = this; //cast this object for later usage
-	callerType = RENDERABLE_PLANT;
-	build(dlist);
+	MarineObject obj(drawPlantFn, displayListFn, RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	build(&obj, &obj.dlist);
+	return obj;
 }
-
-
-/// Default destructor.
-Plant::~Plant()
-{
-	TWLPrintf("++ Destructing Plant\n");
-}
-
 
 /// Draws the Plant
-void _drawPlant(Plant * plantObj)
+void _drawPlant(MarineObject * marineObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -44,14 +37,13 @@ void _drawPlant(Plant * plantObj)
 	// in the start we generate a plant with AT LEAST one branch
 	// so that we never get a situation where a plant is created
 	// with 0 branches
-	plantObj->generate(0, getRand(1, 6));
+	generateBranches(0, getRand(1, 6));
 }
 
 
 // Generates the plan. This really draws it, but the draw commands
 // are saved into the display list
-void Plant::generate(int level, int number)
-{
+void generateBranches(int level, int number){
 	// if we reached 5 levels of recursion, exit
 	// remember we start at level 0
 	if (level == 5) return;
@@ -104,7 +96,7 @@ void Plant::generate(int level, int number)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-		generate(level + 1, numChildren);
+		generateBranches(level + 1, numChildren);
 		glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -115,33 +107,33 @@ void Plant::generate(int level, int number)
 
 
 /// Draws the display list for the plant object
-void Plant::_draw_dlist(void)
+void _draw_dlistPlant(MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, material1
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, material1
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material2
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 #ifdef WIN32
-	glColor4fv(material1);
+	glColor4fv(marineObj->material1);
 #endif
-	glCallList(this->dlist
+	glCallList(marineObj->dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif

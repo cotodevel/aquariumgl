@@ -8,48 +8,37 @@
 
 using namespace std;
 
-// setup the static variables
-GLfloat Quad::material[4] = {1.f, 1.f, 1.f, 1.f};
-GLfloat Quad::shininess = 120.f;
-
 
 /// Default Constructor. Initialises defaults.
-Quad::Quad(void * drawQuadFn) : Renderable()
+MarineObject BuildQuad(
+		void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
+		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+	)
 {
 	TWLPrintf("-- Creating quad\n");
-	buildDL = drawQuadFn;
-	callerArg0 = this; //cast this object for later usage
-	callerType = RENDERABLE_QUAD;
+	return MarineObject(drawQuadFn, NULL, RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 }
-
-
-/// Default destructor.
-Quad::~Quad()
-{
-	TWLPrintf("++ Destructing quad\n");
-}
-
 
 /// Draws the quad
-void _drawQuad(Quad * quadObj)
+void _drawQuad(MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, quadObj->material
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, quadObj->material
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, quadObj->material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, quadObj->shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif

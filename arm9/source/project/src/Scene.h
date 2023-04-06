@@ -40,7 +40,7 @@ struct Scene{
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
-	std::vector<Renderable*> elements;	/// list of elements
+	std::vector<MarineObject> elements;	/// list of elements
 	
 	Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
@@ -58,7 +58,7 @@ extern void clearScene();	/// clears the scene for drawing
 extern void SceneInit1(struct Scene * Inst);	/// default constructor
 extern bool render(struct Scene * Inst);	/// renders a frame
 extern void drawHUD(struct Scene * Inst);	/// draw the heads up display
-extern void add(struct Scene * Inst, Renderable *object);	/// add object to rendering queue
+extern void add(struct Scene * Inst, MarineObject &object);	/// add object to rendering queue
 
 extern void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
 extern void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str);

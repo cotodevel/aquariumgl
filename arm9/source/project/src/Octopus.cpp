@@ -8,31 +8,20 @@
 
 using namespace std;
 
-// setup the static variables
-GLfloat Octopus::material[4] = {0.0f, 0.0f, 2.0f, 1.f};
-GLfloat Octopus::shininess = 50.f;
-
-
-Octopus::Octopus(void * drawOctopusFn)
-{
+class MarineObject BuildOctopus(
+		void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
+		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+	){
 	TWLPrintf("-- Creating octopus\n");
-	buildDL = drawOctopusFn;
-	callerArg0 = this; //cast this object for later usage
-	callerType = RENDERABLE_OCTOPUS;
+	MarineObject obj(drawOctopusFn, NULL, RENDERABLE_OCTOPUS, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// leg rotation angles
-	legAngle = 0.0f;
-	legAngleCutOff = 30.0f;
-	legAngleInc = 1.0f;
+	obj.legAngle = 0.0f;
+	obj.legAngleCutOff = 30.0f;
+	obj.legAngleInc = 1.0f;
+	return obj;
 }
 
-
-Octopus::~Octopus()
-{
-	TWLPrintf("++ Destructing octopus\n");
-}
-
-
-void _drawOctopus(Octopus * octopusObj)
+void _drawOctopus(MarineObject * marineObj)
 {
 	// select our colour
 	glColor3f(1.0f, 1.0f, 0.0f
@@ -42,12 +31,12 @@ void _drawOctopus(Octopus * octopusObj)
 	);
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, octopusObj->material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, octopusObj->shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -76,10 +65,10 @@ void _drawOctopus(Octopus * octopusObj)
 #endif		
 	);
 
-	octopusObj->legAngle += octopusObj->legAngleInc;
-	if (octopusObj->legAngle < -octopusObj->legAngleCutOff || octopusObj->legAngle > octopusObj->legAngleCutOff) octopusObj->legAngleInc *= -1;
+	marineObj->legAngle += marineObj->legAngleInc;
+	if (marineObj->legAngle < -marineObj->legAngleCutOff || marineObj->legAngle > marineObj->legAngleCutOff) marineObj->legAngleInc *= -1;
 
-	glRotatef(octopusObj->legAngle, 0.0f, 1.0f, 0.0f
+	glRotatef(marineObj->legAngle, 0.0f, 1.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif		
@@ -99,12 +88,12 @@ void _drawOctopus(Octopus * octopusObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-		glTranslatef(0.1f, 0.5f + (octopusObj->legAngle / octopusObj->legAngleCutOff) / 7.0f, 0.0f
+		glTranslatef(0.1f, 0.5f + (marineObj->legAngle / marineObj->legAngleCutOff) / 7.0f, 0.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-		Crab::drawLeg();
+		draw1LegCrab();
 
 		glTranslatef(0.2f, 0.725f, 0.0f
 #ifdef ARM9
@@ -117,7 +106,7 @@ void _drawOctopus(Octopus * octopusObj)
 #endif
 		);
 		
-		Crab::drawLeg();
+		draw1LegCrab();
 
 		glPopMatrix(
 #ifdef ARM9

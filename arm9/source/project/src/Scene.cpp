@@ -133,7 +133,7 @@ bool render(struct Scene * Inst){
 	for (int i = 0; i < Inst->elements.size(); i++)
 	{
 		// draw all elements in the scene
-		Inst->elements.at(i)->draw();
+		draw(&Inst->elements.at(i));
 	}
 
 	drawHUD(Inst);
@@ -176,7 +176,7 @@ void clearScene(){
 * This method simply adds on the passed object to the end
 * of the rendering queue.
 */
-void add(struct Scene * Inst, Renderable *object){
+void add(struct Scene * Inst, MarineObject &object){
 	Inst->elements.push_back(object);
 }
 

@@ -8,32 +8,27 @@
 
 using namespace std;
 
-// setup the static variables
-GLfloat Crab::material[4] = {0.5f, 0.5f, 0.5f, 1.f};
-GLfloat Crab::shininess = 50.f;
-
-
 /// Default Constructor. Builds the display list for the crab.
-Crab::Crab(void * drawCrabFn) : Renderable()
+//Crab class. Draws a pinky coloured crab.
+class MarineObject BuildCrab(
+	void * drawCrabFn, void * displayListFn,
+	GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+	) 
 {
 	TWLPrintf("-- Creating crab\n");
-	buildDL = drawCrabFn;
-	callerArg0 = this; //cast this object for later usage
-	callerType = RENDERABLE_CRAB;
-	sy = sx = sz = 2.f; // make crab twice as big
-	build(dlist);
-}
-
-
-/// Default destructor.
-Crab::~Crab()
-{
-	TWLPrintf("++ Destructing crab\n");
+	MarineObject obj(drawCrabFn, displayListFn, RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	obj.sy = obj.sx = obj.sz = 2.f; // make crab twice as big
+	build(&obj, &obj.dlist);
+	return obj;
 }
 
 
 /// Draws the crab
-void _drawCrab(Crab * crabObj)
+void _drawCrab(MarineObject * marineObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -72,13 +67,13 @@ void _drawCrab(Crab * crabObj)
 		USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-	crabObj->drawLegs();
+	drawLegsCrab();
 	glScalef(-1.f, 1.f, 1.f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	crabObj->drawLegs();
+	drawLegsCrab();
 	glPopMatrix(
 #ifdef ARM9	
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -111,15 +106,15 @@ void _drawCrab(Crab * crabObj)
 
 
 /// Draws the display list for the crab object
-void Crab::_draw_dlist(void)
+void _draw_dlistCrab(MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, material
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialf(GL_FRONT, GL_SHININESS, shininess
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -130,7 +125,7 @@ void Crab::_draw_dlist(void)
 	glEnable(GL_COLOR_MATERIAL);
 #endif
 
-	glCallList(this->dlist
+	glCallList(marineObj->dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -144,8 +139,7 @@ void Crab::_draw_dlist(void)
 
 
 /// Draws a leg using an angle between the two bones
-void Crab::drawLeg(GLfloat jointAngle, GLfloat jointOffset)
-{
+void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset){
 	// draw first part of a leg
 	glPushMatrix(
 #ifdef ARM9
@@ -200,14 +194,14 @@ void Crab::drawLeg(GLfloat jointAngle, GLfloat jointOffset)
 
 
 /// Draws one leg
-void Crab::drawLeg()
+void draw1LegCrab()
 {
-	drawLeg(-45.0f, 0.075f);
+	drawLegCrab(-45.0f, 0.075f);
 }
 
 
 /// Draws complete set of legs (side legs)
-void Crab::drawLegs()
+void drawLegsCrab()
 {
 	// set a darker pinky colour for legs
 	glColor3f(1.0f, 0.55f, 0.55f
@@ -234,7 +228,7 @@ void Crab::drawLegs()
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 		);
-		drawLeg();
+		draw1LegCrab();
 		glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -258,7 +252,7 @@ void Crab::drawLegs()
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawLeg(0.0f, 0.0f);
+	drawLegCrab(0.0f, 0.0f);
 	glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -293,7 +287,7 @@ void Crab::drawLegs()
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawLeg();
+	draw1LegCrab();
 	glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER
@@ -321,7 +315,7 @@ void Crab::drawLegs()
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	drawLeg(-60.0f, 0.1f);
+	drawLegCrab(-60.0f, 0.1f);
 	glPopMatrix(
 #ifdef ARM9
 		1, USERSPACE_TGDS_OGL_DL_POINTER

@@ -53,6 +53,7 @@ typedef void (*draw_object)();
 #define RENDERABLE_OCTOPUS ((int)4)
 #define RENDERABLE_QUAD ((int)5)
 #define RENDERABLE_PLANT ((int)6)
+#define RENDERABLE_NONE ((int)7)
 
 class Renderable
 {
@@ -71,21 +72,15 @@ public:
 
 	bool isList;	/// is this a display list object?
 	
-	Renderable();	/// default constructor
+	Renderable(void * buildDLIn, int callerTypeIn, void * _draw_dlistIn);	/// default constructor
 	virtual ~Renderable();	/// default destructor
 
-	void build(GLuint &dlist);	/// builds a display list of this object
-	void move(GLfloat x, GLfloat y, GLfloat z);	/// moves the object
-	void rotate(GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
-	void scale(GLfloat x, GLfloat y, GLfloat z);	/// scales the object
-	void draw(void);
-
+	
+	
 	//specific generic draw members
 	void * buildDL; //a.k.a _draw()
 	void * _draw_dlist; 
-	void * callerArg0;	//arg0 of above caller (either one)
 	int callerType;		//caller type
-
 };
 #endif
 
@@ -93,162 +88,128 @@ extern unsigned int texturesRenderable[2];	/// texture id array
 extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 
 /*
-* StarFish class. Draws a yellowish colour StarFish.
+* 
 *
 * Igor Kromin 40125374
 */
-#ifndef __STARFISH_3201
-#define __STARFISH_3201
-class StarFish : public Renderable
+#ifndef __MARINEOBJ_3201
+#define __MARINEOBJ_3201
+class MarineObject : public Renderable
 {
 public:
-	StarFish(void * drawStarFishFn);	/// default constructor
-	virtual ~StarFish();	/// default destructor
-	static GLfloat vertex[];	/// vertex array data
-	static GLfloat normal[];	/// normals for each vertex
-	static GLfloat colours[];	/// colour array data
-	static GLfloat material[4];
-	static GLfloat shininess;
-};
-#endif
+	MarineObject(
+		void * drawPlantFn, void * displayListFn, int callerType,
+		GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
+		GLfloat * vertexIn,
+		GLfloat * normalIn,
+		GLfloat * texelsIn,
+		GLfloat * coloursIn
+	);	/// default constructor
+	virtual ~MarineObject();	/// default destructor
 
-
-/*
-* Fish class. Draws a Fish.
-*
-* Igor Kromin 40125374
-*/
-#ifndef __FISH_3201
-#define __FISH_3201
-class Fish : public Renderable
-{
-public:
-	Fish(void * drawFishFn);	/// default constructor
-	virtual ~Fish();	/// default destructor
-
+	GLfloat * vertex;	/// vertex array data
+	GLfloat * normal;	/// normals for each vertex
+	GLfloat * texels; /// texture coords for each vertex
+	GLfloat * colours;	/// colour array data
+	GLfloat material1[4];
+	GLfloat material2[4]; //only used by Plant
+	GLfloat shininess;
+	GLuint dlist;	/// display list
+	
+	//Fish
+	void drawSideFish(void);	/// draws a side of the fish
 	GLfloat tailAngle;
 	GLfloat tailAngleCutOff;
 	GLfloat tailAngleInc;
-	static GLfloat vertex[];	/// vertex array data
-	static GLfloat normal[];	/// normals for each vertex
-	static GLfloat texels[]; /// texture coords for each vertex
-	static GLfloat colours[];	/// colour array data
-	static GLfloat material[4];
-	static GLfloat shininess;
-	void drawSide(void);	/// draws a side of the fish
-};
-#endif
 
+	//Crab
+	//No ext. dependencies
 
-/*
-* Crab class. Draws a pinky coloured crab.
-*
-* Igor Kromin 40125374
-*/
-#ifndef __CRAB_3201
-#define __CRAB_3201
-class Crab : public Renderable
-{
-public:
-	Crab(void * drawCrabFn);	/// default constructor
-	virtual ~Crab();	/// default destructor
-	static void drawLeg(void);	/// draws one leg
-	static void drawLeg(GLfloat jointAngle, GLfloat jointOffset);	/// draw leg with an angle specified
-	static void drawLegs(void);	/// draws complete set of legs
-	GLuint dlist;	/// display list
-	static GLfloat material[4];
-	static GLfloat shininess;
-	
-	void _draw_dlist(void);	/// draws the crab's display list
-	void generate(int level, int number);	/// generates the branches
-
-friend class Octopus;	/// so the octopus can use the drawLeg method
-};
-#endif
-
-/*
-* Octopus class. Draws a Octopus.
-*
-* Igor Kromin 40125374
-*/
-#ifndef __OCTOPUS_3201
-#define __OCTOPUS_3201
-class Octopus : public Renderable
-{
-public:
-	Octopus(void * drawOctopusFn);	/// default constructor
-	virtual ~Octopus();	/// default destructor
+	//Octopus
 	GLfloat legAngle;	/// angle to spin the legs at
 	GLfloat legAngleCutOff;	/// cut of angle for spinning
 	GLfloat legAngleInc;	/// angle spin increment
-	static GLfloat material[4];
-	static GLfloat shininess;
+
+	//Plant
+	//No ext. dependencies
+	
+	//Quad
+	//No ext. dependencies
+
+	//Starfish
+	//No ext. dependencies
 };
 #endif
 
+extern void build(MarineObject * marineObjRef, GLuint *dlist);	/// builds a display list of this object
+extern void move(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// moves the object
+extern void rotate(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
+extern void scale(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// scales the object
+extern void draw(MarineObject * marineObjRef);
 
-/*
-* Quad class. Draws a yellowish colour shaded quad.
-*
-* Igor Kromin 40125374
-*/
-#ifndef __QUAD_3201
-#define __QUAD_3201
-class Quad : public Renderable
-{
-public:
-	Quad(void * drawQuadFn);	/// default constructor
-	virtual ~Quad();	/// default destructor
-	static GLfloat material[4];
-	static GLfloat shininess;
-};
-#endif
-
-
-/*
-* Plant class. Draws a plant.
-*
-* Igor Kromin 40125374
-*/
-#ifndef __PLANT_3201
-#define __PLANT_3201
-#include <list>
-class Plant : public Renderable
-{
-public:
-	Plant(void * drawPlantFn);	/// default constructor
-	virtual ~Plant();	/// default destructor
-	GLuint dlist;	/// display list
-	static GLfloat material1[4];
-	static GLfloat material2[4];
-	static GLfloat shininess;
-	void generate(int level, int number);	/// generates the branches
-	void _draw_dlist(void);	/// draws the display list of this object
-};
-
-typedef void (*draw_objectStarFish)(StarFish & starFishObj);
-typedef void (*draw_objectFish)(Fish & fishObj);
-typedef void (*draw_objectCrab)(Crab & crabObj);
-typedef void (*draw_objectOctopus)(Octopus & octopusObj);
-
-typedef void (*draw_objectQuad)(Quad & quadObj);
-
-typedef void (*draw_objectPlant)(Plant & plantObj);
-
-#endif
-
+//Builders
+extern class MarineObject BuildFish(
+	void * drawFishFn, GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+);
+extern class MarineObject BuildCrab(
+	void * drawCrabFn, void * displayListFn, GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+);
+extern class MarineObject BuildOctopus(
+	void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+);
+extern class MarineObject BuildPlant(
+	void * drawPlantFn, void * displayListFn,
+	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+);
+extern class MarineObject BuildQuad(
+	void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
+);
+extern class MarineObject BuildStarfish(
+	void * drawStarFishFn,
+	GLfloat materialIn[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+);
 extern void drawSphere(float r, int lats, int longs);
 extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
 extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
 extern GLint DLSOLIDCUBE0_06F;
 extern void glut2SolidCube0_06f();
 
-extern void _drawQuad(Quad * quadObj); /// draws the Quad
-extern void _drawStarFish(StarFish * starFishObj); /// draws the StarFish
-extern void _drawCrab(Crab * crabObj);  /// draws the crab
-extern void _drawFish(Fish * fishObj);		/// draws the Fish
-extern void _drawOctopus(Octopus * octopusObj);	/// draws the Octopus
-extern void _drawPlant(Plant * plantObj);	/// draws the plant
+
+extern void _drawCrab(MarineObject * marineObj);  /// draws the crab
+extern void draw1LegCrab();	/// draws one leg
+extern void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset);	/// draw leg with an angle specified
+extern void drawLegsCrab();	/// draws complete set of legs
+extern void _draw_dlistCrab(MarineObject * marineObj);	/// draws the crab's display list
+extern void _draw_dlistPlant(MarineObject * marineObj);	/// draws the display list of this object
+extern void generateBranches(int level, int number);	/// generates the branches for Plants and Crabs
+
+
+extern void _drawFish(MarineObject * marineObj);		/// draws the Fish
+extern void _drawOctopus(MarineObject * marineObj);	/// draws the Octopus
+extern void _drawQuad(MarineObject * marineObj); /// draws the Quad
+extern void _drawPlant(MarineObject * marineObj);	/// draws the plant
+extern void _drawStarFish(MarineObject * marineObj); /// draws the StarFish
+
+extern GLfloat vertexFish[];
+extern GLfloat normalFish[];
+extern GLfloat texelsFish[];
+extern GLfloat coloursFish[];
+
+extern GLfloat vertexStarFish[];
+extern GLfloat normalStarFish[];
+extern GLfloat coloursStarFish[];
 
 #ifdef __cplusplus
 extern "C"{
