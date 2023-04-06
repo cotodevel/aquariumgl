@@ -23,26 +23,22 @@
 
 #define PI 3.14159
 
-class Camera
-{
-private:
+struct Camera{
 	GLfloat verticalTilt;
 	GLfloat horizontalAngle;
 	GLfloat distance;
-
-public:
-	Camera();	/// default constructor
-	virtual ~Camera();	/// default destructor
-
-	void reset(void);	/// resets the camera to default position
-	void position(void);	/// sets up camera at current position
-	void dec(void);	/// decreases distance to origin
-	void inc(void);	/// increases distance to origin
-	void clockwise(void);	/// rotate scene clockwise
-	void anticlockwise(void);	/// rotate scene anticlockwise
-	void tiltup(void);	/// tilts camera upwards
-	void tiltdown(void);	/// tilts camera downwards
 };
+
+extern void CameraInit1(struct Camera * Inst);	/// default init
+extern void reset(struct Camera * Inst);	/// resets the camera to default position
+extern void position(struct Camera * Inst);	/// sets up camera at current position
+extern void dec(struct Camera * Inst);	/// decreases distance to origin
+extern void inc(struct Camera * Inst);	/// increases distance to origin
+extern void clockwise(struct Camera * Inst);	/// rotate scene clockwise
+extern void anticlockwise(struct Camera * Inst);	/// rotate scene anticlockwise
+extern void tiltup(struct Camera * Inst);	/// tilts camera upwards
+extern void tiltdown(struct Camera * Inst);	/// tilts camera downwards
+
 #endif
 
 #endif

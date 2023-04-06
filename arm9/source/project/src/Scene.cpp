@@ -93,6 +93,7 @@ void SceneInit1(struct Scene * Inst){
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
+	CameraInit1(&Inst->camera); //construct camera
 }
 
 
@@ -120,7 +121,7 @@ bool render(struct Scene * Inst){
 #endif
 
 	//position camera
-	Inst->camera.position();
+	position(&Inst->camera);
 
 	// set up our directional overhead light
 	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene

@@ -16,88 +16,71 @@
 using namespace std;
 
 /// Default Constructor. Initialises defaults.
-Camera::Camera()
-{
+void CameraInit1(struct Camera * Inst){
 	TWLPrintf("-- Creating camera\n");
-	reset();
+	reset(Inst);
 }
-
-
-/// Default destructor.
-Camera::~Camera()
-{
-	TWLPrintf("++ Destructing camera\n");
-}
-
 
 /// Resets the camera position to default position and tilt
-void Camera::reset(void)
-{
-	this->distance = -50.0f;
-	this->verticalTilt = -30.0f;
-	this->horizontalAngle = 90.0f;
+void reset(struct Camera * Inst){
+	Inst->distance = -50.0f;
+	Inst->verticalTilt = -30.0f;
+	Inst->horizontalAngle = 90.0f;
 }
 
 
 /// Positions the camera at the required place and rotation
 /// Zoom and spin is done by translate/rotate
-void Camera::position(void)
-{
+void position(struct Camera * Inst){
 	#ifdef _MSC_VER
-	glTranslatef(0.0f, 0.0f, this->distance);
-	glRotatef(this->verticalTilt, 1.0f, 0.0f, 0.0f);
-	glRotatef(this->horizontalAngle, 0.0f, 1.0f, 0.0f); 
+	glTranslatef(0.0f, 0.0f, Inst->distance);
+	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f);
+	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f); 
 	#endif
 
 	#ifdef ARM9
-	glTranslatef(0.0f, 0.0f, this->distance, USERSPACE_TGDS_OGL_DL_POINTER);
-	glRotatef(this->verticalTilt, 1.0f, 0.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
-	glRotatef(this->horizontalAngle, 0.0f, 1.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+	glTranslatef(0.0f, 0.0f, Inst->distance, USERSPACE_TGDS_OGL_DL_POINTER);
+	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
 	#endif
 }
 
 
 /// Decrements the distance to origin (zoom in)
-void Camera::dec(void)
-{
-		this->distance--;
+void dec(struct Camera * Inst){
+		Inst->distance--;
 }
 
 
 /// Incrementes the distance to origin (zoom out)
-void Camera::inc(void)
-{
-	this->distance++;
+void inc(struct Camera * Inst){
+	Inst->distance++;
 }
 
 
 /// Adjusts the camera rotation around the Y axis
-void Camera::clockwise(void)
-{
-	this->horizontalAngle++;
+void clockwise(struct Camera * Inst){
+	Inst->horizontalAngle++;
 }
 
 
 /// Adjusts the camera rotation around the Y axis
-void Camera::anticlockwise(void)
-{
-	this->horizontalAngle--;
+void anticlockwise(struct Camera * Inst){
+	Inst->horizontalAngle--;
 }
 
 
 /// Adjusts the camera rotation around the X axis
 /// the angle is locked if it gets above 0 degrees
-void Camera::tiltup(void)
-{
-	if (this->verticalTilt < 0)
-		this->verticalTilt++;
+void tiltup(struct Camera * Inst){
+	if (Inst->verticalTilt < 0)
+		Inst->verticalTilt++;
 }
 
 
 /// Adjusts the camera rotation around the X axis
 /// The angle is locked if it gets greate than 90 degrees
-void Camera::tiltdown(void)
-{
-	if (this->verticalTilt > -90)
-		this->verticalTilt--;
+void tiltdown(struct Camera * Inst){
+	if (Inst->verticalTilt > -90)
+		Inst->verticalTilt--;
 }

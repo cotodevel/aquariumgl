@@ -211,12 +211,12 @@ void keyboardInput(unsigned char key, int x, int y)
 
 	case 'A':
 	case 'a':
-		scene.camera.tiltdown();
+		tiltdown(&scene.camera);
 		break;
 
 	case 'Z':
 	case 'z':
-		scene.camera.tiltup();
+		tiltup(&scene.camera);
 		break;
 
 	case 'W':
@@ -299,19 +299,19 @@ void keyboardInputSpecial(int key, int x, int y)
 		break;
 
 	case GLUT_KEY_LEFT:
-		scene.camera.anticlockwise();
+		anticlockwise(&scene.camera);
 		break;
 
 	case GLUT_KEY_RIGHT:
-		scene.camera.clockwise();
+		clockwise(&scene.camera);
 		break;
 
 	case GLUT_KEY_UP:
-		scene.camera.inc();
+		inc(&scene.camera);
 		break;
 
 	case GLUT_KEY_DOWN:
-		scene.camera.dec();
+		dec(&scene.camera);
 		break;
 #endif
 	}
