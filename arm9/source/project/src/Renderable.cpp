@@ -15,7 +15,7 @@ unsigned int texturesRenderable[2];
 
 GLint DLSOLIDCUBE0_06F=-1;
 
-MarineObject::MarineObject(
+struct MarineObject MarineObjectInit1(
 	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
@@ -23,54 +23,50 @@ MarineObject::MarineObject(
 	GLfloat * texelsIn,
 	GLfloat * coloursIn
 ){
-	vertex = vertexIn;
-	normal = normalIn;
-	texels = texelsIn;
-	colours = coloursIn;
+	struct MarineObject marineObj;
+	marineObj.vertex = vertexIn;
+	marineObj.normal = normalIn;
+	marineObj.texels = texelsIn;
+	marineObj.colours = coloursIn;
 
-	material1[0] = materialIn1[0];
-	material1[1] = materialIn1[1];
-	material1[2] = materialIn1[2];
-	material1[3] = materialIn1[3];
+	marineObj.material1[0] = materialIn1[0];
+	marineObj.material1[1] = materialIn1[1];
+	marineObj.material1[2] = materialIn1[2];
+	marineObj.material1[3] = materialIn1[3];
 
-	material2[0] = materialIn2[0];
-	material2[1] = materialIn2[1];
-	material2[2] = materialIn2[2];
-	material2[3] = materialIn2[3];
-	shininess = shininessIn;
-	dlist = -1;
+	marineObj.material2[0] = materialIn2[0];
+	marineObj.material2[1] = materialIn2[1];
+	marineObj.material2[2] = materialIn2[2];
+	marineObj.material2[3] = materialIn2[3];
+	marineObj.shininess = shininessIn;
+	marineObj.dlist = -1;
 
-	tailAngle = 0;
-	tailAngleCutOff = 0;
-	tailAngleInc = 0;
-	legAngle = 0;
-	legAngleCutOff = 0;
-	legAngleInc = 0;
+	marineObj.tailAngle = 0;
+	marineObj.tailAngleCutOff = 0;
+	marineObj.tailAngleInc = 0;
+	marineObj.legAngle = 0;
+	marineObj.legAngleCutOff = 0;
+	marineObj.legAngleInc = 0;
 
-	this->x = 0.0f;
-	this->y = 0.0f;
-	this->z = 0.0f;
+	marineObj.x = 0.0f;
+	marineObj.y = 0.0f;
+	marineObj.z = 0.0f;
 	
-	this->rx = 0.0f;
-	this->ry = getRand(0.0f, 360.0f);
-	this->rz = 0.0f;
+	marineObj.rx = 0.0f;
+	marineObj.ry = getRand(0.0f, 360.0f);
+	marineObj.rz = 0.0f;
 
-	this->sx = 1.0f;
-	this->sy = 1.0f;
-	this->sz = 1.0f;
+	marineObj.sx = 1.0f;
+	marineObj.sy = 1.0f;
+	marineObj.sz = 1.0f;
 
-	isList = false;
-	callerType = callerTypeIn;
+	marineObj.isList = false;
+	marineObj.callerType = callerTypeIn;
+	return marineObj;
 }
-
-MarineObject::~MarineObject()
-{
-	TWLPrintf("++ Destructing MarineObject\n");
-}
-
 
 /// Builds a display list of this object.
-void build(MarineObject * marineObjRef, GLuint *dlist){
+void build(struct MarineObject * marineObjRef, GLuint *dlist){
 	*dlist = glGenLists(1
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
@@ -124,7 +120,7 @@ void build(MarineObject * marineObjRef, GLuint *dlist){
 * This method moves the object coordinates to the specified position along
 * the x, y and z axes.
 */
-void move(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+void move(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->x = x;
 	marineObjRef->y = y;
 	marineObjRef->z = z;
@@ -138,7 +134,7 @@ void move(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 * performed around the point (1.0f, 1.0f, 1.0f) and happen in
 * the following manner: x-rot, y-rot, z-rot
 */
-void rotate(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+void rotate(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->rx = x;
 	marineObjRef->ry = y;
 	marineObjRef->rz = z;
@@ -146,7 +142,7 @@ void rotate(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 
 
 /// Scales the object
-void scale(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
+void scale(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->sx = x;
 	marineObjRef->sy = y;
 	marineObjRef->sz = z;
@@ -164,7 +160,7 @@ void scale(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 * If a display list has been built for this object, then it is
 * draw instead of re-drawing the object.
 */
-void draw(MarineObject * marineObjRef){
+void draw(struct MarineObject * marineObjRef){
 	glPushMatrix(
 #ifdef ARM9
 		USERSPACE_TGDS_OGL_DL_POINTER
@@ -298,7 +294,6 @@ void drawSphere(float r, int lats, int longs) {
 		
 	}
 }
-
 
 
 //gluDisk(qObj, 0.0, RADIUS, 16, 16); -> NDS GX Implementation

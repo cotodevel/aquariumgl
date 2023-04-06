@@ -7,17 +7,17 @@
 #include "Renderable.h"
 
 /// Default Constructor. Initialises defaults.
-MarineObject BuildQuad(
+struct MarineObject BuildQuad(
 		void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 	)
 {
 	TWLPrintf("-- Creating quad\n");
-	return MarineObject(RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	return MarineObjectInit1(RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 }
 
 /// Draws the quad
-void _drawQuad(MarineObject * marineObj)
+void _drawQuad(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1

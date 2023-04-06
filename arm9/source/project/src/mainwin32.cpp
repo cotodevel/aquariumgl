@@ -349,7 +349,7 @@ void addObject(int type)
 
 	GLfloat mat1Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
 	GLfloat mat2Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
-	MarineObject object(RENDERABLE_NONE, mat1Init, mat2Init, 0.0f, NULL , NULL, NULL, NULL);
+	struct MarineObject object;
 
 	switch (type)
 	{

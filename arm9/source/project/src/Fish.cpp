@@ -6,7 +6,7 @@
 
 #include "Renderable.h"
 
-class MarineObject BuildFish(
+struct MarineObject BuildFish(
 	void * drawFishFn, 
 	GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
@@ -16,7 +16,7 @@ class MarineObject BuildFish(
 	) 
 {
 	TWLPrintf("-- Creating fish\n");
-	MarineObject obj(RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	struct MarineObject obj = MarineObjectInit1(RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// angles and cut offs for tail animation
 	obj.tailAngle = 0.0f;
 	obj.tailAngleCutOff = 20.0f;
@@ -25,7 +25,7 @@ class MarineObject BuildFish(
 }
 
 /// Draws the full fish
-void _drawFish(MarineObject * marineObj)
+void _drawFish(struct MarineObject * marineObj)
 {
 	// work out how much to advance the fish by relative to its orientation
 	GLfloat xInc = cos(marineObj->ry * (3.14156 ) / 180) / 10.0f;
@@ -95,7 +95,7 @@ void _drawFish(MarineObject * marineObj)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	// draw first side of the fish
-	marineObj->drawSideFish();
+	drawSideFish();
 	
 	// draw second side of the fish
 	glScalef(1.0f, 1.0f, -1.0f
@@ -103,7 +103,7 @@ void _drawFish(MarineObject * marineObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	marineObj->drawSideFish();
+	drawSideFish();
 
 	// work out new fish tail position
 	GLfloat pt = sin(marineObj->tailAngle * 3.14159 / 180);
@@ -134,7 +134,7 @@ void _drawFish(MarineObject * marineObj)
 
 
 /// Draws a side of the fish
-void MarineObject::drawSideFish(void)
+void drawSideFish()
 {
 	glDrawArrays(GL_TRIANGLES, 0, 3 * 2);
     glDrawArrays(GL_QUADS, 6, 4 * 6);

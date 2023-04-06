@@ -7,7 +7,7 @@
 #include "Renderable.h"
 
 /// Default Constructor. Initialises defaults.
-class MarineObject BuildStarfish(
+struct MarineObject BuildStarfish(
 		void * drawStarFishFn,
 		GLfloat materialIn[4], GLfloat shininessIn,
 		GLfloat * vertexIn,
@@ -17,12 +17,11 @@ class MarineObject BuildStarfish(
 	)
 {
 	TWLPrintf("-- Creating StarFish\n");
-	MarineObject obj(RENDERABLE_STARFISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
-	return obj;
+	return MarineObjectInit1(RENDERABLE_STARFISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 }
 
 /// Draws the StarFish
-void _drawStarFish(MarineObject * marineObj)
+void _drawStarFish(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1

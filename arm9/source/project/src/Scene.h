@@ -40,7 +40,7 @@ struct Scene{
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
-	std::vector<MarineObject> elements;	/// list of elements
+	std::vector<struct MarineObject> elements;	/// list of elements
 	
 	Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects

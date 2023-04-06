@@ -7,7 +7,7 @@
 #include "Renderable.h"
 
 /// Default Constructor. Initialises defaults.
-class MarineObject BuildPlant(
+struct MarineObject BuildPlant(
 		void * drawPlantFn, void * displayListFn,
 		GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 		GLfloat * vertexIn,
@@ -17,13 +17,13 @@ class MarineObject BuildPlant(
 	)
 {
 	TWLPrintf("-- Creating Plant\n");
-	MarineObject obj(RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	struct MarineObject obj = MarineObjectInit1(RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	build(&obj, &obj.dlist);
 	return obj;
 }
 
 /// Draws the Plant
-void _drawPlant(MarineObject * marineObj)
+void _drawPlant(struct MarineObject * marineObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -104,7 +104,7 @@ void generateBranches(int level, int number){
 
 
 /// Draws the display list for the plant object
-void _draw_dlistPlant(MarineObject * marineObj)
+void _draw_dlistPlant(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1

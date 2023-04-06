@@ -7,7 +7,7 @@
 
 /// Default Constructor. Builds the display list for the crab.
 //Crab class. Draws a pinky coloured crab.
-class MarineObject BuildCrab(
+struct MarineObject BuildCrab(
 	void * drawCrabFn, void * displayListFn,
 	GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
@@ -17,7 +17,7 @@ class MarineObject BuildCrab(
 	) 
 {
 	TWLPrintf("-- Creating crab\n");
-	MarineObject obj(RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	struct MarineObject obj = MarineObjectInit1(RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	obj.sy = obj.sx = obj.sz = 2.f; // make crab twice as big
 	build(&obj, &obj.dlist);
 	return obj;
@@ -25,7 +25,7 @@ class MarineObject BuildCrab(
 
 
 /// Draws the crab
-void _drawCrab(MarineObject * marineObj)
+void _drawCrab(struct MarineObject * marineObj)
 {
 	/*
 	* The materials are set in _draw_dlist() since that function
@@ -103,7 +103,7 @@ void _drawCrab(MarineObject * marineObj)
 
 
 /// Draws the display list for the crab object
-void _draw_dlistCrab(MarineObject * marineObj)
+void _draw_dlistCrab(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1

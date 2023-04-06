@@ -56,20 +56,7 @@ extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random v
 
 #ifndef __MARINEOBJ_3201
 #define __MARINEOBJ_3201
-class MarineObject
-{
-public:
-	MarineObject(
-		int callerTypeIn,
-		GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
-		GLfloat * vertexIn,
-		GLfloat * normalIn,
-		GLfloat * texelsIn,
-		GLfloat * coloursIn
-	);	/// default constructor
-	virtual ~MarineObject();	/// default destructor
-
-	//MarineObject 
+struct MarineObject{
 	GLfloat x;	/// x position of object
 	GLfloat y;	/// y position of object
 	GLfloat z;	/// z position of object
@@ -94,7 +81,6 @@ public:
 	int callerType;		//caller type
 	
 	//Fish
-	void drawSideFish(void);	/// draws a side of the fish
 	GLfloat tailAngle;
 	GLfloat tailAngleCutOff;
 	GLfloat tailAngleInc;
@@ -118,26 +104,36 @@ public:
 };
 #endif
 
-extern void build(MarineObject * marineObjRef, GLuint *dlist);	/// builds a display list of this object
-extern void move(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// moves the object
-extern void rotate(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
-extern void scale(MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// scales the object
-extern void draw(MarineObject * marineObjRef);
+extern struct MarineObject MarineObjectInit1(
+	int callerTypeIn,
+	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
+	GLfloat * vertexIn,
+	GLfloat * normalIn,
+	GLfloat * texelsIn,
+	GLfloat * coloursIn
+);	
+
+extern void drawSideFish();	/// draws a side of the fish
+extern void build(struct MarineObject * marineObjRef, GLuint *dlist);	/// builds a display list of this object
+extern void move(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// moves the object
+extern void rotate(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// rotates the object
+extern void scale(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z);	/// scales the object
+extern void draw(struct MarineObject * marineObjRef);
 
 //Builders
-extern class MarineObject BuildFish(
+extern struct MarineObject BuildFish(
 	void * drawFishFn, GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 );
-extern class MarineObject BuildCrab(
+extern struct MarineObject BuildCrab(
 	void * drawCrabFn, void * displayListFn, GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 );
-extern class MarineObject BuildOctopus(
+extern struct MarineObject BuildOctopus(
 	void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 );
-extern class MarineObject BuildPlant(
+extern struct MarineObject BuildPlant(
 	void * drawPlantFn, void * displayListFn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
@@ -145,11 +141,11 @@ extern class MarineObject BuildPlant(
 	GLfloat * texelsIn,
 	GLfloat * coloursIn
 );
-extern class MarineObject BuildQuad(
+extern struct MarineObject BuildQuad(
 	void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 );
-extern class MarineObject BuildStarfish(
+extern struct MarineObject BuildStarfish(
 	void * drawStarFishFn,
 	GLfloat materialIn[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
@@ -162,18 +158,18 @@ extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
 extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
 extern GLint DLSOLIDCUBE0_06F;
 extern void glut2SolidCube0_06f();
-extern void _drawCrab(MarineObject * marineObj);  /// draws the crab
+extern void _drawCrab(struct MarineObject * marineObj);  /// draws the crab
 extern void draw1LegCrab();	/// draws one leg
 extern void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset);	/// draw leg with an angle specified
 extern void drawLegsCrab();	/// draws complete set of legs
-extern void _draw_dlistCrab(MarineObject * marineObj);	/// draws the crab's display list
-extern void _draw_dlistPlant(MarineObject * marineObj);	/// draws the display list of this object
+extern void _draw_dlistCrab(struct MarineObject * marineObj);	/// draws the crab's display list
+extern void _draw_dlistPlant(struct MarineObject * marineObj);	/// draws the display list of this object
 extern void generateBranches(int level, int number);	/// generates the branches for Plants and Crabs
-extern void _drawFish(MarineObject * marineObj);		/// draws the Fish
-extern void _drawOctopus(MarineObject * marineObj);	/// draws the Octopus
-extern void _drawQuad(MarineObject * marineObj); /// draws the Quad
-extern void _drawPlant(MarineObject * marineObj);	/// draws the plant
-extern void _drawStarFish(MarineObject * marineObj); /// draws the StarFish
+extern void _drawFish(struct MarineObject * marineObj);		/// draws the Fish
+extern void _drawOctopus(struct MarineObject * marineObj);	/// draws the Octopus
+extern void _drawQuad(struct MarineObject * marineObj); /// draws the Quad
+extern void _drawPlant(struct MarineObject * marineObj);	/// draws the plant
+extern void _drawStarFish(struct MarineObject * marineObj); /// draws the StarFish
 extern GLfloat vertexFish[];
 extern GLfloat normalFish[];
 extern GLfloat texelsFish[];
