@@ -17,8 +17,6 @@
 #include "VideoGL.h"
 #endif
 
-#ifdef __cplusplus
-#include <iostream>
 #include <math.h>
 
 #define PI 3.14159
@@ -28,6 +26,12 @@ struct Camera{
 	GLfloat horizontalAngle;
 	GLfloat distance;
 };
+
+#endif
+
+#ifdef __cplusplus
+extern "C"{
+#endif
 
 extern void CameraInit1(struct Camera * Inst);	/// default init
 extern void reset(struct Camera * Inst);	/// resets the camera to default position
@@ -39,6 +43,6 @@ extern void anticlockwise(struct Camera * Inst);	/// rotate scene anticlockwise
 extern void tiltup(struct Camera * Inst);	/// tilts camera upwards
 extern void tiltdown(struct Camera * Inst);	/// tilts camera downwards
 
-#endif
-
+#ifdef __cplusplus
+}
 #endif

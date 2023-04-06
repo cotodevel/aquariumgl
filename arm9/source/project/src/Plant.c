@@ -5,6 +5,7 @@
 */
 
 #include "Renderable.h"
+#include <math.h>
 
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildPlant(
@@ -16,9 +17,9 @@ struct MarineObject BuildPlant(
 		GLfloat * coloursIn
 	)
 {
-	TWLPrintf("-- Creating Plant\n");
 	struct MarineObject obj = MarineObjectInit1(RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	build(&obj, &obj.dlist);
+	TWLPrintf("-- Creating Plant\n");
 	return obj;
 }
 
@@ -41,18 +42,20 @@ void _drawPlant(struct MarineObject * marineObj)
 // Generates the plan. This really draws it, but the draw commands
 // are saved into the display list
 void generateBranches(int level, int number){
+	GLfloat height = 0;
+	GLfloat bottom = 0;
+	GLfloat top = 0;
+	int i = 0;
+	
 	// if we reached 5 levels of recursion, exit
 	// remember we start at level 0
 	if (level == 5) return;
 
 	// each branch is abuout 3/4 of the size of the previous
-	GLfloat height = 3.0f / (0.75 * (level + 1.f));	
-	GLfloat bottom = 0.75f / pow(2, level);
-	GLfloat top = 0.75f / pow(2, (GLfloat)level + 1.f);
-	
-	for (int i = 0; i < number; i++)
-	{
-		
+	height = 3.0f / (0.75 * (level + 1.f));	
+	bottom = 0.75f / pow(2, level);
+	top = 0.75f / pow(2, (GLfloat)level + 1.f);
+	for (i = 0; i < number; i++){
 		GLfloat horzAngle = getRand(0, 180);
 		GLfloat vertAngle = getRand(0, 180);
 		int numChildren = getRand(0, 6);

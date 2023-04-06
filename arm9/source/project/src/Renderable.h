@@ -1,3 +1,6 @@
+#ifndef rendereable_h__
+#define rendereable_h__
+
 /*
 *
 * THIS FILE HAS ALL OF THE HEADER INFORMATION FOR THE RENDERABLE OBJECT
@@ -18,12 +21,13 @@
 * function '_draw()' that must be difined by its children classes which 
 * actually does the drawing of any specific object.
 *
-* Igor Kromin 40125374
 */
 
 #ifdef _MSC_VER
 #include <GL/glut.h>
+#include "TGDSTypes.h"
 #endif
+
 
 #ifdef ARM9
 #include "VideoGL.h"
@@ -34,7 +38,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
 #include <math.h>
 
 #ifndef TEXTURE_IDS
@@ -51,12 +54,9 @@
 #define RENDERABLE_PLANT ((int)6)
 #define RENDERABLE_NONE ((int)7)
 
-extern unsigned int texturesRenderable[2];	/// texture id array
-extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
+#define MAX_RENDERABLE_ITEMS ((int)768)
 
-#ifndef __MARINEOBJ_3201
-#define __MARINEOBJ_3201
-struct MarineObject{
+struct MarineObject {
 	GLfloat x;	/// x position of object
 	GLfloat y;	/// y position of object
 	GLfloat z;	/// z position of object
@@ -102,6 +102,11 @@ struct MarineObject{
 	//Starfish
 	//No ext. dependencies
 };
+
+#endif
+
+#ifdef __cplusplus
+extern "C"{
 #endif
 
 extern struct MarineObject MarineObjectInit1(
@@ -177,12 +182,9 @@ extern GLfloat coloursFish[];
 extern GLfloat vertexStarFish[];
 extern GLfloat normalStarFish[];
 extern GLfloat coloursStarFish[];
-
-#ifdef __cplusplus
-extern "C"{
-#endif
-
 extern int TWLPrintf(const char *fmt, ...);
+extern unsigned int texturesRenderable[2];	/// texture id array
+extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 
 #ifdef __cplusplus
 }

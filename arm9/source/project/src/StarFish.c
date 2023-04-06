@@ -21,8 +21,7 @@ struct MarineObject BuildStarfish(
 }
 
 /// Draws the StarFish
-void _drawStarFish(struct MarineObject * marineObj)
-{
+void _drawStarFish(struct MarineObject * marineObj){
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9
@@ -50,28 +49,29 @@ void _drawStarFish(struct MarineObject * marineObj)
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
 
-	// draw all legs
-	GLfloat step = 360.0f / 5;
-	for (int i = 0; i < 5;  i++)
 	{
-		glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glRotatef(i * step, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glDrawArrays(GL_QUADS, 0, 4 * 5);
-		glPopMatrix(
-#ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		// draw all legs
+		GLfloat step = 360.0f / 5;
+		int i = 0;
+		for (i = 0; i < 5;  i++){
+			glPushMatrix(
+	#ifdef ARM9
+			USERSPACE_TGDS_OGL_DL_POINTER
+	#endif
+			);
+			glRotatef(i * step, 0.0f, 1.0f, 0.0f
+	#ifdef ARM9
+			, USERSPACE_TGDS_OGL_DL_POINTER
+	#endif
+			);
+			glDrawArrays(GL_QUADS, 0, 4 * 5);
+			glPopMatrix(
+	#ifdef ARM9
+			1, USERSPACE_TGDS_OGL_DL_POINTER
+	#endif
+			);
+		}
 	}
-
 #ifdef WIN32
 	// disable vertex arrays
 	glDisableClientState(GL_VERTEX_ARRAY);

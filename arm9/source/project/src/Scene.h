@@ -19,9 +19,6 @@
 #ifdef ARM9
 #include "VideoGL.h"
 #endif
-#include <vector>
-#include <string>
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,13 +33,14 @@
 
 #define SIGN(x) (x < 0 ? (-1) : 1)
 
-struct Scene{
+struct Scene {
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
-	std::vector<struct MarineObject> elements;	/// list of elements
+	struct MarineObject * elementsStart;	/// list of elements start
+	struct MarineObject * elementsCurrent;	/// list of elements current top
 	
-	Camera camera;	/// camera (duh)
+	struct Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
 	bool perspectiveMode;	/// perspective on / off
 	bool showMenu;	/// show menu on / off
@@ -53,12 +51,17 @@ struct Scene{
 
 };
 
+#endif
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 extern void clearScene();	/// clears the scene for drawing
 
 extern void SceneInit1(struct Scene * Inst);	/// default constructor
-extern bool render(struct Scene * Inst);	/// renders a frame
 extern void drawHUD(struct Scene * Inst);	/// draw the heads up display
-extern void add(struct Scene * Inst, MarineObject &object);	/// add object to rendering queue
+extern bool add(struct Scene * Inst, struct MarineObject *object);	/// add object to rendering queue
 
 extern void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count);
 extern void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str);
@@ -80,23 +83,25 @@ extern GLfloat direction1Scene[4];
 extern int widthScene;	/// the width of the window
 extern int heightScene;	/// the height of the window
 
-#endif
-
 extern bool init(int argc, char *argv[]);	/// initialises the application
 extern void setupGL(void);	/// initialises OpenGL
 extern void animator(int type);	/// animates the aquarium
 extern void resizeWindow(int w, int h);	/// resizes the window
 extern void keyboardInput(unsigned char key, int x, int y);	/// handles keyboard input
 extern void keyboardInputSpecial(int key, int x, int y);	/// handles keyboard input (special)
-extern void drawScene(void);	/// draws the scene
+extern void drawScene(void);	/// Renders a single frame of the scene
 extern void addObject(int type);	/// adds an object to the scene
 extern void setupViewVolume(void);	/// sets up the viewing volume
 extern void getTextures(void);	/// initiates all textures
 extern void getSandTexture(void);	/// loads the sand texture
 extern void getFishTexture(void);	/// loads the fish texture
 
-extern Scene scene;	/// the scene we render
+extern struct Scene scene;	/// the scene we render
 extern bool wireMode;	/// wireframe mode on / off
 extern bool flatShading;	/// flat shading on / off
 
 extern GLfloat spotAngleScene;
+
+#ifdef __cplusplus
+}
+#endif

@@ -15,12 +15,12 @@ struct MarineObject BuildFish(
 	GLfloat * coloursIn
 	) 
 {
-	TWLPrintf("-- Creating fish\n");
 	struct MarineObject obj = MarineObjectInit1(RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// angles and cut offs for tail animation
 	obj.tailAngle = 0.0f;
 	obj.tailAngleCutOff = 20.0f;
 	obj.tailAngleInc = 1.0f;
+	TWLPrintf("-- Creating fish\n");
 	return obj;
 }
 
@@ -30,6 +30,7 @@ void _drawFish(struct MarineObject * marineObj)
 	// work out how much to advance the fish by relative to its orientation
 	GLfloat xInc = cos(marineObj->ry * (3.14156 ) / 180) / 10.0f;
 	GLfloat zInc = sin(marineObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat pt = 0;
 
 	// the floor is 70.0 x 70.0, but i want to keep the fish inside a
 	// 65.0 x 65.0 area, so work out the circular boundaries if the fish goes
@@ -106,7 +107,7 @@ void _drawFish(struct MarineObject * marineObj)
 	drawSideFish();
 
 	// work out new fish tail position
-	GLfloat pt = sin(marineObj->tailAngle * 3.14159 / 180);
+	pt = sin(marineObj->tailAngle * 3.14159 / 180);
 	marineObj->tailAngle += marineObj->tailAngleInc;
 	if (marineObj->tailAngle < -marineObj->tailAngleCutOff || marineObj->tailAngle > marineObj->tailAngleCutOff)
 		marineObj->tailAngleInc *= -1;

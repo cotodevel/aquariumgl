@@ -19,16 +19,16 @@
     <ClInclude Include="..\src\TGDSTypes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Camera.cpp" />
-    <ClCompile Include="..\src\Crab.cpp" />
-    <ClCompile Include="..\src\Fish.cpp" />
+    <ClCompile Include="..\src\Camera.c" />
+    <ClCompile Include="..\src\Crab.c" />
+    <ClCompile Include="..\src\Fish.c" />
     <ClCompile Include="..\src\mainwin32.cpp" />
-    <ClCompile Include="..\src\Octopus.cpp" />
-    <ClCompile Include="..\src\Plant.cpp" />
-    <ClCompile Include="..\src\Quad.cpp" />
-    <ClCompile Include="..\src\Renderable.cpp" />
-    <ClCompile Include="..\src\Scene.cpp" />
-    <ClCompile Include="..\src\StarFish.cpp" />
+    <ClCompile Include="..\src\Octopus.c" />
+    <ClCompile Include="..\src\Plant.c" />
+    <ClCompile Include="..\src\Quad.c" />
+    <ClCompile Include="..\src\Renderable.c" />
+    <ClCompile Include="..\src\Scene.c" />
+    <ClCompile Include="..\src\StarFish.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F347282B-F24B-470D-BF8F-FCB92FFF2649}</ProjectGuid>

@@ -16,10 +16,10 @@ struct MarineObject BuildCrab(
 	GLfloat * coloursIn
 	) 
 {
-	TWLPrintf("-- Creating crab\n");
 	struct MarineObject obj = MarineObjectInit1(RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	obj.sy = obj.sx = obj.sz = 2.f; // make crab twice as big
 	build(&obj, &obj.dlist);
+	TWLPrintf("-- Creating crab\n");
 	return obj;
 }
 
@@ -198,8 +198,8 @@ void draw1LegCrab()
 
 
 /// Draws complete set of legs (side legs)
-void drawLegsCrab()
-{
+void drawLegsCrab(){
+	GLfloat i = 0;
 	// set a darker pinky colour for legs
 	glColor3f(1.0f, 0.55f, 0.55f
 #ifdef ARM9
@@ -208,7 +208,7 @@ void drawLegsCrab()
 	);
 
 	// draw three side legs
-	for (GLfloat i = -15.0f; i <= 15.0f; i += 15.0f)
+	for (i = -15.0f; i <= 15.0f; i += 15.0f)
 	{
 		glPushMatrix(
 #ifdef ARM9

@@ -16,8 +16,6 @@
 
 #include "Scene.h"
 
-using namespace std;
-
 int widthScene;	/// the width of the window
 int heightScene;	/// the height of the window
 
@@ -46,7 +44,11 @@ void SceneInit1(struct Scene * Inst){
 	Inst->error = GL_NO_ERROR;
 #endif	
 	Inst->polygonModel = GL_FILL;
-	Inst->elements.clear();	// clear our queue
+	
+	if(Inst->elementsStart != NULL){
+		free(Inst->elementsStart);	// clear our queue
+	}
+	Inst->elementsCurrent = Inst->elementsStart = (struct MarineObject*)malloc((sizeof(struct MarineObject))*MAX_RENDERABLE_ITEMS);
 	Inst->showMenu = true;	// menu is on
 	Inst->light0On = false;	// light 0 is off
 	Inst->light1On = false;	// light 1 is off
@@ -96,14 +98,13 @@ void SceneInit1(struct Scene * Inst){
 	CameraInit1(&Inst->camera); //construct camera
 }
 
-
 /// Renders a single frame of the scene
 /*
 * This function renders all of the objects that are attached
 * to the rendering queue of the Scene.
 */
-bool render(struct Scene * Inst){
-
+void drawScene(){
+	struct Scene * Inst = &scene;
 	// clear scene
 	clearScene();
 	
@@ -131,12 +132,16 @@ bool render(struct Scene * Inst){
 	);
 
 	// check if there are any objects to draw
-	for (int i = 0; i < Inst->elements.size(); i++)
 	{
-		// draw all elements in the scene
-		draw(&Inst->elements.at(i));
+		struct MarineObject * curObj = Inst->elementsStart;
+		int count = (Inst->elementsCurrent - Inst->elementsStart);
+		int i = 0;
+		for (i = 0; i < count; i++){
+			// draw all elements in the scene
+			draw(curObj);
+			curObj++;
+		}
 	}
-
 	drawHUD(Inst);
 
 #ifdef WIN32
@@ -144,10 +149,9 @@ bool render(struct Scene * Inst){
 #endif
 
 #ifdef ARM9
-//NDS: Todo 
+	//NDS: Todo 
 #endif
 
-	return true;
 }
 
 
@@ -177,8 +181,14 @@ void clearScene(){
 * This method simply adds on the passed object to the end
 * of the rendering queue.
 */
-void add(struct Scene * Inst, MarineObject &object){
-	Inst->elements.push_back(object);
+bool add(struct Scene * Inst, struct MarineObject *object){
+	int count = (Inst->elementsCurrent - Inst->elementsStart);
+	if(count < MAX_RENDERABLE_ITEMS){
+		*(Inst->elementsCurrent) = *(object);
+		Inst->elementsCurrent++;
+		return true;
+	}
+	return false;
 }
 
 
@@ -191,11 +201,12 @@ void add(struct Scene * Inst, MarineObject &object){
 * this method returns.
 */
 void drawHUD(struct Scene * Inst){
+	GLboolean lightsOn;
+	
 	// disable depth testing to HUD is drawn on top of everything
 	glDisable(GL_DEPTH_TEST);
 
 	// disable lightint so we see everything OK
-	GLboolean lightsOn;
 	glGetBooleanv(GL_LIGHTING, &lightsOn);
 	glDisable(GL_LIGHTING);
 
@@ -316,9 +327,10 @@ void drawHUD(struct Scene * Inst){
 /// Prints a string with a count attached
 void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count){
 	char buffer[30];
-	for (int i = 0; i < 30; ++i)
+	int i = 0;
+	for (i = 0; i < 30; ++i){
 		buffer[i] = ' ';
-
+	}
 	sprintf(buffer,"%s %i", str, count);
 	printGL2(Inst, x, y, z, buffer);
 }
@@ -327,10 +339,10 @@ void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *
 /// Prints a string in the window
 void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str){
 #ifdef WIN32
+	int j = 0;
 	glRasterPos3f(x, y, z);
-
 	// print character one by one
-	for (int j = 0; j < 30; j++) {
+	for (j = 0; j < 30; j++) {
 		int c = str[j];
 		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, c);
 	}

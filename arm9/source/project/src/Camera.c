@@ -12,8 +12,6 @@
 */
 
 #include "Camera.h"
-#include "Renderable.h"
-using namespace std;
 
 /// Default Constructor. Initialises defaults.
 void CameraInit1(struct Camera * Inst){

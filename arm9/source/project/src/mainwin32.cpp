@@ -104,13 +104,13 @@ int startAquarium(int argc, char *argv[])
 		for (GLfloat j = -9.5; j <= 9.5; j++)
 		{
 			GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
-			MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
+			struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
 			quad.ry = 0.0f;	// we don't want random rotation
 			quad.rx = 90.0f;
 			quad.x = 3.5f * i;
 			quad.z = 3.5f * j;
 			scale(&quad, 3.5f, 3.5f, 1.0f);
-			add(&scene, quad);
+			add(&scene, &quad);
 		}
 	}
 
@@ -318,18 +318,6 @@ void keyboardInputSpecial(int key, int x, int y)
 
 }
 
-
-/// Draws the scene to the window
-/*
-* This function calls the render method of the current scene
-* to render the contents of the scene onto the window created.
-*/
-void drawScene()
-{
-	render(&scene);
-}
-
-
 /// Adds an object to the scene
 void addObject(int type)
 {
@@ -384,8 +372,9 @@ void addObject(int type)
 
 	if(object.callerType != RENDERABLE_NONE){
 		move(&object, x, y, z);	// set objects new position
-		add(&scene, object);	// adds object to rendering queue
-		scene.objects[type]++;	// increments the count of this type of object
+		if(add(&scene, &object) == true){	// adds object to rendering queue
+			scene.objects[type]++;	// increments the count of this type of object
+		}
 	}
 }
 
