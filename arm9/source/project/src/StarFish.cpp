@@ -6,9 +6,6 @@
 
 #include "Renderable.h"
 
-using namespace std;
-
-
 /// Default Constructor. Initialises defaults.
 class MarineObject BuildStarfish(
 		void * drawStarFishFn,
@@ -20,7 +17,7 @@ class MarineObject BuildStarfish(
 	)
 {
 	TWLPrintf("-- Creating StarFish\n");
-	MarineObject obj(drawStarFishFn, NULL, RENDERABLE_STARFISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	MarineObject obj(RENDERABLE_STARFISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	return obj;
 }
 

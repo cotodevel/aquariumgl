@@ -16,7 +16,7 @@ class MarineObject BuildFish(
 	) 
 {
 	TWLPrintf("-- Creating fish\n");
-	MarineObject obj(drawFishFn, NULL, RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	MarineObject obj(RENDERABLE_FISH, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// angles and cut offs for tail animation
 	obj.tailAngle = 0.0f;
 	obj.tailAngleCutOff = 20.0f;

@@ -3,10 +3,7 @@
 *
 * Igor Kromin 40125374
 */
-
 #include "Renderable.h"
-
-using namespace std;
 
 /// Default Constructor. Builds the display list for the crab.
 //Crab class. Draws a pinky coloured crab.
@@ -20,7 +17,7 @@ class MarineObject BuildCrab(
 	) 
 {
 	TWLPrintf("-- Creating crab\n");
-	MarineObject obj(drawCrabFn, displayListFn, RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	MarineObject obj(RENDERABLE_CRAB, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	obj.sy = obj.sx = obj.sz = 2.f; // make crab twice as big
 	build(&obj, &obj.dlist);
 	return obj;

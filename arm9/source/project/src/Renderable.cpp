@@ -16,14 +16,13 @@ unsigned int texturesRenderable[2];
 GLint DLSOLIDCUBE0_06F=-1;
 
 MarineObject::MarineObject(
-	void * drawPlantFn, void * displayListFn, int callerType,
+	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 	GLfloat * vertexIn,
 	GLfloat * normalIn,
 	GLfloat * texelsIn,
 	GLfloat * coloursIn
-) : Renderable (drawPlantFn, callerType, displayListFn)
-{
+){
 	vertex = vertexIn;
 	normal = normalIn;
 	texels = texelsIn;
@@ -47,18 +46,7 @@ MarineObject::MarineObject(
 	legAngle = 0;
 	legAngleCutOff = 0;
 	legAngleInc = 0;
-}
 
-MarineObject::~MarineObject()
-{
-	TWLPrintf("++ Destructing MarineObject\n");
-}
-
-/// Default Constructor. Initialises the position to zero.
-/// The rotation around the Y axis is picked randomly to allow random
-/// spinning of objects. Display lists are off by default
-Renderable::Renderable(void * buildDLIn, int callerTypeIn, void * _draw_dlistIn)
-{
 	this->x = 0.0f;
 	this->y = 0.0f;
 	this->z = 0.0f;
@@ -72,17 +60,12 @@ Renderable::Renderable(void * buildDLIn, int callerTypeIn, void * _draw_dlistIn)
 	this->sz = 1.0f;
 
 	isList = false;
-
-	buildDL = buildDLIn;
 	callerType = callerTypeIn;
-	_draw_dlist = _draw_dlistIn;
 }
 
-
-/// Default Destructor. Does nothing.
-Renderable::~Renderable()
+MarineObject::~MarineObject()
 {
-	// Nothing needs to be done here
+	TWLPrintf("++ Destructing MarineObject\n");
 }
 
 

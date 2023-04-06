@@ -6,14 +6,12 @@
 
 #include "Renderable.h"
 
-using namespace std;
-
 class MarineObject BuildOctopus(
 		void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 	){
 	TWLPrintf("-- Creating octopus\n");
-	MarineObject obj(drawOctopusFn, NULL, RENDERABLE_OCTOPUS, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	MarineObject obj(RENDERABLE_OCTOPUS, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	// leg rotation angles
 	obj.legAngle = 0.0f;
 	obj.legAngleCutOff = 30.0f;

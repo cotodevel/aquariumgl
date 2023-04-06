@@ -58,11 +58,9 @@ Scene scene;	/// the scene we render
 bool wireMode = false;	/// wireframe mode on / off
 bool flatShading = false;	/// flat shading on / off
 
-
 using namespace std;
 
 #ifdef WIN32
-
 extern int startAquarium(int argc, char *argv[]);
 
 /// Program starts here
@@ -351,7 +349,7 @@ void addObject(int type)
 
 	GLfloat mat1Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
 	GLfloat mat2Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
-	MarineObject object(NULL, NULL, RENDERABLE_NONE, mat1Init, mat2Init, 0.0f, NULL , NULL, NULL, NULL);
+	MarineObject object(RENDERABLE_NONE, mat1Init, mat2Init, 0.0f, NULL , NULL, NULL, NULL);
 
 	switch (type)
 	{

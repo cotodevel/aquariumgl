@@ -6,9 +6,6 @@
 
 #include "Renderable.h"
 
-using namespace std;
-
-
 /// Default Constructor. Initialises defaults.
 class MarineObject BuildPlant(
 		void * drawPlantFn, void * displayListFn,
@@ -20,7 +17,7 @@ class MarineObject BuildPlant(
 	)
 {
 	TWLPrintf("-- Creating Plant\n");
-	MarineObject obj(drawPlantFn, displayListFn, RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	MarineObject obj(RENDERABLE_PLANT, materialIn1, materialIn2, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 	build(&obj, &obj.dlist);
 	return obj;
 }

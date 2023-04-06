@@ -6,9 +6,6 @@
 
 #include "Renderable.h"
 
-using namespace std;
-
-
 /// Default Constructor. Initialises defaults.
 MarineObject BuildQuad(
 		void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
@@ -16,7 +13,7 @@ MarineObject BuildQuad(
 	)
 {
 	TWLPrintf("-- Creating quad\n");
-	return MarineObject(drawQuadFn, NULL, RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	return MarineObject(RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 }
 
 /// Draws the quad
