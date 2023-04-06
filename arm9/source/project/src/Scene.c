@@ -46,9 +46,9 @@ void SceneInit1(struct Scene * Inst){
 	Inst->polygonModel = GL_FILL;
 	
 	if(Inst->elementsStart != NULL){
-		free(Inst->elementsStart);	// clear our queue
+		TGDSARM9Free(Inst->elementsStart);	// clear our queue
 	}
-	Inst->elementsCurrent = Inst->elementsStart = (struct MarineObject*)malloc((sizeof(struct MarineObject))*MAX_RENDERABLE_ITEMS);
+	Inst->elementsCurrent = Inst->elementsStart = (struct MarineObject*)TGDSARM9Malloc((sizeof(struct MarineObject))*MAX_RENDERABLE_ITEMS);
 	Inst->showMenu = true;	// menu is on
 	Inst->light0On = false;	// light 0 is off
 	Inst->light1On = false;	// light 1 is off
