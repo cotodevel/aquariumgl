@@ -10,6 +10,11 @@
 
 #include "Renderable.h"
 
+#ifdef ARM9
+#include "VideoGL.h"
+#include "Sphere008.h"
+#endif
+
 #ifndef _MSC_VER
 					// //
 #define ARM9 1		// Enable only if not real GCC + NDS environment
@@ -252,6 +257,7 @@ GLfloat getRand(GLfloat minimum, GLfloat range)
 
 //glutSolidSphere(radius, 16, 16);  -> NDS GX Replacement
 void drawSphere(float r, int lats, int longs) {
+	#ifdef _MSC_VER
 	#if !defined(M_PI) 
 	#define M_PI (3.14159265358979323846)
 	#endif
@@ -264,8 +270,6 @@ void drawSphere(float r, int lats, int longs) {
 		double lat1 = M_PI * (-0.5 + (double)i / lats);
 		double z1 = sin(lat1);
 		double zr1 = cos(lat1);
-
-		#ifdef _MSC_VER
 		glBegin(GL_QUAD_STRIP);
 		for (j = 0; j <= longs; j++) {
 			double lng = 2 * M_PI * (double)(j - 1) / longs;
@@ -278,23 +282,13 @@ void drawSphere(float r, int lats, int longs) {
 			glVertex3f(r * x * zr1, r * y * zr1, r * z1);
 		}
 		glEnd();
-		#endif
-		#ifdef ARM9
-		glBegin(GL_QUAD_STRIP, USERSPACE_TGDS_OGL_DL_POINTER);
-		for (j = 0; j <= longs; j++) {
-			double lng = 2 * M_PI * (double)(j - 1) / longs;
-			double x = cos(lng);
-			double y = sin(lng);
-
-			glNormal3f(x * zr0, y * zr0, z0, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3f(r * x * zr0, r * y * zr0, r * z0, USERSPACE_TGDS_OGL_DL_POINTER);
-			glNormal3f(x * zr1, y * zr1, z1, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3f(r * x * zr1, r * y * zr1, r * z1, USERSPACE_TGDS_OGL_DL_POINTER);
-		}
-		glEnd(USERSPACE_TGDS_OGL_DL_POINTER);
-		#endif
-		
 	}
+	#endif
+
+	#ifdef ARM9
+    // Execute the display list
+    glCallListGX((u32*)&Sphere008);
+	#endif
 }
 
 
