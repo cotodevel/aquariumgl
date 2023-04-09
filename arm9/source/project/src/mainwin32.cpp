@@ -96,21 +96,15 @@ int startAquarium(int argc, char *argv[])
 	SceneInit1(&scene);
 	scene.perspectiveMode = true;
 
-	// create all quads for the floor of the aquarium
-	for (GLfloat i = -9.5; i <= 9.5; i++)
-	{
-		for (GLfloat j = -9.5; j <= 9.5; j++)
-		{
-			GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
-			struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
-			quad.ry = 0.0f;	// we don't want random rotation
-			quad.rx = 90.0f;
-			quad.x = 3.5f * i;
-			quad.z = 3.5f * j;
-			scale(&quad, 3.5f, 3.5f, 1.0f);
-			add(&scene, &quad);
-		}
-	}
+	// create a single quad for the floor of the aquarium (reduces 420~ objects into mere 22 which makes the engine runnable on NintendoDS at good framerate)
+	GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
+	struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
+	quad.ry = 0.0f;	// we don't want random rotation
+	quad.rx = 90.0f;
+	quad.x = 3.5f * 1;
+	quad.z = 3.5f * 1;
+	scale(&quad, 95.5f, 95.5f, 3.0f);
+	add(&scene, &quad);
 
 	// 'fake' keys being pressed to enable the state to
 	// setup lighting and fog

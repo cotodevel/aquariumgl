@@ -153,7 +153,8 @@ void drawScene(){
 #endif
 
 #ifdef ARM9
-	//NDS: Todo 
+	glFlush(USERSPACE_TGDS_OGL_DL_POINTER);
+	HaltUntilIRQ(); //Save power until next Vblank
 #endif
 
 }
