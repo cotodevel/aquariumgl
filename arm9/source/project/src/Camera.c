@@ -30,17 +30,21 @@ void reset(struct Camera * Inst){
 /// Positions the camera at the required place and rotation
 /// Zoom and spin is done by translate/rotate
 void position(struct Camera * Inst){
-	#ifdef _MSC_VER
-	glTranslatef(0.0f, 0.0f, Inst->distance);
-	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f);
-	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f); 
-	#endif
-
-	#ifdef ARM9
-	glTranslatef(0.0f, 0.0f, Inst->distance, USERSPACE_TGDS_OGL_DL_POINTER);
-	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
-	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f, USERSPACE_TGDS_OGL_DL_POINTER);
-	#endif
+	glTranslatef(0.0f, 0.0f, Inst->distance
+#ifndef _MSC_VER
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f
+#ifndef _MSC_VER
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f
+#ifndef _MSC_VER
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif	
+	);
 }
 
 

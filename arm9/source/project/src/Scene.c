@@ -16,6 +16,13 @@
 
 #include "Scene.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 int widthScene;	/// the width of the window
 int heightScene;	/// the height of the window
 
@@ -45,10 +52,7 @@ void SceneInit1(struct Scene * Inst){
 #endif	
 	Inst->polygonModel = GL_FILL;
 	
-	if(Inst->elementsStart != NULL){
-		TGDSARM9Free(Inst->elementsStart);	// clear our queue
-	}
-	Inst->elementsCurrent = Inst->elementsStart = (struct MarineObject*)TGDSARM9Malloc((sizeof(struct MarineObject))*MAX_RENDERABLE_ITEMS);
+	memset(&Inst->elementsStart[0], 0, (sizeof(struct MarineObject)*renderableElementsTotal));
 	Inst->showMenu = true;	// menu is on
 	Inst->light0On = false;	// light 0 is off
 	Inst->light1On = false;	// light 1 is off
@@ -133,16 +137,16 @@ void drawScene(){
 
 	// check if there are any objects to draw
 	{
-		struct MarineObject * curObj = Inst->elementsStart;
-		int count = (Inst->elementsCurrent - Inst->elementsStart);
 		int i = 0;
-		for (i = 0; i < count; i++){
+		for (i = 0; i < Inst->curElementAlloced; i++){
 			// draw all elements in the scene
-			draw(curObj);
-			curObj++;
+			draw(&Inst->elementsStart[i]);
 		}
 	}
+
+#ifdef WIN32
 	drawHUD(Inst);
+#endif
 
 #ifdef WIN32
 	glutSwapBuffers();
@@ -182,10 +186,9 @@ void clearScene(){
 * of the rendering queue.
 */
 bool add(struct Scene * Inst, struct MarineObject *object){
-	int count = (Inst->elementsCurrent - Inst->elementsStart);
-	if(count < MAX_RENDERABLE_ITEMS){
-		*(Inst->elementsCurrent) = *(object);
-		Inst->elementsCurrent++;
+	if(Inst->curElementAlloced < renderableElementsTotal){
+		memcpy(&Inst->elementsStart[Inst->curElementAlloced], object, sizeof(struct MarineObject));
+		Inst->curElementAlloced++;
 		return true;
 	}
 	return false;

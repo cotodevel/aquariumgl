@@ -23,11 +23,17 @@
 *
 */
 
+// NDSDLUtils Mode : uncomment these if building AquariumGL on NDSDLUtils for WIN32 (NDS GX 3D debugger)
+//Otherwise, comment these out if building for TGDS or WIN32 port of AquariumGL
+//#undef _MSC_VER
+//#include "VideoGL.h"
+// NDSDISPLAYLISTUTILS Mode END
+
+
 #ifdef _MSC_VER
-#include <GL/glut.h>
+#include <GL\GLUT.h>
 #include "TGDSTypes.h"
 #endif
-
 
 #ifdef ARM9
 #include "VideoGL.h"
@@ -54,7 +60,7 @@
 #define RENDERABLE_PLANT ((int)6)
 #define RENDERABLE_NONE ((int)7)
 
-#define MAX_RENDERABLE_ITEMS ((int)768)
+#define renderableElementsTotal ((int)512)
 
 struct MarineObject {
 	GLfloat x;	/// x position of object
@@ -185,7 +191,7 @@ extern GLfloat coloursStarFish[];
 extern int TWLPrintf(const char *fmt, ...);
 extern unsigned int texturesRenderable[2];	/// texture id array
 extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
-
+extern int startAquarium(int argc, char *argv[]);
 #ifdef __cplusplus
 }
 #endif

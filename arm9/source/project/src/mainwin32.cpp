@@ -10,14 +10,6 @@
 * Igor Kromin 40125374
 */
 
-#ifdef _MSC_VER
-#include <GL/glut.h>
-#endif
-
-#ifdef ARM9
-#include "VideoGL.h"
-#endif
-
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
@@ -47,6 +39,13 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 #include "Renderable.h"
 #include "Textures.h"
 #include "Camera.h"
+
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
 
 #define OBJ_CRAB 0
 #define OBJ_OCTOPUS 1
@@ -94,7 +93,6 @@ int startAquarium(int argc, char *argv[])
 	getTextures();
 
 	// create the scene and set perspective projection as default
-	scene ;
 	SceneInit1(&scene);
 	scene.perspectiveMode = true;
 
@@ -140,22 +138,21 @@ int startAquarium(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
-    startTimerCounter(tUnitsMilliseconds, 1);
+    //startTimerCounter(tUnitsMilliseconds, 1);
 
 	while(1==1){
 		
 		//Handle Input & game logic
-		scanKeys();
+		//scanKeys();
 		
-		if(runGameTick == true){
+		//if(runGameTick == true){
 			//next(1);
-			runGameTick = false;
-		}
+			//runGameTick = false;
+		//}
 		
-		struct touchPosition touch;
-		XYReadScrPosUser(&touch);
-		//mouse(0, 0, touch.px, touch.py); 	//OnTSCTouch todo
-		keyboardInput(keysDown(), touch.px, touch.py); //Keys
+		//struct touchPosition touch;
+		//XYReadScrPosUser(&touch);
+		//keyboardInput(keysDown(), touch.px, touch.py); //Keys
 		
 		//Render
 		drawScene();

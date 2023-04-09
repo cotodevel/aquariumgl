@@ -6,6 +6,13 @@
 
 #include "Renderable.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildStarfish(
 		void * drawStarFishFn,
@@ -72,12 +79,13 @@ void _drawStarFish(struct MarineObject * marineObj){
 			);
 		}
 	}
-#ifdef WIN32
+
 	// disable vertex arrays
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
+#ifdef WIN32
 	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);
 #endif

@@ -6,6 +6,13 @@
 
 #include "Renderable.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 struct MarineObject BuildOctopus(
 		void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn

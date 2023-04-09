@@ -7,6 +7,13 @@
 #include "Renderable.h"
 #include <math.h>
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildPlant(
 		void * drawPlantFn, void * displayListFn,

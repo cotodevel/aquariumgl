@@ -9,14 +9,11 @@
 #ifndef __CAMERA_3201
 #define __CAMERA_3201
 
-#ifdef _MSC_VER
-#include <GL/glut.h>
-#endif
-
 #ifdef ARM9
 #include "VideoGL.h"
 #endif
 
+#include "Renderable.h"
 #include <math.h>
 
 #define PI 3.14159

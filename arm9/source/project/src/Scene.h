@@ -12,13 +12,6 @@
 #ifndef __SCENE_3201
 #define __SCENE_3201
 
-#ifdef _MSC_VER
-#include <GL/glut.h>
-#endif
-
-#ifdef ARM9
-#include "VideoGL.h"
-#endif
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,9 +30,8 @@ struct Scene {
 	GLenum error;	/// current error
 	GLenum polygonModel;	/// polygon mode wire/solid
 
-	struct MarineObject * elementsStart;	/// list of elements start
-	struct MarineObject * elementsCurrent;	/// list of elements current top
-	
+	struct MarineObject elementsStart[renderableElementsTotal];
+	int curElementAlloced;
 	struct Camera camera;	/// camera (duh)
 	int objects[5];	/// counter for objects
 	bool perspectiveMode;	/// perspective on / off

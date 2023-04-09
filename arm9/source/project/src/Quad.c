@@ -6,6 +6,13 @@
 
 #include "Renderable.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildQuad(
 		void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,

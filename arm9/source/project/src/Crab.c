@@ -5,6 +5,13 @@
 */
 #include "Renderable.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 /// Default Constructor. Builds the display list for the crab.
 //Crab class. Draws a pinky coloured crab.
 struct MarineObject BuildCrab(

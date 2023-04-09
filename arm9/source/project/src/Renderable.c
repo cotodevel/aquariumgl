@@ -10,6 +10,13 @@
 
 #include "Renderable.h"
 
+#ifndef _MSC_VER
+					// //
+#define ARM9 1		// Enable only if not real GCC + NDS environment
+#undef _MSC_VER		// //
+#undef WIN32		// //
+#endif
+
 // create the static parts of all objects
 unsigned int texturesRenderable[2];
 
@@ -95,7 +102,7 @@ void build(struct MarineObject * marineObjRef, GLuint *dlist){
 		//Build display lists once for these objects
 		switch(marineObjRef->callerType){
 				case(RENDERABLE_CRAB):{
-					_draw_dlistCrab(marineObjRef);
+					_drawCrab(marineObjRef);
 				}break;
 
 				case(RENDERABLE_PLANT):{
@@ -208,12 +215,7 @@ void draw(struct MarineObject * marineObjRef){
 		}break;
 
 		case(RENDERABLE_CRAB):{
-			if (marineObjRef->isList){
-				_draw_dlistCrab(marineObjRef);
-			}
-			else{
-				_drawCrab(marineObjRef);
-			}
+			_draw_dlistCrab(marineObjRef);
 		}break;
 
 		case(RENDERABLE_OCTOPUS):{
@@ -225,7 +227,7 @@ void draw(struct MarineObject * marineObjRef){
 		}break;
 
 		case(RENDERABLE_PLANT):{
-			if (marineObjRef->isList){
+			if (marineObjRef->isList == true){
 				_draw_dlistPlant(marineObjRef);
 			}
 			else{
