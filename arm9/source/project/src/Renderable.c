@@ -232,12 +232,7 @@ void draw(struct MarineObject * marineObjRef){
 		}break;
 
 		case(RENDERABLE_PLANT):{
-			if (marineObjRef->isList == true){
-				_draw_dlistPlant(marineObjRef);
-			}
-			else{
-				_drawPlant(marineObjRef);
-			}
+			_draw_dlistPlant(marineObjRef);
 		}break;
 	}
 
