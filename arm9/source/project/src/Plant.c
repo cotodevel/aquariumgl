@@ -137,9 +137,11 @@ void _draw_dlistPlant(struct MarineObject * marineObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-#ifdef WIN32
-	glColor4fv(marineObj->material1);
+	glColor4fv(marineObj->material1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
+	);
 	glCallList(marineObj->dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER

@@ -35,6 +35,10 @@
 #include "TGDSTypes.h"
 #endif
 
+#ifndef _MSC_VER
+#include <math.h>
+#endif
+
 #ifdef ARM9
 #include "VideoGL.h"
 #endif
@@ -108,6 +112,10 @@ struct MarineObject {
 	//Starfish
 	//No ext. dependencies
 };
+
+#if !defined(M_PI) 
+#define M_PI (3.14159265358979323846)
+#endif
 
 #endif
 

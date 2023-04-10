@@ -10,16 +10,16 @@
 
 #include "Renderable.h"
 
-#ifdef ARM9
-#include "VideoGL.h"
-#include "Sphere008.h"
-#endif
-
 #ifndef _MSC_VER
 					// //
 #define ARM9 1		// Enable only if not real GCC + NDS environment
 #undef _MSC_VER		// //
 #undef WIN32		// //
+#endif
+
+#ifdef ARM9
+#include "VideoGL.h"
+#include "Sphere008.h"
 #endif
 
 // create the static parts of all objects
@@ -253,9 +253,6 @@ GLfloat getRand(GLfloat minimum, GLfloat range)
 //glutSolidSphere(radius, 16, 16);  -> NDS GX Replacement
 void drawSphere(float r, int lats, int longs) {
 	#ifdef _MSC_VER
-	#if !defined(M_PI) 
-	#define M_PI (3.14159265358979323846)
-	#endif
 	int i, j;
 	for (i = 0; i <= lats; i++) {
 		double lat0 = M_PI * (-0.5 + (double)(i - 1) / lats);
@@ -320,7 +317,7 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS)
 	#ifdef _MSC_VER
 	glEnd();
 	#endif
-	#ifdef AMR9
+	#ifdef ARM9
 	glEnd(USERSPACE_TGDS_OGL_DL_POINTER);
 	#endif
 }

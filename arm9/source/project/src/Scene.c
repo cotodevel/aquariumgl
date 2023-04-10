@@ -146,15 +146,12 @@ void drawScene(){
 
 #ifdef WIN32
 	drawHUD(Inst);
-#endif
-
-#ifdef WIN32
 	glutSwapBuffers();
 #endif
 
 #ifdef ARM9
 	glFlush(USERSPACE_TGDS_OGL_DL_POINTER);
-	HaltUntilIRQ(); //Save power until next Vblank
+	//HaltUntilIRQ(); //Save power until next Vblank
 #endif
 
 }
