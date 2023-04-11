@@ -121,7 +121,7 @@ void _drawFish(struct MarineObject * marineObj)
 	
 	// draw one side of flexible part of the tail
 	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = pt;
-	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
+	//glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4); //segfaults on TGDS
 	glScalef(1.0f, 1.0f, -1.0f
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
@@ -130,7 +130,7 @@ void _drawFish(struct MarineObject * marineObj)
 
 	// draw second side of flexible part of the tail
 	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = -pt;
-	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
+	//glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4); //segfaults on TGDS
 	
 	// disable all vertex arrays and texturing
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -144,9 +144,9 @@ void _drawFish(struct MarineObject * marineObj)
 /// Draws a side of the fish
 void drawSideFish()
 {
-	glDrawArrays(GL_TRIANGLES, 0, 3 * 2);
-    glDrawArrays(GL_QUADS, 6, 4 * 6);
-    glDrawArrays(GL_TRIANGLES, 6 + 4 * 6, 3 * 5);
+	//glDrawArrays(GL_TRIANGLES, 0, 3 * 2); //segfaults on TGDS
+    //glDrawArrays(GL_QUADS, 6, 4 * 6); //segfaults on TGDS
+    //glDrawArrays(GL_TRIANGLES, 6 + 4 * 6, 3 * 5); //segfaults on TGDS
 }
 
 

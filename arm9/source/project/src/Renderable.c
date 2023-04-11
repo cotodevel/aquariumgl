@@ -19,7 +19,7 @@
 
 #ifdef ARM9
 #include "VideoGL.h"
-#include "Sphere008.h"
+#include "Sphere008.h" //comment out when running on NDSDisplayListUtils
 #endif
 
 // create the static parts of all objects
@@ -279,7 +279,7 @@ void drawSphere(float r, int lats, int longs) {
 
 	#ifdef ARM9
     // Execute the display list
-    glCallListGX((u32*)&Sphere008);
+    glCallListGX((u32*)&Sphere008); //comment out when running on NDSDisplayListUtils
 	#endif
 }
 

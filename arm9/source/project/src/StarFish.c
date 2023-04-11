@@ -71,7 +71,7 @@ void _drawStarFish(struct MarineObject * marineObj){
 			, USERSPACE_TGDS_OGL_DL_POINTER
 	#endif
 			);
-			glDrawArrays(GL_QUADS, 0, 4 * 5);
+			//glDrawArrays(GL_QUADS, 0, 4 * 5);	//segfaults on TGDS
 			glPopMatrix(
 	#ifdef ARM9
 			1, USERSPACE_TGDS_OGL_DL_POINTER

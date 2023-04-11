@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include <iostream>
 
 #ifdef ARM9
 #include <ctype.h>
@@ -53,11 +52,9 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 #define OBJ_FISH 3
 #define OBJ_PLANT 4
 
-Scene scene;	/// the scene we render
-bool wireMode = false;	/// wireframe mode on / off
-bool flatShading = false;	/// flat shading on / off
-
-using namespace std;
+struct Scene scene;	/// the scene we render
+bool wireMode;	/// wireframe mode on / off
+bool flatShading;	/// flat shading on / off
 
 #ifdef WIN32
 extern int startAquarium(int argc, char *argv[]);
@@ -67,6 +64,59 @@ int main(int argc, char *argv[])
 {
 	startAquarium(argc, argv);
 	return 0;
+}
+#endif
+
+#ifdef ARM9
+
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__((optnone))
+#endif
+#endif
+int InitGL()
+{
+	glInit(); //NDSDLUtils: Initializes a new videoGL context
+	
+	glClearColor(255,255,255);		// White Background
+	glClearDepth(0x7FFF);		// Depth Buffer Setup
+	glEnable(GL_ANTIALIAS);
+	glEnable(GL_TEXTURE_2D); // Enable Texture Mapping 
+	glEnable(GL_BLEND);
+	glDisable(GL_LIGHT0|GL_LIGHT1);
+	glEnable(GL_LIGHT0|GL_LIGHT1); //light #1 & #2 enabled per scene
+	
+	return 0;				
+}
+
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__((optnone))
+#endif
+#endif
+GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window
+{
+	if (height==0)										// Prevent A Divide By Zero By
+	{
+		height=1;										// Making Height Equal One
+	}
+
+	glViewport(0,0,width,height, USERSPACE_TGDS_OGL_DL_POINTER);						// Reset The Current Viewport
+
+	glMatrixMode(GL_PROJECTION, USERSPACE_TGDS_OGL_DL_POINTER);						// Select The Projection Matrix
+	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Projection Matrix
+
+	// Calculate The Aspect Ratio Of The Window
+	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+
+	glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);							// Select The Modelview Matrix
+	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Modelview Matrix
 }
 #endif
 
@@ -97,15 +147,16 @@ int startAquarium(int argc, char *argv[])
 	scene.perspectiveMode = true;
 
 	// create a single quad for the floor of the aquarium (reduces 420~ objects into mere 22 which makes the engine runnable on NintendoDS at good framerate)
-	GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
-	struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
-	quad.ry = 0.0f;	// we don't want random rotation
-	quad.rx = 90.0f;
-	quad.x = 3.5f * 1;
-	quad.z = 3.5f * 1;
-	scale(&quad, 95.5f, 95.5f, 3.0f);
-	add(&scene, &quad);
-
+	{
+		GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
+		struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
+		quad.ry = 0.0f;	// we don't want random rotation
+		quad.rx = 90.0f;
+		quad.x = 3.5f * 1;
+		quad.z = 3.5f * 1;
+		scale(&quad, 95.5f, 95.5f, 3.0f);
+		add(&scene, &quad);
+	}
 	// 'fake' keys being pressed to enable the state to
 	// setup lighting and fog
 	keyboardInput((unsigned char)'L', 0, 0);
@@ -114,17 +165,18 @@ int startAquarium(int argc, char *argv[])
 	keyboardInput((unsigned char)'F', 0, 0);
 
 	// add some stuff to the scene
-	for (int o = 0; o < 3; o++)
 	{
-		addObject(OBJ_CRAB);
-		addObject(OBJ_STARFISH);
-		addObject(OBJ_FISH);
-		addObject(OBJ_FISH);
-		addObject(OBJ_FISH);
-		addObject(OBJ_OCTOPUS);
-		addObject(OBJ_PLANT);
+		int o = 0;
+		for (o = 0; o < 3; o++){
+			addObject(OBJ_CRAB);
+			addObject(OBJ_STARFISH);
+			addObject(OBJ_FISH);
+			addObject(OBJ_FISH);
+			addObject(OBJ_FISH);
+			addObject(OBJ_OCTOPUS);
+			addObject(OBJ_PLANT);
+		}
 	}
-
 	// start the timer and enter the mail GLUT loop
 #ifdef WIN32
 	glutTimerFunc(50, animator, 0);
@@ -334,29 +386,39 @@ void addObject(int type)
 	{
 	case OBJ_STARFISH:{
 		y = -0.3f;
-		GLfloat mat1[] = {0.3f, 0.3f, 0.3f, 1.f};
-		object = BuildStarfish((void*)&_drawStarFish, mat1, 32.f, vertexStarFish, normalStarFish, NULL, coloursStarFish);
+		{
+			GLfloat mat1[] = {0.3f, 0.3f, 0.3f, 1.f};
+			object = BuildStarfish((void*)&_drawStarFish, mat1, 32.f, vertexStarFish, normalStarFish, NULL, coloursStarFish);
+		}
 	}break;
 	case OBJ_CRAB:{
 		y = -0.4f;
-		GLfloat mat1[] = {0.5f, 0.5f, 0.5f, 1.f};
-		object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);
+		{
+			GLfloat mat1[] = {0.5f, 0.5f, 0.5f, 1.f};
+			object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);
+		}
 	}break;
 	case OBJ_FISH:{
 		y = getRand(-26.0f, 25.0f);
-		GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
-		object = BuildFish((void*)&_drawFish, mat1, 120.f, vertexFish, normalFish, texelsFish, coloursFish);
+		{
+			GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
+			object = BuildFish((void*)&_drawFish, mat1, 120.f, vertexFish, normalFish, texelsFish, coloursFish);
+		}
 	}break;
 	case OBJ_OCTOPUS:{
 		y = getRand(-27.0f, 25.0f);
-		GLfloat mat1[] = {0.0f, 0.0f, 2.0f, 1.f};
-		object = BuildOctopus((void*)&_drawOctopus, mat1, 50.f, NULL, NULL, NULL, NULL);
+		{
+			GLfloat mat1[] = {0.0f, 0.0f, 2.0f, 1.f};
+			object = BuildOctopus((void*)&_drawOctopus, mat1, 50.f, NULL, NULL, NULL, NULL);
+		}
 	}break;
 	case OBJ_PLANT:{
 		y = 0.0f;
-		GLfloat mat1[] = {0.1f, 0.3f, 0.15f, 1.f};
-		GLfloat mat2[] = {0.6f, 1.f, 0.8f, 1.f};
-		object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, 100.f, NULL, NULL, NULL, NULL);
+		{
+			GLfloat mat1[] = {0.1f, 0.3f, 0.15f, 1.f};
+			GLfloat mat2[] = {0.6f, 1.f, 0.8f, 1.f};
+			object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, 100.f, NULL, NULL, NULL, NULL);
+		}
 		object.ry = 0.0f;
 	}break;
 	}
@@ -471,6 +533,8 @@ bool init(int argc, char *argv[])
 {
 	// initialise glut
 	TWLPrintf("-- Initialising GLUT\n");
+	wireMode = false;	/// wireframe mode on / off
+	flatShading = false;	/// flat shading on / off
 
 #ifdef WIN32
 	glutInit(&argc, argv);
@@ -499,6 +563,13 @@ void setupGL(void)
 {
 	TWLPrintf("-- Setting up OpenGL state\n");   
 
+#ifdef ARM9
+	/* TGDS 1.65 OpenGL 1.1 Initialization */
+	InitGL();
+	ReSizeGLScene(255, 191);
+	glMaterialShinnyness(USERSPACE_TGDS_OGL_DL_POINTER);
+#endif
+
 	// blue green background colour
 	glClearColor(0.0, 0.5, 0.55
 #ifdef WIN32
@@ -517,8 +588,10 @@ void setupGL(void)
 #ifdef WIN32
 	glDisable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP);
-	GLfloat fogColor[4] = {0.0f, 0.5f, 0.55f, 1.0f};
-	glFogfv(GL_FOG_COLOR, fogColor);
+	{
+		GLfloat fogColor[4] = {0.0f, 0.5f, 0.55f, 1.0f};
+		glFogfv(GL_FOG_COLOR, fogColor);
+	}
 	glFogf(GL_FOG_DENSITY, 0.0075);
 	
 	// enable normalising of normals after scaling
@@ -527,8 +600,10 @@ void setupGL(void)
 	// setup lighting, but disable for nwo
 	glDisable(GL_LIGHTING);
 #ifdef WIN32
-	GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
+	{
+		GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
+	}
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
 
 	/*

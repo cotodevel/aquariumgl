@@ -415,57 +415,8 @@ int main(int argc, char **argv) {
 	while(1==1){
 
 	}
-	while(1==1){
-		//Handle Input & game logic
-		scanKeys();
-		
-		if(runGameTick == true){
-			//next(1);
-			runGameTick = false;
-		}
-		
-		struct touchPosition touch;
-		XYReadScrPosUser(&touch);
-		//mouse(0, 0, touch.px, touch.py); 	//OnTSCTouch
-		//keyboard(keysDown(), touch.px, touch.py); //Keys
-		
-		//Render
-		//display();
-	}
 	
 	return 0;
-}
-
-GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize The GL Window
-{
-	if (height==0)										// Prevent A Divide By Zero By
-	{
-		height=1;										// Making Height Equal One
-	}
-
-	glViewport(0,0,width,height, USERSPACE_TGDS_OGL_DL_POINTER);						// Reset The Current Viewport
-
-	glMatrixMode(GL_PROJECTION, USERSPACE_TGDS_OGL_DL_POINTER);						// Select The Projection Matrix
-	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Projection Matrix
-
-	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f, USERSPACE_TGDS_OGL_DL_POINTER);
-
-	glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);							// Select The Modelview Matrix
-	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Modelview Matrix
-}
-
-int InitGL()										// All Setup For OpenGL Goes Here
-{
-	glInit(); //NDSDLUtils: Initializes a new videoGL context
-	glClearColor(255,255,255);		// White Background
-	glClearDepth(0x7FFF);		// Depth Buffer Setup
-	glEnable(GL_ANTIALIAS);
-	glEnable(GL_TEXTURE_2D); // Enable Texture Mapping 
-	glEnable(GL_BLEND);
-	glDisable(GL_LIGHT0);
-	glEnable(GL_LIGHT1|GL_LIGHT2); //light #1 & #2 enabled per scene
-	return true;				
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -49,8 +49,6 @@ struct Scene {
 extern "C"{
 #endif
 
-extern void clearScene();	/// clears the scene for drawing
-
 extern void SceneInit1(struct Scene * Inst);	/// default constructor
 extern void drawHUD(struct Scene * Inst);	/// draw the heads up display
 extern bool add(struct Scene * Inst, struct MarineObject *object);	/// add object to rendering queue

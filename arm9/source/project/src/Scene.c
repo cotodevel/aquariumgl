@@ -110,19 +110,19 @@ void SceneInit1(struct Scene * Inst){
 void drawScene(){
 	struct Scene * Inst = &scene;
 	// clear scene
-	clearScene();
-	
-	// set up the miner's hat light before moving the camera
-	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	
-//Unsupported by NDS GX
 #ifdef WIN32
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngleScene);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
+#endif
+#ifdef ARM9
+	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Clear The Screen And The Depth Buffer
+	glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
+
+	updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
+	glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER);
 #endif
 
 	//position camera
@@ -138,6 +138,20 @@ void drawScene(){
 	// check if there are any objects to draw
 	{
 		int i = 0;
+		
+		//ARM9 Camera 
+#ifdef ARM9
+		glMatrixMode(GL_PROJECTION, USERSPACE_TGDS_OGL_DL_POINTER);
+		glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);
+		glOrtho(-1.0, +1.0, -1.0, +1.0, -2.0, +4.0, USERSPACE_TGDS_OGL_DL_POINTER);
+		glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
+		gluLookAt(
+			0.0, 0.0, 2.0,
+			0.0, 0.0, 0.0,
+			0.0, 1.0, 0.0
+			,USERSPACE_TGDS_OGL_DL_POINTER);
+		glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
+#endif		
 		for (i = 0; i < Inst->curElementAlloced; i++){
 			// draw all elements in the scene
 			draw(&Inst->elementsStart[i]);
@@ -150,31 +164,11 @@ void drawScene(){
 #endif
 
 #ifdef ARM9
+	glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER);
 	glFlush(USERSPACE_TGDS_OGL_DL_POINTER);
 	//HaltUntilIRQ(); //Save power until next Vblank
 #endif
 
-}
-
-
-/// Clears the scene for drawing
-/*
-* This method clears the scene for drawing. Both the colour
-* and the depth buffers are cleared. The cameara position is
-* also reset here.
-*/
-void clearScene(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLoadIdentity(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
 }
 
 

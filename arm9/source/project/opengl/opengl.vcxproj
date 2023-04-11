@@ -22,7 +22,7 @@
     <ClCompile Include="..\src\Camera.c" />
     <ClCompile Include="..\src\Crab.c" />
     <ClCompile Include="..\src\Fish.c" />
-    <ClCompile Include="..\src\mainwin32.cpp" />
+    <ClCompile Include="..\src\mainwin32.c" />
     <ClCompile Include="..\src\Octopus.c" />
     <ClCompile Include="..\src\Plant.c" />
     <ClCompile Include="..\src\Quad.c" />
