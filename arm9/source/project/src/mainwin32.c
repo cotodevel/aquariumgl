@@ -123,9 +123,9 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 
 int startAquarium(int argc, char *argv[])
 {
-	TWLPrintf("-- Program starting\n");
-
-	srand(time(NULL));
+	time_t time1 = time(NULL);
+	TWLPrintf("-- Program starting: %d\n", (unsigned int)time1);
+	srand(time1);
 	init(argc, argv);
 
 	// register our call-back functions
