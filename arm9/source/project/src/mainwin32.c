@@ -36,7 +36,6 @@ extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list
 
 #include "Scene.h"
 #include "Renderable.h"
-#include "Textures.h"
 #include "Camera.h"
 
 #ifndef _MSC_VER
@@ -138,8 +137,6 @@ int startAquarium(int argc, char *argv[])
 #endif
 
 	// generate/load textures
-	TWLPrintf("-- Generating/Loading Textures\n");
-
 	getTextures();
 
 	// create the scene and set perspective projection as default
@@ -485,43 +482,33 @@ void setupViewVolume(void)
 	);
 }
 
+#ifdef WIN32
+void load_image(const char* filename)
+{
+    int width, height;
+    unsigned char* image = SOIL_load_image(filename, &width, &height, 0, SOIL_LOAD_RGB);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    SOIL_free_image_data(image);
+}
+#endif
 
 /// Initiates all textures
 void getTextures(void)
 {
-#ifdef WIN32
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(2, texturesRenderable);
+	TWLPrintf("-- Generating/Loading Textures\n");
 
-	getSandTexture();
-	getFishTexture();
+#ifdef WIN32
+	glGenTextures(2, texturesRenderable);
+    glBindTexture(GL_TEXTURE_2D, texturesRenderable[FLOOR_TEXTURE]);
+    load_image("../src/resources/grass.png");
+	glBindTexture(GL_TEXTURE_2D, texturesRenderable[FISH_TEXTURE]);
+    load_image("../src/resources/fish.png");
 #endif
 
 #ifdef ARM9
 //ARM9 Todo
 #endif
 }
-
-
-/// Loads the sand texture
-void getSandTexture(void)
-{
-#ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, texturesRenderable[0]);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 64, 64, GL_RGB, GL_UNSIGNED_BYTE, sand_image.pixel_data);
-#endif
-}
-
-
-/// Loads the fish texture
-void getFishTexture(void)
-{
-#ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, texturesRenderable[1]);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, 128, 128, GL_RGB, GL_UNSIGNED_BYTE, fish_image.pixel_data);
-#endif
-}
-
 
 /// Init GLUT and OpenGL
 /*

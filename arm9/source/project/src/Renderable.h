@@ -50,10 +50,17 @@
 #include <time.h>
 #include <math.h>
 
+#if defined(_WIN32) || defined(WIN32)
+    #include <windows.h>
+    #include <GL/gl.h>
+    #include <GL/glut.h>
+	#include "SOIL.h"
+#endif
+
 #ifndef TEXTURE_IDS
 #define TEXTURE_IDS
-#define FLOOR_TEXTURE 1
-#define FISH_TEXTURE 2
+#define FLOOR_TEXTURE 0
+#define FISH_TEXTURE 1
 #endif
 
 #define RENDERABLE_STARFISH ((int)1)
@@ -200,6 +207,11 @@ extern int TWLPrintf(const char *fmt, ...);
 extern unsigned int texturesRenderable[2];	/// texture id array
 extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 extern int startAquarium(int argc, char *argv[]);
+
+#ifdef WIN32
+extern void load_image(const char* filename);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

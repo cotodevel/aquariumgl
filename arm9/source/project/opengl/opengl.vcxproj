@@ -22,13 +22,17 @@
     <ClCompile Include="..\src\Camera.c" />
     <ClCompile Include="..\src\Crab.c" />
     <ClCompile Include="..\src\Fish.c" />
+    <ClCompile Include="..\src\image_dxt.c" />
+    <ClCompile Include="..\src\image_helper.c" />
     <ClCompile Include="..\src\mainwin32.c" />
     <ClCompile Include="..\src\Octopus.c" />
     <ClCompile Include="..\src\Plant.c" />
     <ClCompile Include="..\src\Quad.c" />
     <ClCompile Include="..\src\Renderable.c" />
     <ClCompile Include="..\src\Scene.c" />
+    <ClCompile Include="..\src\soil.c" />
     <ClCompile Include="..\src\StarFish.c" />
+    <ClCompile Include="..\src\stb_image_aug.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F347282B-F24B-470D-BF8F-FCB92FFF2649}</ProjectGuid>

@@ -82,9 +82,7 @@ extern void keyboardInputSpecial(int key, int x, int y);	/// handles keyboard in
 extern void drawScene(void);	/// Renders a single frame of the scene
 extern void addObject(int type);	/// adds an object to the scene
 extern void setupViewVolume(void);	/// sets up the viewing volume
-extern void getTextures(void);	/// initiates all textures
-extern void getSandTexture(void);	/// loads the sand texture
-extern void getFishTexture(void);	/// loads the fish texture
+extern void getTextures(void);	/// initiates & loads all textures
 
 extern struct Scene scene;	/// the scene we render
 extern bool wireMode;	/// wireframe mode on / off
