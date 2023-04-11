@@ -30,6 +30,8 @@
 #include "biosTGDS.h"
 #include "InterruptsARMCores_h.h"
 #include "interrupts.h"
+#include "grass_tex.h"
+#include "fish_tex.h"
 
 extern int vsnprintf( char* buffer, size_t buf_size, const char* format, va_list vlist );
 #endif
@@ -506,7 +508,15 @@ void getTextures(void)
 #endif
 
 #ifdef ARM9
-//ARM9 Todo
+	//#1: Load a texture and map each one to a texture slot
+	u32 arrayOfTextures[2];
+	arrayOfTextures[FLOOR_TEXTURE] = (u32)&grass_tex; //0: grass_tex.bmp
+	arrayOfTextures[FISH_TEXTURE] = (u32)&fish_tex; //1: fish_tex.bmp  
+	int texturesInSlot = LoadLotsOfGLTextures((u32*)&arrayOfTextures, (int*)&texturesRenderable, 2); //Implements both glBindTexture and glTexImage2D 
+	int i = 0;
+	for(i = 0; i < texturesInSlot; i++){
+		printf("Texture loaded: %d:textID[%d] Size: %d", i, texturesRenderable[i], getTextureBaseFromTextureSlot(activeTexture));
+	}
 #endif
 }
 
