@@ -27,6 +27,8 @@ unsigned int texturesRenderable[2];
 
 GLint DLSOLIDCUBE0_06F=-1;
 
+GLint currentOGLDisplayListObject=-1;
+
 struct MarineObject MarineObjectInit1(
 	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
@@ -79,11 +81,7 @@ struct MarineObject MarineObjectInit1(
 
 /// Builds a display list of this object.
 void build(struct MarineObject * marineObjRef, GLuint *dlist){
-	*dlist = glGenLists(1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	*dlist = currentOGLDisplayListObject;
 	if (!glIsList(*dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
@@ -93,7 +91,7 @@ void build(struct MarineObject * marineObjRef, GLuint *dlist){
 		return;
 	}
 	marineObjRef->isList = true;
-
+	currentOGLDisplayListObject++; //point to next list if generation OK
 	glPushMatrix(
 #ifdef ARM9
 		USERSPACE_TGDS_OGL_DL_POINTER

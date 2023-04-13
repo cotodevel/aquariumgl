@@ -647,13 +647,6 @@ void setupGL(void)
 {
 	TWLPrintf("-- Setting up OpenGL state\n");   
 
-#ifdef ARM9
-	/* TGDS 1.65 OpenGL 1.1 Initialization */
-	InitGL();
-	ReSizeGLScene(255, 191);
-	glMaterialShinnyness(USERSPACE_TGDS_OGL_DL_POINTER);
-#endif
-
 	// blue green background colour
 	glClearColor(0.0, 0.5, 0.55
 #ifdef WIN32
@@ -710,7 +703,15 @@ void setupGL(void)
 #endif
 	);
 
-	DLSOLIDCUBE0_06F = (GLint)glGenLists(1
+#ifdef ARM9
+	/* TGDS 1.65 OpenGL 1.1 Initialization */
+	InitGL();
+	ReSizeGLScene(255, 191);
+	glMaterialShinnyness(USERSPACE_TGDS_OGL_DL_POINTER);
+#endif
+
+	//OpenGL enables multiple glGenLists(); assigning n ones per call. TGDS allows to call once glGenLists();, thus we allocate all of them here 
+	DLSOLIDCUBE0_06F = (GLint)glGenLists(10
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -796,6 +797,8 @@ void setupGL(void)
 #endif
 	); 
 	glCullFace (GL_NONE);
+
+	currentOGLDisplayListObject = DLSOLIDCUBE0_06F + 1;
 }
 
 //ARM9 version is in main.c
