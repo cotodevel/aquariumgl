@@ -84,11 +84,31 @@ int InitGL()
 	
 	glClearColor(255,255,255);		// White Background
 	glClearDepth(0x7FFF);		// Depth Buffer Setup
-	glEnable(GL_ANTIALIAS);
-	glEnable(GL_TEXTURE_2D); // Enable Texture Mapping 
-	glEnable(GL_BLEND);
-	glDisable(GL_LIGHT0|GL_LIGHT1);
-	glEnable(GL_LIGHT0|GL_LIGHT1); //light #1 & #2 enabled per scene
+	glEnable(GL_ANTIALIAS
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glEnable(GL_TEXTURE_2D
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	); // Enable Texture Mapping 
+	glEnable(GL_BLEND
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glDisable(GL_LIGHT0|GL_LIGHT1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glEnable(GL_LIGHT0|GL_LIGHT1
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	); //light #1 & #2 enabled per scene
 	
 	return 0;				
 }
@@ -183,25 +203,13 @@ int startAquarium(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
-    //startTimerCounter(tUnitsMilliseconds, 1);
-
 	while(1==1){
-		
 		//Handle Input & game logic
-		//scanKeys();
-		
-		//if(runGameTick == true){
-			//next(1);
-			//runGameTick = false;
-		//}
-		
-		//struct touchPosition touch;
-		//XYReadScrPosUser(&touch);
-		//keyboardInput(keysDown(), touch.px, touch.py); //Keys
-		
+		scanKeys();
+		keyboardInputSpecial((int)keysDown(), 0, 0);
+
 		//Render
 		drawScene();
-
 	}
 #endif
 	return 0;
@@ -240,124 +248,203 @@ void keyboardInput(unsigned char key, int x, int y)
 {
 	switch(key) {
 	
-#ifdef WIN32
-	case 27:	// ESC key (Quits)
-		exit(0);
-		break;
+		case 27:	// ESC key (Quits)
+			exit(0);
+			break;
 
-	case ' ':	// SPACE key (Toggle flat/smooth shading)
-		flatShading = !flatShading;
-		if (flatShading) glShadeModel(GL_FLAT);
-		else glShadeModel(GL_SMOOTH);
-		break;
+		case ' ':	// SPACE key (Toggle flat/smooth shading)
+			flatShading = !flatShading;
+			if (flatShading) glShadeModel(GL_FLAT);
+			else glShadeModel(GL_SMOOTH);
+			break;
 
-	case 'A':
-	case 'a':
-		tiltdown(&scene.camera);
-		break;
+		case 'A':
+		case 'a':
+			tiltdown(&scene.camera);
+			break;
 
-	case 'Z':
-	case 'z':
-		tiltup(&scene.camera);
-		break;
+		case 'Z':
+		case 'z':
+			tiltup(&scene.camera);
+			break;
 
-	case 'W':
-	case 'w':	// toggles wireframe mode on/off
-		wireMode = !wireMode;
-		if (!wireMode) {
-			glDisable(GL_BLEND);
-			//glDisable(GL_LINE_SMOOTH);
-		} else {
-			glEnable(GL_BLEND);
-			//glEnable(GL_LINE_SMOOTH);
-		}
-		break;
+		case 'W':
+		case 'w':	// toggles wireframe mode on/off
+			wireMode = !wireMode;
+			if (!wireMode) {
+				glDisable(GL_BLEND
+				#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+				//glDisable(GL_LINE_SMOOTH);
+			} else {
+				glEnable(GL_BLEND
+				#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+				//glEnable(GL_LINE_SMOOTH);
+			}
+			break;
 
-	case 'P':
-	case 'p':	// toglles between perspective/orthographic projections
-		scene.perspectiveMode = !scene.perspectiveMode;
-		setupViewVolume();
-		break;
+		case 'P':
+		case 'p':	// toglles between perspective/orthographic projections
+			scene.perspectiveMode = !scene.perspectiveMode;
+			setupViewVolume();
+			break;
 
-	case 'f':
-	case 'F':	// toggles fog on/off
-		scene.fogMode = !scene.fogMode;
-		if (scene.fogMode) glEnable(GL_FOG);
-		else glDisable(GL_FOG);
-		break;
+		case 'f':
+		case 'F':{	// toggles fog on/off
+			scene.fogMode = !scene.fogMode;
+			
+		#ifdef WIN32
+			if (scene.fogMode) glEnable(GL_FOG);
+			else glDisable(GL_FOG);
+		#endif
+		}break;
 
-	case 'l':
-	case 'L':	// toggles lighting calculations on/off
-		scene.lightMode = !scene.lightMode;
-		if (scene.lightMode) glEnable(GL_LIGHTING);
-		else glDisable(GL_LIGHTING);
-		break;
+		case 'l':
+		case 'L':{	// toggles lighting calculations on/off
+			scene.lightMode = !scene.lightMode;
+			if (scene.lightMode) {
+				glEnable(GL_LIGHTING
+				#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+			else {
+				glDisable(GL_LIGHTING
+				#ifdef ARM9
+						, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+		}break;
 
-	case '0':	// toggles light 0 on / off
-		scene.light0On = ! scene.light0On;
-		if (scene.light0On) glEnable(GL_LIGHT0);
-		else glDisable(GL_LIGHT0);
-		break;
+		case '1':{	// toggles light 0 on / off
+			scene.light0On = ! scene.light0On;
+			if (scene.light0On){ 
+				glEnable(GL_LIGHT0
+				#ifdef ARM9
+						, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+			else {
+				glDisable(GL_LIGHT0
+				#ifdef ARM9
+						, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+		}break;
 
-	case '1':	// toggles light 1 on / off
-		scene.light1On = ! scene.light1On;
-		if (scene.light1On) glEnable(GL_LIGHT1);
-		else glDisable(GL_LIGHT1);
-		break;
-#endif
-
+		case '2':{	// toggles light 1 on / off
+			scene.light1On = ! scene.light1On;
+			if (scene.light1On) {
+				glEnable(GL_LIGHT1
+				#ifdef ARM9
+						, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+			else {
+				glDisable(GL_LIGHT1
+				#ifdef ARM9
+						, USERSPACE_TGDS_OGL_DL_POINTER
+				#endif
+				);
+			}
+		}break;
 	}
 }
 
 
 /// Processes special keyboard keys like F1, F2, etc
-void keyboardInputSpecial(int key, int x, int y)
-{
+void keyboardInputSpecial(int key, int x, int y){
 	switch (key){
 	
-#ifdef WIN32
-	case GLUT_KEY_F1:
-		scene.showMenu = !scene.showMenu;
-		break;
+		//WIN32 ONLY
+		#ifdef WIN32
+		case GLUT_KEY_F1:{
+			scene.showMenu = !scene.showMenu;
+		}break;
+		case GLUT_KEY_F2:{
+			addObject(OBJ_CRAB);
+		}break;
+		case GLUT_KEY_F3:{
+			addObject(OBJ_OCTOPUS);
+		}break;
+		case GLUT_KEY_F4:{
+			addObject(OBJ_STARFISH);
+		}break;
+		case GLUT_KEY_F5:{
+			addObject(OBJ_FISH);
+		}break;
+		case GLUT_KEY_F6:{
+			addObject(OBJ_PLANT);
+		}break;
+		#endif
 
-	case GLUT_KEY_F2:
-		addObject(OBJ_CRAB);
-		break;
+		//WIN32 & NDS Shared
+		#ifdef WIN32
+		case GLUT_KEY_LEFT:
+		#endif
+		#ifdef ARM9
+		case KEY_LEFT:
+		#endif
+		{
+			anticlockwise(&scene.camera);
+		}break;
 
-	case GLUT_KEY_F3:
-		addObject(OBJ_OCTOPUS);
-		break;
+		#ifdef WIN32
+		case GLUT_KEY_RIGHT:
+		#endif
+		#ifdef ARM9
+		case KEY_RIGHT:
+		#endif
+		{
+			clockwise(&scene.camera);
+		}break;
+		#ifdef WIN32
+		case GLUT_KEY_UP:
+		#endif
+		#ifdef ARM9
+		case KEY_UP:
+		#endif
+		{
+			inc(&scene.camera);
+		}break;
 
-	case GLUT_KEY_F4:
-		addObject(OBJ_STARFISH);
-		break;
+		#ifdef WIN32
+		case GLUT_KEY_DOWN:
+		#endif
+		#ifdef ARM9
+		case KEY_DOWN:
+		#endif
+		{
+			dec(&scene.camera);
+		}break;
 
-	case GLUT_KEY_F5:
-		addObject(OBJ_FISH);
-		break;
+		//NDS only
+		#ifdef ARM9
 
-	case GLUT_KEY_F6:
-		addObject(OBJ_PLANT);
-		break;
+		case KEY_L:{
+			keyboardInput('1', 0, 0); // toggles light 0 on / off
+		}break;
 
-	case GLUT_KEY_LEFT:
-		anticlockwise(&scene.camera);
-		break;
+		case KEY_R:{
+			keyboardInput('2', 0, 0); // toggles light 1 on / off
+		}break;
 
-	case GLUT_KEY_RIGHT:
-		clockwise(&scene.camera);
-		break;
+		case KEY_A:{
+			keyboardInput('L', 0, 0); // toggles lighting calculations on/off
+		}break;
 
-	case GLUT_KEY_UP:
-		inc(&scene.camera);
-		break;
-
-	case GLUT_KEY_DOWN:
-		dec(&scene.camera);
-		break;
-#endif
+		#endif
 	}
-
 }
 
 /// Adds an object to the scene
@@ -594,8 +681,12 @@ void setupGL(void)
 	// enable normalising of normals after scaling
 	glEnable(GL_NORMALIZE);
 #endif
-	// setup lighting, but disable for nwo
-	glDisable(GL_LIGHTING);
+	// setup lighting, but disable for now
+	glDisable(GL_LIGHTING
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 #ifdef WIN32
 	{
 		GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
@@ -613,7 +704,11 @@ void setupGL(void)
 #endif
 	// setup backface culling
 	glCullFace(GL_BACK);
-	glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE
+#ifdef ARM9
+	, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	DLSOLIDCUBE0_06F = (GLint)glGenLists(1
 #ifdef ARM9
@@ -695,7 +790,11 @@ void setupGL(void)
 		#endif
 	}
 
-	glDisable(GL_CULL_FACE); 
+	glDisable(GL_CULL_FACE
+#ifdef ARM9
+	, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	); 
 	glCullFace (GL_NONE);
 }
 

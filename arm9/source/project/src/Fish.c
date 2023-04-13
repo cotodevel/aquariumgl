@@ -74,7 +74,11 @@ void _drawFish(struct MarineObject * marineObj)
 	);
 
 	// enable texturing
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 #ifdef WIN32
 	glBindTexture(GL_TEXTURE_2D, FISH_TEXTURE+1);
@@ -140,7 +144,11 @@ void _drawFish(struct MarineObject * marineObj)
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
 
 

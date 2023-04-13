@@ -199,11 +199,19 @@ void drawHUD(struct Scene * Inst){
 	GLboolean lightsOn;
 	
 	// disable depth testing to HUD is drawn on top of everything
-	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// disable lightint so we see everything OK
 	glGetBooleanv(GL_LIGHTING, &lightsOn);
-	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHTING
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// grab and save the current projection
 	glMatrixMode(GL_PROJECTION
@@ -312,10 +320,20 @@ void drawHUD(struct Scene * Inst){
 	);
 
 	// enable depth testing again
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 
 	// enable lighting if needed
-	if (lightsOn) glEnable(GL_LIGHTING);
+	if (lightsOn){
+		glEnable(GL_LIGHTING
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
+	}
 }
 
 
@@ -374,7 +392,7 @@ void printMenu(struct Scene * Inst){
 	printGL2(Inst, 0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
 	printGL2(Inst, 0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
 	printGL2(Inst, 0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
-	printGL2(Inst, 0.0f, 4.7f, -1.0f, "1/0   - Toggle light 1/0 on/off ");
+	printGL2(Inst, 0.0f, 4.7f, -1.0f, "1/2   - Toggle light 1/0 on/off ");
 
 	glColor3f(0.0f, 1.0f, 0.0f
 #ifdef ARM9

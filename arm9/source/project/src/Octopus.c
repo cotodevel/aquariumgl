@@ -121,6 +121,9 @@ void _drawOctopus(struct MarineObject * marineObj)
 			);
 		}
 	}
+	
+#ifdef WIN32
 	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);
+#endif
 }

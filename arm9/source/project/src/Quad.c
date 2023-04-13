@@ -49,7 +49,11 @@ void _drawQuad(struct MarineObject * marineObj)
 	);
 
 	// enable texturing
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 	
 #ifdef WIN32
 	glBindTexture(GL_TEXTURE_2D, FLOOR_TEXTURE+1);
@@ -130,5 +134,9 @@ void _drawQuad(struct MarineObject * marineObj)
 #endif
 	);
 
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
 }
