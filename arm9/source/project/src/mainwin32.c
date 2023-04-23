@@ -493,8 +493,30 @@ void addObject(int type)
 	case OBJ_STARFISH:{
 		y = -0.3f;
 		{
-			GLfloat mat1[] = {0.3f, 0.3f, 0.3f, 1.f};
-			object = BuildStarfish((void*)&_drawStarFish, mat1, 32.f, vertexStarFish, normalStarFish, NULL, coloursStarFish);
+			GLfloat mat1[] = {
+		#ifdef WIN32
+				0.3f, 0.3f, 0.3f, 1.f
+		#endif
+
+		#ifdef ARM9
+				100.0f, 200.4f, 220.0f, 1.f
+		#endif
+			};
+
+			GLfloat high_shininess[] = { 
+#ifdef WIN32
+				32.f
+#endif
+#ifdef ARM9
+				128.0f //NDS
+#endif
+			};
+
+			object = BuildStarfish((void*)&_drawStarFish, mat1, high_shininess[0], vertexStarFish, normalStarFish, NULL, coloursStarFish);
+			//scale the starfish
+			#ifdef ARM9
+			scale(&object, 4.0f, 4.0f, 4.0f);
+			#endif
 		}
 	}break;
 	case OBJ_CRAB:{
@@ -540,12 +562,12 @@ void addObject(int type)
 			};
 			GLfloat high_shininess[] = { 
 #ifdef WIN32
-			100.f
+				100.f
 #endif
 #ifdef ARM9
-			128.0f //NDS
+				128.0f //NDS
 #endif
-		};
+			};
 			object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, high_shininess[0], NULL, NULL, NULL, NULL);
 			//scale the DL plant
 			#ifdef ARM9

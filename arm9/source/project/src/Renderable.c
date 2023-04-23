@@ -210,12 +210,20 @@ void draw(struct MarineObject * marineObjRef){
 	// the normal draw function of the object
 	switch(marineObjRef->callerType){
 
-		//todo: when main camera is ported to NDS
-		/*
 		case(RENDERABLE_STARFISH):{
 			_drawStarFish(marineObjRef);
 		}break;
 
+		case(RENDERABLE_QUAD):{
+			_drawQuad(marineObjRef);
+		}break;
+
+		case(RENDERABLE_PLANT):{
+			_draw_dlistPlant(marineObjRef);
+		}break;
+
+		//todo: when main camera is ported to NDS
+		/*
 		case(RENDERABLE_FISH):{
 			_drawFish(marineObjRef);
 		}break;
@@ -229,13 +237,6 @@ void draw(struct MarineObject * marineObjRef){
 		}break;
 		*/
 
-		case(RENDERABLE_QUAD):{
-			_drawQuad(marineObjRef);
-		}break;
-
-		case(RENDERABLE_PLANT):{
-			_draw_dlistPlant(marineObjRef);
-		}break;
 	}
 
 	glPopMatrix(
