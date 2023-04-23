@@ -226,15 +226,16 @@ void draw(struct MarineObject * marineObjRef){
 			_drawOctopus(marineObjRef);
 		}break;
 
-		//todo: when main camera is ported to NDS
+		case(RENDERABLE_CRAB):{
+			_draw_dlistCrab(marineObjRef);
+		}break;
+
+		//todo: Fish rendering on NDS
 		/*
 		case(RENDERABLE_FISH):{
 			_drawFish(marineObjRef);
 		}break;
 
-		case(RENDERABLE_CRAB):{
-			_draw_dlistCrab(marineObjRef);
-		}break;
 
 		*/
 
@@ -266,23 +267,52 @@ void drawSphere(float r, int lats, int longs) {
 		double lat1 = M_PI * (-0.5 + (double)i / lats);
 		double z1 = sin(lat1);
 		double zr1 = cos(lat1);
-		glBegin(GL_QUAD_STRIP);
+		glBegin(GL_QUAD_STRIP
+#ifdef ARM9
+			, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 		for (j = 0; j <= longs; j++) {
 			double lng = 2 * M_PI * (double)(j - 1) / longs;
 			double x = cos(lng);
 			double y = sin(lng);
 
-			glNormal3f(x * zr0, y * zr0, z0);
-			glVertex3f(r * x * zr0, r * y * zr0, r * z0);
-			glNormal3f(x * zr1, y * zr1, z1);
-			glVertex3f(r * x * zr1, r * y * zr1, r * z1);
+			glNormal3f(x * zr0, y * zr0, z0
+#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glVertex3f(r * x * zr0, r * y * zr0, r * z0
+#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glNormal3f(x * zr1, y * zr1, z1
+#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
+			glVertex3f(r * x * zr1, r * y * zr1, r * z1
+#ifdef ARM9
+				, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+			);
 		}
-		glEnd();
+		glEnd(
+#ifdef ARM9
+			USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+		);
 	}
 	#endif
 
 	#ifdef ARM9
-    // Execute the display list
+	glScalef(r, r, r
+#ifdef ARM9
+		, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	// Execute the display list
     glCallListGX((u32*)&Sphere008); //comment out when running on NDSDisplayListUtils
 	#endif
 }

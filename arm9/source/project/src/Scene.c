@@ -132,7 +132,6 @@ void drawScene(){
 	USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 );
-
 	// set up our directional overhead light
 	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
 #ifdef ARM9
@@ -145,11 +144,6 @@ void drawScene(){
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
 #endif
 
-#ifdef ARM9
-	updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
-	glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER);
-#endif
-
 	//position camera
 	position(&Inst->camera); 
 	
@@ -157,6 +151,10 @@ void drawScene(){
 	{
 		int i = 0;
 		for (i = 0; i < Inst->curElementAlloced; i++){
+			#ifdef ARM9
+				updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
+				glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER); //clear last scene color/light vectors
+			#endif
 			draw(&Inst->elementsStart[i]);
 		}
 	}

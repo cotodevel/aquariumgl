@@ -129,12 +129,8 @@ void _draw_dlistCrab(struct MarineObject * marineObj)
 	glEnable(GL_COLOR_MATERIAL);
 #endif
 
-	glCallList(marineObj->dlist
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
 
+	_drawCrab(marineObj);
 #ifdef WIN32
 	// turn of colour material tracking
 	glDisable(GL_COLOR_MATERIAL);

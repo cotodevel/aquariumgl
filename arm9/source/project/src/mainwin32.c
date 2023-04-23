@@ -223,6 +223,9 @@ int startAquarium(int argc, char *argv[])
 
 #if defined(ARM9)
 	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Depend on GX stack to render scene
+
+	glClearColor(0,35,195);		// blue green background colour
+
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
@@ -524,6 +527,10 @@ void addObject(int type)
 		{
 			GLfloat mat1[] = {0.5f, 0.5f, 0.5f, 1.f};
 			object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);
+			//scale the crab
+			#ifdef ARM9
+			scale(&object, 7.0f, 7.0f, 7.0f);
+			#endif
 		}
 	}break;
 	case OBJ_FISH:{
@@ -534,12 +541,11 @@ void addObject(int type)
 		}
 	}break;
 	case OBJ_OCTOPUS:{
-		
 #ifdef WIN32
 		y = getRand(-27.0f, 25.0f);
 #endif
 #ifdef ARM9
-		y = getRand(3.0f, 5.0f);
+		y = getRand(8.0f, 10.0f);
 #endif
 		{
 			GLfloat mat1[] = {
@@ -562,7 +568,12 @@ void addObject(int type)
 			};
 
 			object = BuildOctopus((void*)&_drawOctopus, mat1, high_shininess[0], NULL, NULL, NULL, NULL);
-
+			//scale the octopus
+			#ifdef ARM9
+			object.ry = 0.0f;	// we don't want random rotation
+			object.rx = 180.0f;
+			scale(&object, 6.0f, 6.0f, 6.0f);
+			#endif
 		}
 	}break;
 	case OBJ_PLANT:{

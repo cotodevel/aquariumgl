@@ -1,4 +1,6 @@
 ![ToolchainGenericDS](img/TGDS-Logo.png)
+![ToolchainGenericDS](img/aq1.png)
+![ToolchainGenericDS](img/aq2.png)
 
 NTR/TWL SDK: TGDS1.65
 
@@ -18,7 +20,7 @@ make <enter>
 
 After compiling, run the example in NDS. 
 
-Project Specific description: aquariumGL for NintendoDS
+Project Specific description: aquariumGL NintendoDS port.
 
 Source: https://www.igorkromin.net/index.php/2013/03/02/opengl-aquarium-written-in-c/
 
@@ -54,6 +56,6 @@ Note:
 - Preferably, use toolchaingenericds-multiboot and load snakeGL from there. It's guaranteed to work.
 
 Latest stable release:
-https://bitbucket.org/Coto88/toolchaingenericds-billiardgl/get/master.zip
+https://bitbucket.org/Coto88/aquariumgl/get/TGDS1.65.zip
 
 Coto
