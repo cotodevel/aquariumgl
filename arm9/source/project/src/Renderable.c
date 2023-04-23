@@ -222,6 +222,10 @@ void draw(struct MarineObject * marineObjRef){
 			_draw_dlistPlant(marineObjRef);
 		}break;
 
+		case(RENDERABLE_OCTOPUS):{
+			_drawOctopus(marineObjRef);
+		}break;
+
 		//todo: when main camera is ported to NDS
 		/*
 		case(RENDERABLE_FISH):{
@@ -232,9 +236,6 @@ void draw(struct MarineObject * marineObjRef){
 			_draw_dlistCrab(marineObjRef);
 		}break;
 
-		case(RENDERABLE_OCTOPUS):{
-			_drawOctopus(marineObjRef);
-		}break;
 		*/
 
 	}

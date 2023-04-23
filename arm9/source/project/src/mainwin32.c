@@ -534,10 +534,35 @@ void addObject(int type)
 		}
 	}break;
 	case OBJ_OCTOPUS:{
+		
+#ifdef WIN32
 		y = getRand(-27.0f, 25.0f);
+#endif
+#ifdef ARM9
+		y = getRand(3.0f, 5.0f);
+#endif
 		{
-			GLfloat mat1[] = {0.0f, 0.0f, 2.0f, 1.f};
-			object = BuildOctopus((void*)&_drawOctopus, mat1, 50.f, NULL, NULL, NULL, NULL);
+			GLfloat mat1[] = {
+		#ifdef WIN32
+				0.0f, 0.0f, 2.0f, 1.f
+		#endif
+
+		#ifdef ARM9
+				100.0f, 200.4f, 220.0f, 1.f
+		#endif
+			};
+
+			GLfloat high_shininess[] = { 
+#ifdef WIN32
+				50.f
+#endif
+#ifdef ARM9
+				128.0f //NDS
+#endif
+			};
+
+			object = BuildOctopus((void*)&_drawOctopus, mat1, high_shininess[0], NULL, NULL, NULL, NULL);
+
 		}
 	}break;
 	case OBJ_PLANT:{
