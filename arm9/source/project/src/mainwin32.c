@@ -167,12 +167,31 @@ int startAquarium(int argc, char *argv[])
 
 	// create a single quad for the floor of the aquarium (reduces 420~ objects into mere 22 which makes the engine runnable on NintendoDS at good framerate)
 	{
-		GLfloat mat1[] = {1.f, 1.f, 1.f, 1.f};
-		struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat1, 120.f, NULL, NULL, NULL, NULL);
+
+		GLfloat mat_ambient[]    = { 
+#ifdef WIN32
+			1.0f, 1.0f, 1.0f, 1.0f		//WIN32
+#endif
+#ifdef ARM9
+			60.0f, 60.0f, 60.0f, 60.0f	//NDS
+#endif
+		}; 
+
+		GLfloat mat_diffuse_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		GLfloat high_shininess[] = { 
+#ifdef WIN32
+			120.0f
+#endif
+#ifdef ARM9
+			128.0f //NDS
+#endif
+		}; 
+		
+		struct MarineObject quad = BuildQuad((void*)&_drawQuad, mat_ambient, mat_diffuse_specular, high_shininess[0], NULL, NULL, NULL, NULL);
 		quad.ry = 0.0f;	// we don't want random rotation
 		quad.rx = 90.0f;
-		quad.x = 3.5f * 1;
-		quad.z = 3.5f * 1;
+		quad.x = 1.0f * 1; //X axis relative to polygon origin
+		quad.z = 1.0f * 1; //Z axis relative to polygon origin
 		scale(&quad, 95.5f, 95.5f, 3.0f);
 		add(&scene, &quad);
 	}
@@ -203,10 +222,11 @@ int startAquarium(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
+	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Depend on GX stack to render scene
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
-		keyboardInputSpecial((int)keysDown(), 0, 0);
+		keyboardInputSpecial((int)keysHeld(), 0, 0);
 
 		//Render
 		drawScene();
@@ -317,7 +337,7 @@ void keyboardInput(unsigned char key, int x, int y)
 			else {
 				glDisable(GL_LIGHTING
 				#ifdef ARM9
-						, USERSPACE_TGDS_OGL_DL_POINTER
+				, USERSPACE_TGDS_OGL_DL_POINTER
 				#endif
 				);
 			}
@@ -328,14 +348,14 @@ void keyboardInput(unsigned char key, int x, int y)
 			if (scene.light0On){ 
 				glEnable(GL_LIGHT0
 				#ifdef ARM9
-						, USERSPACE_TGDS_OGL_DL_POINTER
+				, USERSPACE_TGDS_OGL_DL_POINTER
 				#endif
 				);
 			}
 			else {
 				glDisable(GL_LIGHT0
 				#ifdef ARM9
-						, USERSPACE_TGDS_OGL_DL_POINTER
+				, USERSPACE_TGDS_OGL_DL_POINTER
 				#endif
 				);
 			}
@@ -346,14 +366,14 @@ void keyboardInput(unsigned char key, int x, int y)
 			if (scene.light1On) {
 				glEnable(GL_LIGHT1
 				#ifdef ARM9
-						, USERSPACE_TGDS_OGL_DL_POINTER
+				, USERSPACE_TGDS_OGL_DL_POINTER
 				#endif
 				);
 			}
 			else {
 				glDisable(GL_LIGHT1
 				#ifdef ARM9
-						, USERSPACE_TGDS_OGL_DL_POINTER
+				, USERSPACE_TGDS_OGL_DL_POINTER
 				#endif
 				);
 			}
@@ -393,7 +413,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_LEFT:
 		#endif
 		#ifdef ARM9
-		case KEY_LEFT:
+		case KEY_UP:
 		#endif
 		{
 			anticlockwise(&scene.camera);
@@ -403,7 +423,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_RIGHT:
 		#endif
 		#ifdef ARM9
-		case KEY_RIGHT:
+		case KEY_DOWN:
 		#endif
 		{
 			clockwise(&scene.camera);
@@ -412,7 +432,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_UP:
 		#endif
 		#ifdef ARM9
-		case KEY_UP:
+		case KEY_LEFT:
 		#endif
 		{
 			inc(&scene.camera);
@@ -422,7 +442,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_DOWN:
 		#endif
 		#ifdef ARM9
-		case KEY_DOWN:
+		case KEY_RIGHT:
 		#endif
 		{
 			dec(&scene.camera);
@@ -501,9 +521,36 @@ void addObject(int type)
 	case OBJ_PLANT:{
 		y = 0.0f;
 		{
-			GLfloat mat1[] = {0.1f, 0.3f, 0.15f, 1.f};
-			GLfloat mat2[] = {0.6f, 1.f, 0.8f, 1.f};
-			object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, 100.f, NULL, NULL, NULL, NULL);
+			GLfloat mat1[] = {
+		#ifdef WIN32
+				0.1f, 0.3f, 0.15f, 1.f
+		#endif
+
+		#ifdef ARM9
+				0.0f, 200.4f, 0.0f, 1.f
+		#endif
+			};
+			GLfloat mat2[] = {
+		#ifdef WIN32
+				0.6f, 1.f, 0.8f, 1.f
+		#endif
+		#ifdef ARM9
+				1.0f, 1.0f, 1.0f, 1.0f
+		#endif
+			};
+			GLfloat high_shininess[] = { 
+#ifdef WIN32
+			100.f
+#endif
+#ifdef ARM9
+			128.0f //NDS
+#endif
+		};
+			object = BuildPlant((void*)&_draw_dlistPlant, NULL, mat1, mat2, high_shininess[0], NULL, NULL, NULL, NULL);
+			//scale the DL plant
+			#ifdef ARM9
+			scale(&object, 9.0f, 9.0f, 9.0f);
+			#endif
 		}
 		object.ry = 0.0f;
 	}break;

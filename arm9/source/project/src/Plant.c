@@ -14,6 +14,10 @@
 #undef WIN32		// //
 #endif
 
+#ifdef ARM9
+#include "VideoGL.h"
+#endif
+
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildPlant(
 		void * drawPlantFn, void * displayListFn,
@@ -142,9 +146,18 @@ void _draw_dlistPlant(struct MarineObject * marineObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
+
+#ifdef WIN32
 	glCallList(marineObj->dlist
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
+#endif
+
+#ifdef ARM9
+	//Execute the display list
+	extern u32 Sphere008[];
+	glCallListGX((u32*)&Sphere008); //comment out when running on NDSDisplayListUtils
+#endif
 }

@@ -15,12 +15,12 @@
 
 /// Default Constructor. Initialises defaults.
 struct MarineObject BuildQuad(
-		void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
+		void * drawQuadFn, GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 	)
 {
 	TWLPrintf("-- Creating quad\n");
-	return MarineObjectInit1(RENDERABLE_QUAD, materialIn, materialIn /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
+	return MarineObjectInit1(RENDERABLE_QUAD, materialIn1, materialIn2 /*unused*/, shininessIn, vertexIn, normalIn, texelsIn, coloursIn);
 }
 
 /// Draws the quad
@@ -32,12 +32,12 @@ void _drawQuad(struct MarineObject * marineObj)
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material2
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
@@ -65,11 +65,11 @@ void _drawQuad(struct MarineObject * marineObj)
 #endif
 
 #ifdef ARM9
-	glBindTexture(0, FLOOR_TEXTURE+1, USERSPACE_TGDS_OGL_DL_POINTER); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
+	glBindTexture(0, FLOOR_TEXTURE, USERSPACE_TGDS_OGL_DL_POINTER); 
+	glTexParameteri(0, GL_TEXTURE_WRAP_S, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
+	glTexParameteri(0, GL_TEXTURE_WRAP_T, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
+	glTexParameteri(0, GL_TEXTURE_MAG_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
+	glTexParameteri(0, GL_TEXTURE_MIN_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
 #endif
 
 	glColor3f(0.9f, 0.6f, 0.0f
@@ -134,9 +134,11 @@ void _drawQuad(struct MarineObject * marineObj)
 #endif
 	);
 
+#ifdef WIN32 //NDS actually disables texturing, so excluded
 	glDisable(GL_TEXTURE_2D
 #ifdef ARM9
 		, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
+#endif
 }

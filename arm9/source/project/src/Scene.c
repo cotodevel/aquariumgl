@@ -27,10 +27,18 @@ int widthScene;	/// the width of the window
 int heightScene;	/// the height of the window
 
 // light 0 colours
-GLfloat ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat diffuse0Scene[4]	= {0.4f, 0.4f, 0.4f, 1.01f};
-GLfloat specular0Scene[4]	= {0.2f, 0.2f, 0.2f, 1.0f};
-GLfloat position0Scene[4]	= {0.0f, -1.0f, 0.0f, 0.0f};
+#ifdef WIN32
+GLfloat ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f}; //WIN32
+GLfloat diffuse0Scene[4]	= {0.4f, 0.4f, 0.4f, 1.01f}; //WIN32
+GLfloat specular0Scene[4]	= {0.2f, 0.2f, 0.2f, 1.0f}; //WIN32
+GLfloat position0Scene[4]	= {0.0f, -1.0f, 0.0f, 0.0f}; //WIN32
+#endif
+#ifdef ARM9
+GLfloat ambient0Scene[]  = { 0.0f, 0.0f, 0.0f, 1.0f }; //NDS
+GLfloat diffuse0Scene[]  = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
+GLfloat specular0Scene[] = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
+GLfloat position0Scene[] = { 2.0f, 5.0f, 5.0f, 0.0f }; //NDS
+#endif
 
 // light 1 colours
 GLfloat ambient1Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
@@ -111,64 +119,56 @@ void drawScene(){
 	struct Scene * Inst = &scene;
 	// clear scene
 #ifdef WIN32
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+#endif
+
+	glMatrixMode(GL_MODELVIEW
+#ifdef ARM9
+	,USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+	glLoadIdentity(
+#ifdef ARM9
+	USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+);
+
+	// set up our directional overhead light
+	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
+#ifdef ARM9
+	,USERSPACE_TGDS_OGL_DL_POINTER
+#endif
+	);
+
+#ifdef WIN32
 	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngleScene);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
 #endif
-#ifdef ARM9
-	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Clear The Screen And The Depth Buffer
-	glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
 
+#ifdef ARM9
 	updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
 	glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER);
 #endif
 
 	//position camera
-	position(&Inst->camera);
-
-	// set up our directional overhead light
-	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-
-	// check if there are any objects to draw
+	position(&Inst->camera); 
+	
+	// draw all elements in the scene
 	{
 		int i = 0;
-		
-		//ARM9 Camera 
-#ifdef ARM9
-		glMatrixMode(GL_PROJECTION, USERSPACE_TGDS_OGL_DL_POINTER);
-		glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);
-		glOrtho(-1.0, +1.0, -1.0, +1.0, -2.0, +4.0, USERSPACE_TGDS_OGL_DL_POINTER);
-		glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
-		gluLookAt(
-			0.0, 0.0, 2.0,
-			0.0, 0.0, 0.0,
-			0.0, 1.0, 0.0
-			,USERSPACE_TGDS_OGL_DL_POINTER);
-		glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);
-#endif		
 		for (i = 0; i < Inst->curElementAlloced; i++){
-			// draw all elements in the scene
 			draw(&Inst->elementsStart[i]);
 		}
 	}
-
 #ifdef WIN32
 	drawHUD(Inst);
 	glutSwapBuffers();
 #endif
 
 #ifdef ARM9
-	glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER);
 	glFlush(USERSPACE_TGDS_OGL_DL_POINTER);
-	//HaltUntilIRQ(); //Save power until next Vblank
+	HaltUntilIRQ(); //Save power until next Vblank
 #endif
-
 }
 
 

@@ -209,6 +209,9 @@ void draw(struct MarineObject * marineObjRef){
 	// display list drawing function of the object, otherwise just call
 	// the normal draw function of the object
 	switch(marineObjRef->callerType){
+
+		//todo: when main camera is ported to NDS
+		/*
 		case(RENDERABLE_STARFISH):{
 			_drawStarFish(marineObjRef);
 		}break;
@@ -224,6 +227,7 @@ void draw(struct MarineObject * marineObjRef){
 		case(RENDERABLE_OCTOPUS):{
 			_drawOctopus(marineObjRef);
 		}break;
+		*/
 
 		case(RENDERABLE_QUAD):{
 			_drawQuad(marineObjRef);

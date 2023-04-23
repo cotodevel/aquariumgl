@@ -168,7 +168,7 @@ extern struct MarineObject BuildPlant(
 	GLfloat * coloursIn
 );
 extern struct MarineObject BuildQuad(
-	void * drawQuadFn, GLfloat materialIn[4], GLfloat shininessIn,
+	void * drawQuadFn, GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 	GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
 );
 extern struct MarineObject BuildStarfish(

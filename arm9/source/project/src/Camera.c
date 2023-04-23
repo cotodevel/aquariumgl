@@ -30,27 +30,41 @@ void reset(struct Camera * Inst){
 /// Positions the camera at the required place and rotation
 /// Zoom and spin is done by translate/rotate
 void position(struct Camera * Inst){
-	glTranslatef(0.0f, 0.0f, Inst->distance
-#ifndef _MSC_VER
-		, USERSPACE_TGDS_OGL_DL_POINTER
+	glTranslatef(0.0f, 0.0f, Inst->distance	
+#ifdef ARM9	
+	, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f
-#ifndef _MSC_VER
-		, USERSPACE_TGDS_OGL_DL_POINTER
+#ifdef ARM9	
+	, USERSPACE_TGDS_OGL_DL_POINTER
 #endif
 	);
 	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f
-#ifndef _MSC_VER
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif	
+#ifdef ARM9	
+	, USERSPACE_TGDS_OGL_DL_POINTER
+#endif
 	);
+
+//DS GX: Set extra camera parameters
+#ifdef ARM9	
+	//any floating point gl call is being converted to fixed prior to being implemented
+	gluPerspective(-45, 256.0 / 192.0, 0.1, 250, USERSPACE_TGDS_OGL_DL_POINTER);
+
+	
+	gluLookAt(	1.0, -Inst->distance, -45.0f + Inst->horizontalAngle,		//camera possition 
+				1.0, 1.0, 1.0,		//look at
+				1.0, 1.0, 45.0,		//up
+				USERSPACE_TGDS_OGL_DL_POINTER);		
+	
+#endif
+
 }
 
 
 /// Decrements the distance to origin (zoom in)
 void dec(struct Camera * Inst){
-		Inst->distance--;
+	Inst->distance--;
 }
 
 
