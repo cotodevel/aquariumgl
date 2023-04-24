@@ -26,8 +26,48 @@ struct MarineObject BuildOctopus(
 	return obj;
 }
 
+static bool bottomReach;
 void _drawOctopus(struct MarineObject * marineObj)
 {
+	// work out how much to advance the object by relative to its orientation
+	GLfloat yInc = cos(marineObj->rx * (3.14156 ) / 180) / 10.0f;
+	
+	// the floor is 70.0 x 70.0, but i want to keep the object inside a
+	// 65.0 x 65.0 area, so work out the circular boundaries if the object goes
+	// outside of this area
+
+#ifdef WIN32
+	if (marineObj->y < -20) {
+		marineObj->y = -20;
+		bottomReach = true;
+	}
+	
+	if (marineObj->y > 4){ 
+		marineObj->y = 4;
+		bottomReach = false;
+	}
+#endif
+
+#ifdef ARM9
+	if (marineObj->y < 0) {
+		marineObj->y = 0;
+		bottomReach = false;
+	}
+	
+	if (marineObj->y > 26){ 
+		marineObj->y = 26;
+		bottomReach = true;
+	}
+#endif
+
+	if(bottomReach == true){
+		marineObj->y += yInc;
+	}
+	else{
+		marineObj->y -= yInc;
+	}
+
+	
 	// select our colour
 	glColor3f(1.0f, 1.0f, 0.0f
 #ifdef ARM9
