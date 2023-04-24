@@ -173,7 +173,7 @@ int startAquarium(int argc, char *argv[])
 			1.0f, 1.0f, 1.0f, 1.0f		//WIN32
 #endif
 #ifdef ARM9
-			60.0f, 60.0f, 60.0f, 60.0f	//NDS
+			30.0f, 30.0f, 30.0f, 30.0f	//NDS
 #endif
 		}; 
 
@@ -205,12 +205,12 @@ int startAquarium(int argc, char *argv[])
 	// add some stuff to the scene
 	{
 		int o = 0;
-		for (o = 0; o < 3; o++){
+		for (o = 0; o < 4; o++){
 			addObject(OBJ_CRAB);
 			addObject(OBJ_STARFISH);
-			addObject(OBJ_FISH);
-			addObject(OBJ_FISH);
-			addObject(OBJ_FISH);
+			//addObject(OBJ_FISH);
+			//addObject(OBJ_FISH);
+			//addObject(OBJ_FISH);
 			addObject(OBJ_OCTOPUS);
 			addObject(OBJ_PLANT);
 		}
@@ -545,7 +545,7 @@ void addObject(int type)
 		y = getRand(-27.0f, 25.0f);
 #endif
 #ifdef ARM9
-		y = getRand(8.0f, 10.0f);
+		y = getRand(10.0f, 26.0f);
 #endif
 		{
 			GLfloat mat1[] = {
@@ -572,7 +572,7 @@ void addObject(int type)
 			#ifdef ARM9
 			object.ry = 0.0f;	// we don't want random rotation
 			object.rx = 180.0f;
-			scale(&object, 6.0f, 6.0f, 6.0f);
+			scale(&object, 4.0f, 4.0f, 4.0f);
 			#endif
 		}
 	}break;

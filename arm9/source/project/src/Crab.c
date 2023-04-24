@@ -112,6 +112,23 @@ void _drawCrab(struct MarineObject * marineObj)
 /// Draws the display list for the crab object
 void _draw_dlistCrab(struct MarineObject * marineObj)
 {
+	// work out how much to advance the object by relative to its orientation
+	GLfloat xInc = cos(marineObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat zInc = sin(marineObj->ry * (3.14156 ) / 180) / 10.0f;
+	GLfloat pt = 0;
+
+	// the floor is 70.0 x 70.0, but i want to keep the object inside a
+	// 65.0 x 65.0 area, so work out the circular boundaries if the object goes
+	// outside of this area
+	if (marineObj->x < -35) marineObj->x += 85.f;
+	if (marineObj->x > 35) marineObj->x -= 85.f;
+	if (marineObj->z < -35) marineObj->z += 85.f;
+	if (marineObj->z > 35) marineObj->z -= 85.f;
+
+	// increment the object position
+	marineObj->x -= xInc;
+	marineObj->z += zInc;
+
 	// set up the material properties (only front needs to be set)
 	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
 #ifdef ARM9

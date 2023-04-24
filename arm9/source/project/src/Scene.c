@@ -44,7 +44,7 @@ GLfloat position0Scene[] = { 2.0f, 5.0f, 5.0f, 0.0f }; //NDS
 GLfloat ambient1Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
 GLfloat diffuse1Scene[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
 GLfloat specular1Scene[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
-GLfloat position1Scene[4]	= {0.0f, 0.0f, 1.0f, 1.0f};
+GLfloat position1Scene[4]	= {-2.0f, -5.0f, -5.0f, -1.0f};
 GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
 
 // spotlight cut-off angle
@@ -139,10 +139,12 @@ void drawScene(){
 #endif
 	);
 
-#ifdef WIN32
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spotAngleScene);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, direction1Scene);
+	// set up our directional overhead light
+	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene
+#ifdef ARM9
+	,USERSPACE_TGDS_OGL_DL_POINTER
 #endif
+	);
 
 	//position camera
 	position(&Inst->camera); 
