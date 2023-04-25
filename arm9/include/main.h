@@ -58,7 +58,6 @@ extern void setupDLEnableDisable2DTextures();
 extern int main(int argc, char **argv);
 extern void menuShow();
 extern char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH];
-extern bool pendingPlay;
 extern struct fd * _FileHandleVideo; 
 extern struct fd * _FileHandleAudio;
 
@@ -68,22 +67,16 @@ extern struct fd * _FileHandleVideo;
 extern struct fd * _FileHandleAudio;
 extern bool stopSoundStreamUser();
 extern void closeSoundUser();
+
 extern char args[8][MAX_TGDSFILENAME_LENGTH];
 extern char *argvs[8];
 extern GLvoid ReSizeGLScene(GLsizei width, GLsizei height);
 extern int InitGL();
 extern bool get_pen_delta( int *dx, int *dy );
-
-extern float rotateX;
-extern float rotateY;
-extern float camMov;
-
-extern GLfloat	xrot;				
-extern GLfloat	yrot;			
-extern GLuint texturesgliard[11];
-
+	
 extern int TWLPrintf(const char *fmt, ...);
 extern int startAquarium(int argc, char *argv[]);
+extern int pendPlay;
 
 #ifdef __cplusplus
 }
