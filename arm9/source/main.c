@@ -43,14 +43,10 @@ USA
 #include "InterruptsARMCores_h.h"
 #include "interrupts.h"
 
+__attribute__((section(".dtcm")))
+int pendPlay = 0;
 
 char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH];
-bool pendingPlay = false;
-float rotateX=0.0;
-float rotateY=0.0;
-float camMov=0.0;
-GLuint texturesgliard[11];
-
 GLint DLDUMMY = -1;
 GLint DLDUMMY2 = -1;
 
@@ -395,9 +391,6 @@ int main(int argc, char **argv) {
 		//play videoTest maybe?
 	}
 	*/
-	
-	//init sound
-	bgMusicEnabled = false;
 	
 	clrscr();
 	printf("---");

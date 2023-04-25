@@ -22,6 +22,16 @@ After compiling, run the example in NDS.
 
 Project Specific description: aquariumGL NintendoDS port.
 
+Usage:
+
+D-PAD Left: Move camera left
+D-PAD Right: Move camera right
+D-PAD Up: Move camera closer
+D-PAD Down: Move camera further
+
+A: Enable background music
+B: Enable background music
+
 Source: https://www.igorkromin.net/index.php/2013/03/02/opengl-aquarium-written-in-c/
 
 ____Remoteboot____

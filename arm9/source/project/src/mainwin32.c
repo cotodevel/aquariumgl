@@ -222,10 +222,9 @@ int startAquarium(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
+	BgMusic();
 	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Depend on GX stack to render scene
-
 	glClearColor(0,35,195);		// blue green background colour
-
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
@@ -233,6 +232,53 @@ int startAquarium(int argc, char *argv[])
 
 		//Render
 		drawScene();
+		
+		//sound
+		switch(pendPlay){
+			case(1):{
+				internalCodecType = playSoundStream(curChosenBrowseFile, _FileHandleVideo, _FileHandleAudio);
+				if(internalCodecType == SRC_NONE){
+					//stop right now
+					pendPlay = 2;
+				}
+				else{
+					pendPlay = 3;
+				}
+			}
+			break;
+			case(2):{
+				stopSoundStreamUser();
+			}
+			break;
+		}
+		
+		//Audio track ended? Repeat
+		if((pendPlay == 3) && (cutOff == true)){ 
+			//Let decoder close context so we can start again
+			closeSound();
+			
+			updateStream();	
+			updateStream();
+			updateStream();
+			updateStream();
+			
+			updateStream();	
+			updateStream();
+			updateStream();
+			updateStream();
+			
+			updateStream();	
+			updateStream();
+			updateStream();
+			updateStream();
+			
+			updateStream();	
+			updateStream();
+			updateStream();
+			updateStream();
+			pendPlay = 1;
+		}
+		
 	}
 #endif
 	return 0;
@@ -455,17 +501,16 @@ void keyboardInputSpecial(int key, int x, int y){
 		#ifdef ARM9
 
 		case KEY_L:{
-			keyboardInput('1', 0, 0); // toggles light 0 on / off
-		}break;
-
-		case KEY_R:{
-			keyboardInput('2', 0, 0); // toggles light 1 on / off
-		}break;
-
-		case KEY_A:{
 			keyboardInput('L', 0, 0); // toggles lighting calculations on/off
 		}break;
 
+		case KEY_A:{
+			BgMusic(); //turn on bg music
+		}break;
+		
+		case KEY_B:{
+			BgMusicOff(); //turn off bg music
+		}break;
 		#endif
 	}
 }

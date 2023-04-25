@@ -90,13 +90,14 @@ void Timer3handlerUser(){
 __attribute__((section(".itcm")))
 #endif
 void HblankUser(){
-
+	
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
 void VblankUser(){	
+	
 	//Timing reserved for 2D/3D rendering
 }
 
@@ -104,7 +105,7 @@ void VblankUser(){
 __attribute__((section(".itcm")))
 #endif
 void VcounterUser(){	
-	
+	handleARM9SVC();	/* Do not remove, handles TGDS services */
 }
 
 //Note: this event is hardware triggered from ARM7, on ARM9 a signal is raised through the FIFO hardware

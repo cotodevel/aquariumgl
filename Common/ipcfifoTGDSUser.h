@@ -49,12 +49,6 @@ struct sIPCSharedTGDSSpecific {
 
 #endif
 
-#define FIFO_PLAYSOUNDSTREAM_FILE (u32)(0xFFFFABCB)
-#define FIFO_STOPSOUNDSTREAM_FILE (u32)(0xFFFFABCC)
-
-#define FIFO_PLAYSOUNDEFFECT_FILE (u32)(0xFFFFABCD)
-
-#define workBufferSoundEffect0 (s16*)((int)0x06000000 + (96*1024) - (4096*4))
 
 #define NO_VIDEO_PLAYBACK	1
 
@@ -64,8 +58,6 @@ struct sIPCSharedTGDSSpecific {
 #if !defined(_MSC_VER) && !defined(ARM7)
 #define ARM9 1
 #endif
-
-#define DEBUG_CAMERA 1 //Enable distant camera to see ball activity
 
 #endif
 
@@ -78,17 +70,9 @@ extern void HandleFifoNotEmptyWeakRef(u32 cmd1, uint32 cmd2);
 extern void HandleFifoEmptyWeakRef(uint32 cmd1,uint32 cmd2);
 extern struct sIPCSharedTGDSSpecific* getsIPCSharedTGDSSpecific();
 
-extern bool soundGameOverEmitted;
-extern void gameoverSound();
-
-extern void MunchFoodSound();
-
+#ifdef ARM9
 extern void BgMusic();
 extern void BgMusicOff();
-extern bool bgMusicEnabled;
-
-#ifdef ARM9
-extern u32 playSoundStreamFromFile(char * videoStructFDFilename, bool loop, u32 streamType);
 #endif
 
 #ifdef __cplusplus
