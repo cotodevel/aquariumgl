@@ -27,118 +27,71 @@ struct MarineObject BuildQuad(
 void _drawQuad(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material2
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material2);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
 
 	// enable texturing
-	glEnable(GL_TEXTURE_2D
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glEnable(GL_TEXTURE_2D);
 	
+	glBindTexture(
+#ifdef WIN32		
+		GL_TEXTURE_2D, FLOOR_TEXTURE+1
+#endif
+#ifdef ARM9
+	0, FLOOR_TEXTURE 
+#endif	
+	);
+
+	glTexParameteri(
+#ifdef ARM9
+		0, 
+#endif
 #ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, FLOOR_TEXTURE+1);
-	// set up texture parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		GL_TEXTURE_2D,
 #endif
+	GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(
+#ifdef ARM9
+		0, 
+#endif
+#ifdef WIN32
+		GL_TEXTURE_2D,
+#endif
+	GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(
+#ifdef ARM9
+		0, 
+#endif
+#ifdef WIN32
+		GL_TEXTURE_2D,
+#endif
+	GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(
+#ifdef ARM9
+		0, 
+#endif
+#ifdef WIN32
+		GL_TEXTURE_2D,
+#endif
+	GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-#ifdef ARM9
-	glBindTexture(0, FLOOR_TEXTURE, USERSPACE_TGDS_OGL_DL_POINTER); 
-	glTexParameteri(0, GL_TEXTURE_WRAP_S, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(0, GL_TEXTURE_WRAP_T, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(0, GL_TEXTURE_MAG_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(0, GL_TEXTURE_MIN_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
-#endif
-
-	glColor3f(0.9f, 0.6f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glBegin(GL_QUADS
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-		glNormal3f(0.f, 0.f, 1.f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glTexCoord2f(0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);	
-		glVertex2f(-0.5f, -0.5f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+	glColor3f(0.9f, 0.6f, 0.0f);
+	glBegin(GL_QUADS);
+		glNormal3f(0.f, 0.f, 1.f);
+		glTexCoord2f(0.0f, 0.0f);	
+		glVertex2f(-0.5f, -0.5f);
 		
-		glTexCoord2f(1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);	
-		glVertex2f(0.5f,  -0.5f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glTexCoord2f(1.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);	
-		glVertex2f(0.5f, 0.5f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glTexCoord2f(0.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);	
-		glVertex2f(-0.5f, 0.5f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-	glEnd(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+		glTexCoord2f(1.0f, 0.0f);	
+		glVertex2f(0.5f,  -0.5f);
+		glTexCoord2f(1.0f, 1.0f);	
+		glVertex2f(0.5f, 0.5f);
+		glTexCoord2f(0.0f, 1.0f);	
+		glVertex2f(-0.5f, 0.5f);
+	glEnd();
 
 #ifdef WIN32 //NDS actually disables texturing, so excluded
-	glDisable(GL_TEXTURE_2D
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glDisable(GL_TEXTURE_2D);
 #endif
 }

@@ -57,7 +57,7 @@ struct Scene scene;	/// the scene we render
 bool wireMode;	/// wireframe mode on / off
 bool flatShading;	/// flat shading on / off
 
-#ifdef WIN32
+#ifdef _MSC_VER
 extern int startAquarium(int argc, char *argv[]);
 
 /// Program starts here
@@ -84,33 +84,14 @@ int InitGL()
 	
 	glClearColor(255,255,255);		// White Background
 	glClearDepth(0x7FFF);		// Depth Buffer Setup
-	glEnable(GL_ANTIALIAS
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glEnable(GL_TEXTURE_2D
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	); // Enable Texture Mapping 
-	glEnable(GL_BLEND
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glDisable(GL_LIGHT0|GL_LIGHT1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glEnable(GL_LIGHT0|GL_LIGHT1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	); //light #1 & #2 enabled per scene
+	glEnable(GL_ANTIALIAS);
+	glEnable(GL_TEXTURE_2D); // Enable Texture Mapping 
+	glEnable(GL_BLEND);
+	glDisable(GL_LIGHT0|GL_LIGHT1);
+	glEnable(GL_LIGHT0|GL_LIGHT1); //light #1 & #2 enabled per scene
 	
-	return 0;				
+	setupDLEnableDisable2DTextures();
+	return 0;
 }
 
 #ifdef ARM9
@@ -128,16 +109,16 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 		height=1;										// Making Height Equal One
 	}
 
-	glViewport(0,0,width,height, USERSPACE_TGDS_OGL_DL_POINTER);						// Reset The Current Viewport
+	glViewport(0,0,width,height);						// Reset The Current Viewport
 
-	glMatrixMode(GL_PROJECTION, USERSPACE_TGDS_OGL_DL_POINTER);						// Select The Projection Matrix
-	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Projection Matrix
+	glMatrixMode(GL_PROJECTION);						// Select The Projection Matrix
+	glLoadIdentity();									// Reset The Projection Matrix
 
 	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f, USERSPACE_TGDS_OGL_DL_POINTER);
+	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f);
 
-	glMatrixMode(GL_MODELVIEW, USERSPACE_TGDS_OGL_DL_POINTER);							// Select The Modelview Matrix
-	glLoadIdentity(USERSPACE_TGDS_OGL_DL_POINTER);									// Reset The Modelview Matrix
+	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
+	glLoadIdentity();									// Reset The Modelview Matrix
 }
 #endif
 
@@ -151,7 +132,7 @@ int startAquarium(int argc, char *argv[])
 	// register our call-back functions
 	TWLPrintf("-- Registering callbacks\n");
 	
-#ifdef WIN32
+#ifdef _MSC_VER
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
 	glutKeyboardFunc(keyboardInput);
@@ -169,7 +150,7 @@ int startAquarium(int argc, char *argv[])
 	{
 
 		GLfloat mat_ambient[]    = { 
-#ifdef WIN32
+#ifdef _MSC_VER
 			1.0f, 1.0f, 1.0f, 1.0f		//WIN32
 #endif
 #ifdef ARM9
@@ -179,7 +160,7 @@ int startAquarium(int argc, char *argv[])
 
 		GLfloat mat_diffuse_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		GLfloat high_shininess[] = { 
-#ifdef WIN32
+#ifdef _MSC_VER
 			120.0f
 #endif
 #ifdef ARM9
@@ -216,14 +197,14 @@ int startAquarium(int argc, char *argv[])
 		}
 	}
 	// start the timer and enter the mail GLUT loop
-#ifdef WIN32
+#ifdef _MSC_VER
 	glutTimerFunc(50, animator, 0);
 	glutMainLoop();
 #endif
 
 #if defined(ARM9)
 	BgMusic();
-	glReset(USERSPACE_TGDS_OGL_DL_POINTER); //Depend on GX stack to render scene
+	glReset(); //Depend on GX stack to render scene
 	glClearColor(0,35,195);		// blue green background colour
 	while(1==1){
 		//Handle Input & game logic
@@ -291,14 +272,14 @@ int startAquarium(int argc, char *argv[])
 /// at way too different speeds on different computers
 void animator(int type)
 {
-#ifdef WIN32
+#ifdef _MSC_VER
 	glutPostRedisplay();
 	glutTimerFunc(25, animator, 0);
 #endif
 }
 
 
-#ifdef WIN32
+#ifdef _MSC_VER
 /// Resizes the current viewport to the full window size
 void resizeWindow(int w, int h)
 {
@@ -341,18 +322,10 @@ void keyboardInput(unsigned char key, int x, int y)
 		case 'w':	// toggles wireframe mode on/off
 			wireMode = !wireMode;
 			if (!wireMode) {
-				glDisable(GL_BLEND
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glDisable(GL_BLEND);
 				//glDisable(GL_LINE_SMOOTH);
 			} else {
-				glEnable(GL_BLEND
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glEnable(GL_BLEND);
 				//glEnable(GL_LINE_SMOOTH);
 			}
 			break;
@@ -367,7 +340,7 @@ void keyboardInput(unsigned char key, int x, int y)
 		case 'F':{	// toggles fog on/off
 			scene.fogMode = !scene.fogMode;
 			
-		#ifdef WIN32
+		#ifdef _MSC_VER
 			if (scene.fogMode) glEnable(GL_FOG);
 			else glDisable(GL_FOG);
 		#endif
@@ -377,54 +350,30 @@ void keyboardInput(unsigned char key, int x, int y)
 		case 'L':{	// toggles lighting calculations on/off
 			scene.lightMode = !scene.lightMode;
 			if (scene.lightMode) {
-				glEnable(GL_LIGHTING
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glEnable(GL_LIGHTING);
 			}
 			else {
-				glDisable(GL_LIGHTING
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glDisable(GL_LIGHTING);
 			}
 		}break;
 
 		case '1':{	// toggles light 0 on / off
 			scene.light0On = ! scene.light0On;
 			if (scene.light0On){ 
-				glEnable(GL_LIGHT0
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glEnable(GL_LIGHT0);
 			}
 			else {
-				glDisable(GL_LIGHT0
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glDisable(GL_LIGHT0);
 			}
 		}break;
 
 		case '2':{	// toggles light 1 on / off
 			scene.light1On = ! scene.light1On;
 			if (scene.light1On) {
-				glEnable(GL_LIGHT1
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glEnable(GL_LIGHT1);
 			}
 			else {
-				glDisable(GL_LIGHT1
-				#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-				#endif
-				);
+				glDisable(GL_LIGHT1);
 			}
 		}break;
 	}
@@ -436,7 +385,7 @@ void keyboardInputSpecial(int key, int x, int y){
 	switch (key){
 	
 		//WIN32 ONLY
-		#ifdef WIN32
+		#ifdef _MSC_VER
 		case GLUT_KEY_F1:{
 			scene.showMenu = !scene.showMenu;
 		}break;
@@ -458,26 +407,26 @@ void keyboardInputSpecial(int key, int x, int y){
 		#endif
 
 		//WIN32 & NDS Shared
-		#ifdef WIN32
+		#ifdef _MSC_VER
 		case GLUT_KEY_LEFT:
-		#endif
-		#ifdef ARM9
-		case KEY_UP:
-		#endif
-		{
-			anticlockwise(&scene.camera);
-		}break;
-
-		#ifdef WIN32
-		case GLUT_KEY_RIGHT:
 		#endif
 		#ifdef ARM9
 		case KEY_DOWN:
 		#endif
 		{
+			anticlockwise(&scene.camera);
+		}break;
+
+		#ifdef _MSC_VER
+		case GLUT_KEY_RIGHT:
+		#endif
+		#ifdef ARM9
+		case KEY_UP:
+		#endif
+		{
 			clockwise(&scene.camera);
 		}break;
-		#ifdef WIN32
+		#ifdef _MSC_VER
 		case GLUT_KEY_UP:
 		#endif
 		#ifdef ARM9
@@ -487,7 +436,7 @@ void keyboardInputSpecial(int key, int x, int y){
 			inc(&scene.camera);
 		}break;
 
-		#ifdef WIN32
+		#ifdef _MSC_VER
 		case GLUT_KEY_DOWN:
 		#endif
 		#ifdef ARM9
@@ -542,7 +491,7 @@ void addObject(int type)
 		y = -0.3f;
 		{
 			GLfloat mat1[] = {
-		#ifdef WIN32
+		#ifdef _MSC_VER
 				0.3f, 0.3f, 0.3f, 1.f
 		#endif
 
@@ -552,7 +501,7 @@ void addObject(int type)
 			};
 
 			GLfloat high_shininess[] = { 
-#ifdef WIN32
+#ifdef _MSC_VER
 				32.f
 #endif
 #ifdef ARM9
@@ -586,7 +535,7 @@ void addObject(int type)
 		}
 	}break;
 	case OBJ_OCTOPUS:{
-#ifdef WIN32
+#ifdef _MSC_VER
 		y = getRand(-27.0f, 25.0f);
 #endif
 #ifdef ARM9
@@ -594,7 +543,7 @@ void addObject(int type)
 #endif
 		{
 			GLfloat mat1[] = {
-		#ifdef WIN32
+		#ifdef _MSC_VER
 				0.0f, 0.0f, 2.0f, 1.f
 		#endif
 
@@ -604,7 +553,7 @@ void addObject(int type)
 			};
 
 			GLfloat high_shininess[] = { 
-#ifdef WIN32
+#ifdef _MSC_VER
 				50.f
 #endif
 #ifdef ARM9
@@ -625,7 +574,7 @@ void addObject(int type)
 		y = 0.0f;
 		{
 			GLfloat mat1[] = {
-		#ifdef WIN32
+		#ifdef _MSC_VER
 				0.1f, 0.3f, 0.15f, 1.f
 		#endif
 
@@ -634,7 +583,7 @@ void addObject(int type)
 		#endif
 			};
 			GLfloat mat2[] = {
-		#ifdef WIN32
+		#ifdef _MSC_VER
 				0.6f, 1.f, 0.8f, 1.f
 		#endif
 		#ifdef ARM9
@@ -642,7 +591,7 @@ void addObject(int type)
 		#endif
 			};
 			GLfloat high_shininess[] = { 
-#ifdef WIN32
+#ifdef _MSC_VER
 				100.f
 #endif
 #ifdef ARM9
@@ -675,53 +624,29 @@ void setupViewVolume(void)
 	GLfloat aspect = (GLfloat)widthScene / (GLfloat)heightScene;
 	GLfloat iaspect = (GLfloat)heightScene / (GLfloat)widthScene;
 
-	glMatrixMode(GL_PROJECTION
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLoadIdentity(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 
 	// setup new viewing volume based on the aspect ratio and projection type
 	if (scene.perspectiveMode == true){
-		gluPerspective(-45.0f, aspect, 1.0f, 250.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		gluPerspective(-45.0f, aspect, 1.0f, 250.0f);
 	}
 	else {
 		// orthographic mode correction depends on whether the ratio is greater
 		// or less than 1.0 as the viewport must be scaled in different
 		// directions to look right
 		if (aspect >= 1.0f){
-			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glOrtho(-40.0f * aspect, 40.0f * aspect, -40.0f, 40.0f, 1.0f, 250.0f);
 		}
 		else {
-			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glOrtho(-40.0f, 40.0f, -40.0f * iaspect, 40.0f * iaspect, 1.0f, 250.0f);
 		}
 	}
 
-	glMatrixMode(GL_MODELVIEW
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_MODELVIEW);
 }
 
-#ifdef WIN32
+#ifdef _MSC_VER
 void load_image(const char* filename)
 {
     int width, height;
@@ -736,7 +661,7 @@ void getTextures(void)
 {
 	TWLPrintf("-- Generating/Loading Textures\n");
 
-#ifdef WIN32
+#ifdef _MSC_VER
 	glGenTextures(2, texturesRenderable);
     glBindTexture(GL_TEXTURE_2D, texturesRenderable[FLOOR_TEXTURE]);
     load_image("../src/resources/grass.png");
@@ -770,7 +695,7 @@ bool init(int argc, char *argv[])
 	wireMode = false;	/// wireframe mode on / off
 	flatShading = false;	/// flat shading on / off
 
-#ifdef WIN32
+#ifdef _MSC_VER
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 #endif
@@ -778,7 +703,7 @@ bool init(int argc, char *argv[])
 
 	TWLPrintf("-- Creating window\n");
 
-#ifdef WIN32
+#ifdef _MSC_VER
 	glutCreateWindow("Aquarium Scene 3D");
 	glutFullScreen();
 #endif
@@ -799,20 +724,20 @@ void setupGL(void)
 
 	// blue green background colour
 	glClearColor(0.0, 0.5, 0.55
-#ifdef WIN32
+#ifdef _MSC_VER
 		, 1.0
 #endif	
 	);
 	glShadeModel(GL_SMOOTH);
 
 	// depth testing used on with less than testing
-#ifdef WIN32
+#ifdef _MSC_VER
 	glDepthFunc(GL_LESS);
 	glEnable(GL_DEPTH_TEST);
 #endif
 
 	// setup  fog, but disable for now
-#ifdef WIN32
+#ifdef _MSC_VER
 	glDisable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP);
 	{
@@ -825,12 +750,8 @@ void setupGL(void)
 	glEnable(GL_NORMALIZE);
 #endif
 	// setup lighting, but disable for now
-	glDisable(GL_LIGHTING
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-#ifdef WIN32
+	glDisable(GL_LIGHTING);
+#ifdef _MSC_VER
 	{
 		GLfloat ambient[] = {0.1f, 0.1f, 0.1f, 1.0};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
@@ -847,33 +768,19 @@ void setupGL(void)
 #endif
 	// setup backface culling
 	glCullFace(GL_BACK);
-	glEnable(GL_CULL_FACE
-#ifdef ARM9
-	, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glEnable(GL_CULL_FACE);
 
 #ifdef ARM9
 	/* TGDS 1.65 OpenGL 1.1 Initialization */
 	InitGL();
 	ReSizeGLScene(255, 191);
-	glMaterialShinnyness(USERSPACE_TGDS_OGL_DL_POINTER);
+	glMaterialShinnyness();
 #endif
 
-	//OpenGL enables multiple glGenLists(); assigning n ones per call. TGDS allows to call once glGenLists();, thus we allocate all of them here 
-	DLSOLIDCUBE0_06F = (GLint)glGenLists(10
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	DLSOLIDCUBE0_06F = (GLint)glGenLists(1);
 
 	//glut2SolidCube(); -> NDS GX Implementation
-	#ifdef _MSC_VER
 	glNewList(DLSOLIDCUBE0_06F, GL_COMPILE);
-	#endif
-	#ifdef ARM9
-	glNewList(DLSOLIDCUBE0_06F, GL_COMPILE, USERSPACE_TGDS_OGL_DL_POINTER);
-	#endif
 	{
 		float size = 0.06f;
 		GLfloat n[6][3] =
@@ -906,7 +813,6 @@ void setupGL(void)
 
 		for (i = 5; i >= 0; i--)
 		{
-#ifdef _MSC_VER
 			glBegin(GL_QUADS);
 			glNormal3fv(&n[i][0]);
 			glTexCoord2f(0, 0);
@@ -918,41 +824,16 @@ void setupGL(void)
 			glTexCoord2f(0, 1);
 			glVertex3fv(&v[faces[i][3]][0]);
 			glEnd();
-#endif
-#ifdef ARM9
-			glBegin(GL_QUADS, USERSPACE_TGDS_OGL_DL_POINTER);
-			glNormal3fv(&n[i][0], USERSPACE_TGDS_OGL_DL_POINTER);
-			glTexCoord2f(0, 0, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3fv(&v[faces[i][0]][0], USERSPACE_TGDS_OGL_DL_POINTER);
-			glTexCoord2f(1, 0, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3fv(&v[faces[i][1]][0], USERSPACE_TGDS_OGL_DL_POINTER);
-			glTexCoord2f(1, 1, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3fv(&v[faces[i][2]][0], USERSPACE_TGDS_OGL_DL_POINTER);
-			glTexCoord2f(0, 1, USERSPACE_TGDS_OGL_DL_POINTER);
-			glVertex3fv(&v[faces[i][3]][0], USERSPACE_TGDS_OGL_DL_POINTER);
-			glEnd(USERSPACE_TGDS_OGL_DL_POINTER);
-#endif
 		}
-		#ifdef WIN32
 		glEndList();
-		#endif
-		#ifdef ARM9
-		glEndList(USERSPACE_TGDS_OGL_DL_POINTER);
-		#endif
 	}
 
-	glDisable(GL_CULL_FACE
-#ifdef ARM9
-	, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	); 
+	glDisable(GL_CULL_FACE); 
 	glCullFace (GL_NONE);
-
-	currentOGLDisplayListObject = DLSOLIDCUBE0_06F + 1;
 }
 
 //ARM9 version is in main.c
-#ifdef WIN32
+#ifdef _MSC_VER
 int TWLPrintf(const char *fmt, ...){
 	return 0;
 }
