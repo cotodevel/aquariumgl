@@ -71,47 +71,27 @@ void generateBranches(int level, int number){
 		GLfloat vertAngle = getRand(0, 180);
 		int numChildren = getRand(0, 6);
 
-		glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glRotatef(horzAngle, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glPushMatrix();
+		glRotatef(horzAngle, 0.0f, 1.0f, 0.0f);
+		glRotatef(vertAngle, 1.0f, 0.0f, 0.0f);
 
 		// cap the bottom
 		drawCircle(0.5f, bottom, 8 - level, 3.0f);
 
 		// cap top
-		glTranslatef(0.0f, 0.0f, height
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glTranslatef(0.0f, 0.0f, height);
 		drawCircle(0.5f, top, 8 - level, 3.0f);
 		
 		// call this function again to generate more branches
 		// rotate back to 'normal' position first i.e. facing up
 		// this avoids branches looking down and going through
 		// the floor
-		glRotatef(-vertAngle, 1.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glRotatef(-vertAngle, 1.0f, 0.0f, 0.0f);
 		generateBranches(level + 1, numChildren);
 		glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
-#endif		
+		1
+#endif
 		);
 	}
 }
@@ -121,38 +101,14 @@ void generateBranches(int level, int number){
 void _draw_dlistPlant(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glColor4fv(marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material2);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
+	glColor4fv(marineObj->material1);
 
 #ifdef WIN32
-	glCallList(marineObj->dlist
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glCallList(marineObj->dlist);
 #endif
 
 #ifdef ARM9

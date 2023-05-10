@@ -27,8 +27,6 @@ unsigned int texturesRenderable[2];
 
 GLint DLSOLIDCUBE0_06F=-1;
 
-GLint currentOGLDisplayListObject=-1;
-
 struct MarineObject MarineObjectInit1(
 	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
@@ -81,27 +79,16 @@ struct MarineObject MarineObjectInit1(
 
 /// Builds a display list of this object.
 void build(struct MarineObject * marineObjRef, GLuint *dlist){
-	*dlist = currentOGLDisplayListObject;
-	if (!glIsList(*dlist
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	)) {
+	*dlist = glGenLists(1);
+	if (!glIsList(*dlist)) {
+		printf("TGDS ERROR: glIsList() FALSE!: List (%d)", *dlist);
+		while(1==1){}
 		marineObjRef->isList = false;
 		return;
 	}
 	marineObjRef->isList = true;
-	currentOGLDisplayListObject++; //point to next list if generation OK
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glNewList(*dlist, GL_COMPILE
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glNewList(*dlist, GL_COMPILE);
 		//Build display lists once for these objects
 		switch(marineObjRef->callerType){
 				case(RENDERABLE_CRAB):{
@@ -112,14 +99,10 @@ void build(struct MarineObject * marineObjRef, GLuint *dlist){
 					_drawPlant(marineObjRef);
 				}break;
 		}
-	glEndList(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glEndList();
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 }
@@ -171,39 +154,15 @@ void scale(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 * draw instead of re-drawing the object.
 */
 void draw(struct MarineObject * marineObjRef){
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
 
-	glTranslatef(marineObjRef->x, marineObjRef->y, marineObjRef->z
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glTranslatef(marineObjRef->x, marineObjRef->y, marineObjRef->z);
 
-	glRotatef(marineObjRef->rx, 1.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(marineObjRef->ry, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(marineObjRef->rz, 0.0f, 0.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glRotatef(marineObjRef->rx, 1.0f, 0.0f, 0.0f);
+	glRotatef(marineObjRef->ry, 0.0f, 1.0f, 0.0f);
+	glRotatef(marineObjRef->rz, 0.0f, 0.0f, 1.0f);
 
-	glScalef(marineObjRef->sx, marineObjRef->sy, marineObjRef->sz
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glScalef(marineObjRef->sx, marineObjRef->sy, marineObjRef->sz);
 
 	// if the object is flagged as a display list object, then call the
 	// display list drawing function of the object, otherwise just call
@@ -243,7 +202,7 @@ void draw(struct MarineObject * marineObjRef){
 
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 }
@@ -267,51 +226,23 @@ void drawSphere(float r, int lats, int longs) {
 		double lat1 = M_PI * (-0.5 + (double)i / lats);
 		double z1 = sin(lat1);
 		double zr1 = cos(lat1);
-		glBegin(GL_QUAD_STRIP
-#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glBegin(GL_QUAD_STRIP);
 		for (j = 0; j <= longs; j++) {
 			double lng = 2 * M_PI * (double)(j - 1) / longs;
 			double x = cos(lng);
 			double y = sin(lng);
 
-			glNormal3f(x * zr0, y * zr0, z0
-#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glVertex3f(r * x * zr0, r * y * zr0, r * z0
-#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glNormal3f(x * zr1, y * zr1, z1
-#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glVertex3f(r * x * zr1, r * y * zr1, r * z1
-#ifdef ARM9
-				, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glNormal3f(x * zr0, y * zr0, z0);
+			glVertex3f(r * x * zr0, r * y * zr0, r * z0);
+			glNormal3f(x * zr1, y * zr1, z1);
+			glVertex3f(r * x * zr1, r * y * zr1, r * z1);
 		}
-		glEnd(
-#ifdef ARM9
-			USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glEnd();
 	}
 	#endif
 
 	#ifdef ARM9
-	glScalef(r, r, r
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glScalef(r, r, r);
 	// Execute the display list
     glCallListGX((u32*)&Sphere008); //comment out when running on NDSDisplayListUtils
 	#endif
@@ -328,32 +259,16 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS)
 	GLfloat lastX = 1;
 	GLfloat lastY = 0;
 	int c = 0; 
-	#ifdef _MSC_VER
 	glBegin(GL_TRIANGLE_STRIP);
-	#endif
-	#ifdef ARM9
-	glBegin(GL_TRIANGLE_STRIP, USERSPACE_TGDS_OGL_DL_POINTER);
-	#endif
 	for (c = 1; c < SLICES_PER_CIRCLE; c++)
 	{
 		x = lastX * anglex - lastY * angley;
 		y = lastX * angley + lastY * anglex;
-		#ifdef _MSC_VER
 		glVertex2f(x * BALL_RADIUS, y * BALL_RADIUS);
-		#endif
-		#ifdef ARM9
-		glVertex2f(x * BALL_RADIUS, y * BALL_RADIUS, USERSPACE_TGDS_OGL_DL_POINTER);
-		#endif
 		lastX = x;
 		lastY = y;
 	}
-
-	#ifdef _MSC_VER
 	glEnd();
-	#endif
-	#ifdef ARM9
-	glEnd(USERSPACE_TGDS_OGL_DL_POINTER);
-	#endif
 }
 
 
@@ -371,38 +286,14 @@ void drawCylinder(int numMajor, int numMinor, float height, float radius){
 			double a = j * minorStep;
 			GLfloat x = radius * cos(a);
 			GLfloat y = radius * sin(a);
-			glNormal3f(x / radius, y / radius, 0.0
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glNormal3f(x / radius, y / radius, 0.0);
 			
-			glTexCoord2f(j / (GLfloat) numMinor, i / (GLfloat) numMajor
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glVertex3f(x, y, z0
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glTexCoord2f(j / (GLfloat) numMinor, i / (GLfloat) numMajor);
+			glVertex3f(x, y, z0);
 
-			glNormal3f(x / radius, y / radius, 0.0
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glTexCoord2f(j / (GLfloat) numMinor, (i + 1) / (GLfloat) numMajor
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
-			glVertex3f(x, y, z1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-			);
+			glNormal3f(x / radius, y / radius, 0.0);
+			glTexCoord2f(j / (GLfloat) numMinor, (i + 1) / (GLfloat) numMajor);
+			glVertex3f(x, y, z1);
 		}
 		//glEnd();
 	}
@@ -410,10 +301,7 @@ void drawCylinder(int numMajor, int numMinor, float height, float radius){
 
 void glut2SolidCube0_06f() {
 #ifdef ARM9
-	updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
-	glCallList(DLSOLIDCUBE0_06F, USERSPACE_TGDS_OGL_DL_POINTER);
+	updateGXLights(); //Update GX 3D light scene!
 #endif
-#ifdef _MSC_VER
 	glCallList(DLSOLIDCUBE0_06F);
-#endif
 }

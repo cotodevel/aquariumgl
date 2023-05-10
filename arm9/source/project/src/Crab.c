@@ -41,70 +41,38 @@ void _drawCrab(struct MarineObject * marineObj)
 	*/
 
 	// get our pinky colour
-	glColor3f(1.0f, 0.45f, 0.45f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif		
-		);
+	glColor3f(1.0f, 0.45f, 0.45f);
 
 	// draw crab body (squashed along Y axis
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glScalef(1.0f, 0.5f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glScalef(1.0f, 0.5f, 1.0f);
 	drawSphere(0.3f, 16, 16);
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 
 	// draw all of the legs
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+	glPushMatrix();
 	drawLegsCrab();
-	glScalef(-1.f, 1.f, 1.f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glScalef(-1.f, 1.f, 1.f);
 	drawLegsCrab();
 	glPopMatrix(
 #ifdef ARM9	
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 
 	// set to use our black colour
-	glColor3f(0.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.0f, 0.0f, 0.0f);
 
 	// draw left crab eye
-	glTranslatef(-0.06f, 0.0f, 0.3f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glTranslatef(-0.06f, 0.0f, 0.3f);
 	drawSphere(0.05f, 12, 8);
 
 	// draw right crab eye
-	glTranslatef(0.12f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glTranslatef(0.12f, 0.0f, 0.0f);
 	drawSphere(0.05f, 12, 8);
 }
 
@@ -130,16 +98,8 @@ void _draw_dlistCrab(struct MarineObject * marineObj)
 	marineObj->z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
 	
 #ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -158,53 +118,25 @@ void _draw_dlistCrab(struct MarineObject * marineObj)
 /// Draws a leg using an angle between the two bones
 void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset){
 	// draw first part of a leg
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glTranslatef(-0.38f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glScalef(3.0f, 1.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glTranslatef(-0.38f, 0.0f, 0.0f);
+	glScalef(3.0f, 1.0f, 1.0f);
 	glut2SolidCube0_06f();
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif	
 	);
 
 	// draw second part of a leg
-	glPushMatrix(
-#ifdef ARM9
-	 USERSPACE_TGDS_OGL_DL_POINTER
-#endif	
-	);
-	glTranslatef(-0.53f, jointOffset, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(jointAngle, 0.0f, 0.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glScalef(4.0f, 1.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glTranslatef(-0.53f, jointOffset, 0.0f);
+	glRotatef(jointAngle, 0.0f, 0.0f, 1.0f);
+	glScalef(4.0f, 1.0f, 1.0f);
 	glut2SolidCube0_06f();
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 }
@@ -221,121 +153,57 @@ void draw1LegCrab()
 void drawLegsCrab(){
 	GLfloat i = 0;
 	// set a darker pinky colour for legs
-	glColor3f(1.0f, 0.55f, 0.55f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(1.0f, 0.55f, 0.55f);
 
 	// draw three side legs
 	for (i = -15.0f; i <= 15.0f; i += 15.0f)
 	{
-		glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glTranslatef(0.0f, 0.0f, -0.025f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
-		glRotatef(i, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glPushMatrix();
+		glTranslatef(0.0f, 0.0f, -0.025f);
+		glRotatef(i, 0.0f, 1.0f, 0.0f);
 		draw1LegCrab();
 		glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 		);
 	}
 
 	// draw fourth leg (the straight and bent downwards leg)
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glTranslatef(0.0f, 0.0f, -0.00f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(-65.0f, -0.2f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, -0.00f);
+	glRotatef(-65.0f, -0.2f, 1.0f, 0.0f);
 	drawLegCrab(0.0f, 0.0f);
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 
 	// set a light pinky colour for front legs
-	glColor3f(1.0f, 0.65f, 0.65f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(1.0f, 0.65f, 0.65f);
 
 	// front leg (arm)
-	glPushMatrix(
-#ifdef ARM9
-	 USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glTranslatef(0.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(55.0f, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glTranslatef(0.0f, 0.0f, 0.0f);
+	glRotatef(55.0f, 0.0f, 1.0f, 0.0f);
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	draw1LegCrab();
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 
 	// front clippers on the front leg (arm)
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glTranslatef(0.24f, 0.0f, 0.725f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(-15.0f, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glPushMatrix();
+	glTranslatef(0.24f, 0.0f, 0.725f);
+	glRotatef(-15.0f, 0.0f, 1.0f, 0.0f);
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	drawLegCrab(-60.0f, 0.1f);
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 }

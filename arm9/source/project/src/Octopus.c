@@ -69,23 +69,11 @@ void _drawOctopus(struct MarineObject * marineObj)
 
 	
 	// select our colour
-	glColor3f(1.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(1.0f, 1.0f, 0.0f);
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
 	
 #ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -93,70 +81,38 @@ void _drawOctopus(struct MarineObject * marineObj)
 #endif
 
 	// draw octopus body (stretched along Y axis)
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif		
-	);
-	glScalef(1.0f, 3.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif		
-	);
+	glPushMatrix();
+	glScalef(1.0f, 3.0f, 1.0f);
 	drawSphere(0.3f, 16, 8);
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif		
 	);
 
 	marineObj->legAngle += marineObj->legAngleInc;
 	if (marineObj->legAngle < -marineObj->legAngleCutOff || marineObj->legAngle > marineObj->legAngleCutOff) marineObj->legAngleInc *= -1;
 
-	glRotatef(marineObj->legAngle, 0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif		
-	);
+	glRotatef(marineObj->legAngle, 0.0f, 1.0f, 0.0f);
 
 	{
 		GLfloat step = 360.0f / 8;
 		int i = 0;
 		for (i = 0; i < 8;  i++){
-			glPushMatrix(
-	#ifdef ARM9
-			USERSPACE_TGDS_OGL_DL_POINTER
-	#endif	
-			);
+			glPushMatrix();
 
-			glRotatef(i * step, 0.0f, 1.0f, 0.0f
-	#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
-			glTranslatef(0.1f, 0.5f + (marineObj->legAngle / marineObj->legAngleCutOff) / 7.0f, 0.0f
-	#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
+			glRotatef(i * step, 0.0f, 1.0f, 0.0f);
+			glTranslatef(0.1f, 0.5f + (marineObj->legAngle / marineObj->legAngleCutOff) / 7.0f, 0.0f);
 			draw1LegCrab();
 
-			glTranslatef(0.2f, 0.725f, 0.0f
-	#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
-			glRotatef(120.0f, 0.0f, 0.0f, 1.0f
-	#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
+			glTranslatef(0.2f, 0.725f, 0.0f);
+			glRotatef(120.0f, 0.0f, 0.0f, 1.0f);
 		
 			draw1LegCrab();
 
 			glPopMatrix(
 	#ifdef ARM9
-			1, USERSPACE_TGDS_OGL_DL_POINTER
+			1
 	#endif
 			);
 		}

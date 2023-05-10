@@ -48,16 +48,8 @@ void _drawStarFish(struct MarineObject * marineObj){
 	marineObj->z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
 
 #ifdef WIN32
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
@@ -79,20 +71,12 @@ void _drawStarFish(struct MarineObject * marineObj){
 		GLfloat step = 360.0f / 5;
 		int i = 0;
 		for (i = 0; i < 5;  i++){
-			glPushMatrix(
-	#ifdef ARM9
-			USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
-			glRotatef(i * step, 0.0f, 1.0f, 0.0f
-	#ifdef ARM9
-			, USERSPACE_TGDS_OGL_DL_POINTER
-	#endif
-			);
+			glPushMatrix();
+			glRotatef(i * step, 0.0f, 1.0f, 0.0f);
 			glDrawArrays(GL_QUADS, 0, 4 * 6);
 			glPopMatrix(
 	#ifdef ARM9
-			1, USERSPACE_TGDS_OGL_DL_POINTER
+			1
 	#endif
 			);
 		}

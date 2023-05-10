@@ -52,51 +52,29 @@ void _drawFish(struct MarineObject * marineObj)
 	marineObj->z += zInc;
 
 	// set up the material properties (only front needs to be set)
-	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, marineObj->material1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, marineObj->material1);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, marineObj->material1);
+	glMaterialf(GL_FRONT, GL_SHININESS, marineObj->shininess);
 
 	// enable texturing
-	glEnable(GL_TEXTURE_2D
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glEnable(GL_TEXTURE_2D);
 
-#ifdef WIN32
-	glBindTexture(GL_TEXTURE_2D, FISH_TEXTURE+1);
+	glBindTexture(
+	#ifdef ARM9
+		0, 
+	#endif
+	#ifdef WIN32
+		GL_TEXTURE_2D,
+	#endif
+		FISH_TEXTURE+1 
+	);
 	// set up texture parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-#endif
 
-#ifdef ARM9
-	glBindTexture(0, FISH_TEXTURE+1, USERSPACE_TGDS_OGL_DL_POINTER); 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR, USERSPACE_TGDS_OGL_DL_POINTER);
-#endif
-	
 	// set up vertex arrays
 	glVertexPointer(3, GL_FLOAT, 0, marineObj->vertex);
 	glNormalPointer(GL_FLOAT, 0, marineObj->normal);
@@ -113,11 +91,7 @@ void _drawFish(struct MarineObject * marineObj)
 	drawSideFish();
 	
 	// draw second side of the fish
-	glScalef(1.0f, 1.0f, -1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glScalef(1.0f, 1.0f, -1.0f);
 	drawSideFish();
 
 	// work out new fish tail position
@@ -129,11 +103,7 @@ void _drawFish(struct MarineObject * marineObj)
 	// draw one side of flexible part of the tail
 	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = pt;
 	glDrawArrays(GL_TRIANGLES, 6 + (4 * 6) + (3 * 5), 3 * 4);
-	glScalef(1.0f, 1.0f, -1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glScalef(1.0f, 1.0f, -1.0f);
 
 	// draw second side of flexible part of the tail
 	marineObj->vertex[143] = marineObj->vertex[152] = marineObj->vertex[149] = marineObj->vertex[158] = marineObj->vertex[167] = -pt;
@@ -144,11 +114,7 @@ void _drawFish(struct MarineObject * marineObj)
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisable(GL_TEXTURE_2D
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glDisable(GL_TEXTURE_2D);
 }
 
 

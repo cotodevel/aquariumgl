@@ -75,38 +75,14 @@ void SceneInit1(struct Scene * Inst){
 	Inst->objects[OBJ_PLANT] = 0;
 
 	// set up light 0 colours
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0Scene);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0Scene);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0Scene);
 
 	// set up light 1 colours
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1Scene
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1Scene);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1Scene);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1Scene);
 	CameraInit1(&Inst->camera); //construct camera
 }
 
@@ -122,29 +98,13 @@ void drawScene(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 #endif
 
-	glMatrixMode(GL_MODELVIEW
-#ifdef ARM9
-	,USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLoadIdentity(
-#ifdef ARM9
-	USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	// set up our directional overhead light
-	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene
-#ifdef ARM9
-	,USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene);
 
 	// set up our directional overhead light
-	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene
-#ifdef ARM9
-	,USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene);
 
 	//position camera
 	position(&Inst->camera); 
@@ -154,8 +114,8 @@ void drawScene(){
 		int i = 0;
 		for (i = 0; i < Inst->curElementAlloced; i++){
 			#ifdef ARM9
-				updateGXLights(USERSPACE_TGDS_OGL_DL_POINTER); //Update GX 3D light scene!
-				glColor3f(1.0, 1.0, 1.0, USERSPACE_TGDS_OGL_DL_POINTER); //clear last scene color/light vectors
+				updateGXLights(); //Update GX 3D light scene!
+				glColor3f(1.0, 1.0, 1.0); //clear last scene color/light vectors
 			#endif
 			draw(&Inst->elementsStart[i]);
 		}
@@ -166,7 +126,7 @@ void drawScene(){
 #endif
 
 #ifdef ARM9
-	glFlush(USERSPACE_TGDS_OGL_DL_POINTER);
+	glFlush();
 	HaltUntilIRQ(); //Save power until next Vblank
 #endif
 }
@@ -199,66 +159,26 @@ void drawHUD(struct Scene * Inst){
 	GLboolean lightsOn;
 	
 	// disable depth testing to HUD is drawn on top of everything
-	glDisable(GL_DEPTH_TEST
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glDisable(GL_DEPTH_TEST);
 
 	// disable lightint so we see everything OK
 	glGetBooleanv(GL_LIGHTING, &lightsOn);
-	glDisable(GL_LIGHTING
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glDisable(GL_LIGHTING);
 
 	// grab and save the current projection
-	glMatrixMode(GL_PROJECTION
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLoadIdentity(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
 
 	// setup new projection
-	glOrtho(-0.1f, 10.0f, 10.0f, -0.4f, -1.0f, 10.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glOrtho(-0.1f, 10.0f, 10.0f, -0.4f, -1.0f, 10.0f);
 
 	// grab and save current view
-	glMatrixMode(GL_MODELVIEW
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glPushMatrix(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
-	glLoadIdentity(
-#ifdef ARM9
-		USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
 
-	glColor3f(1.0f, 1.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	// print all of the stats
 	printGL1(Inst, 0.0f, 0.0f, 0.0f, "Crabs:    ", Inst->objects[OBJ_CRAB]);
@@ -296,43 +216,27 @@ void drawHUD(struct Scene * Inst){
 	// restore old view
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif	
 	);
 
 	// grab and restore old projection
-	glMatrixMode(GL_PROJECTION
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_PROJECTION);
 	glPopMatrix(
 #ifdef ARM9
-		1, USERSPACE_TGDS_OGL_DL_POINTER
+		1
 #endif
 	);
 
 	// return to view mode
-	glMatrixMode(GL_MODELVIEW
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glMatrixMode(GL_MODELVIEW);
 
 	// enable depth testing again
-	glEnable(GL_DEPTH_TEST
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glEnable(GL_DEPTH_TEST);
 
 	// enable lighting if needed
 	if (lightsOn){
-		glEnable(GL_LIGHTING
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-		);
+		glEnable(GL_LIGHTING);
 	}
 }
 
@@ -365,18 +269,10 @@ void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *
 
 /// Displays the menu screen
 void printMenu(struct Scene * Inst){
-	glColor3f(0.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.0f, 0.0f, 0.0f);
 	printGL2(Inst, 0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
 
-	glColor3f(1.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(1.0f, 1.0f, 0.0f);
 	printGL2(Inst, 0.0f, 2.0f, -1.0f, "F1    - Toggle Help Screen      ");
 	printGL2(Inst, 0.0f, 2.3f, -1.0f, "F2    - Add a crab              ");
 	printGL2(Inst, 0.0f, 2.6f, -1.0f, "F3    - Add an octopus          ");
@@ -384,38 +280,22 @@ void printMenu(struct Scene * Inst){
 	printGL2(Inst, 0.0f, 3.2f, -1.0f, "F5    - Add a fish              ");
 	printGL2(Inst, 0.0f, 3.5f, -1.0f, "F6    - Add a plant             ");
 
-	glColor3f(0.5f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.5f, 1.0f, 0.0f);
 	printGL2(Inst, 0.0f, 3.8f, -1.0f, "F/f   - Toggle fog on/off       ");
 	printGL2(Inst, 0.0f, 4.1f, -1.0f, "W/w   - Toggle wireframe on/off ");
 	printGL2(Inst, 0.0f, 4.4f, -1.0f, "L/l   - Toggle lighting on/off  ");
 	printGL2(Inst, 0.0f, 4.7f, -1.0f, "1/2   - Toggle light 1/0 on/off ");
 
-	glColor3f(0.0f, 1.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.0f, 1.0f, 0.0f);
 	printGL2(Inst, 0.0f, 5.0f, -1.0f, "A/Z   - Inc/Dec elevation angl  ");
 	printGL2(Inst, 0.0f, 5.3f, -1.0f, "UP    - Dec distance to origin  ");
 	printGL2(Inst, 0.0f, 5.6f, -1.0f, "DOWN  - Inc distance to origin  ");
 	printGL2(Inst, 0.0f, 5.9f, -1.0f, "LEFT  - Rotate clockwise        ");
 	printGL2(Inst, 0.0f, 6.2f, -1.0f, "RIGHT - Rotate anticlockwise    ");
 
-	glColor3f(0.0f, 0.0f, 1.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.0f, 0.0f, 1.0f);
 	printGL2(Inst, 0.0f, 6.5f, -1.0f, "ESC   - Exit                    ");
 
-	glColor3f(0.0f, 0.0f, 0.0f
-#ifdef ARM9
-		, USERSPACE_TGDS_OGL_DL_POINTER
-#endif
-	);
+	glColor3f(0.0f, 0.0f, 0.0f);
 	printGL2(Inst, 0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
 }
