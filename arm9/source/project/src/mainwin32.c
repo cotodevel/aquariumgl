@@ -411,7 +411,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_LEFT:
 		#endif
 		#ifdef ARM9
-		case KEY_DOWN:
+		case KEY_UP:
 		#endif
 		{
 			anticlockwise(&scene.camera);
@@ -421,7 +421,7 @@ void keyboardInputSpecial(int key, int x, int y){
 		case GLUT_KEY_RIGHT:
 		#endif
 		#ifdef ARM9
-		case KEY_UP:
+		case KEY_DOWN:
 		#endif
 		{
 			clockwise(&scene.camera);
