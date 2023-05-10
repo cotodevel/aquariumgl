@@ -39,12 +39,11 @@ void position(struct Camera * Inst){
 	//any floating point gl call is being converted to fixed prior to being implemented
 	gluPerspective(-45, 256.0 / 192.0, 0.1, 250);
 
-	gluLookAt(	0.0f, -40.0f + 50.0f, -155.0f + Inst->horizontalAngle,		//camera position 
-				0.0f, 0.0f, 0.0f,		//look at
-				0.0, -30.0f, -45.0f		//up //so far ok
-	);
 
-	glRotateYi(Inst->distance); //Rotate sideways
+	gluLookAt(	1.0, -Inst->distance, -45.0f + Inst->horizontalAngle,		//camera possition 
+				1.0, 1.0, 1.0,		//look at
+				1.0, 1.0, 45.0		//up
+	);		
 #endif
 }
 
