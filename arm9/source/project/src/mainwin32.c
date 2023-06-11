@@ -84,9 +84,7 @@ int InitGL()
 	
 	glClearColor(255,255,255);		// White Background
 	glClearDepth(0x7FFF);		// Depth Buffer Setup
-	glEnable(GL_ANTIALIAS);
-	glEnable(GL_TEXTURE_2D); // Enable Texture Mapping 
-	glEnable(GL_BLEND);
+	glEnable(GL_ANTIALIAS|GL_TEXTURE_2D|GL_BLEND); // Enable Texture Mapping + light #0 enabled per scene
 	glDisable(GL_LIGHT0|GL_LIGHT1);
 	glEnable(GL_LIGHT0|GL_LIGHT1); //light #1 & #2 enabled per scene
 	

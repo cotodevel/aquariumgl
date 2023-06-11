@@ -98,13 +98,15 @@ __attribute__((section(".itcm")))
 #endif
 void VblankUser(){	
 	
-	//Timing reserved for 2D/3D rendering
 }
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
 void VcounterUser(){	
+	
+	//Timing reserved for 2D/3D rendering
+	
 	handleARM9SVC();	/* Do not remove, handles TGDS services */
 }
 
