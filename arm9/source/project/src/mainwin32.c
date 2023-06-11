@@ -208,9 +208,6 @@ int startAquarium(int argc, char *argv[])
 		//Handle Input & game logic
 		scanKeys();
 		keyboardInputSpecial((int)keysHeld(), 0, 0);
-
-		//Render
-		drawScene();
 		
 		//sound
 		switch(pendPlay){
@@ -258,6 +255,8 @@ int startAquarium(int argc, char *argv[])
 			pendPlay = 1;
 		}
 		
+		//Render
+		drawScene();
 	}
 #endif
 	return 0;
