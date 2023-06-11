@@ -213,7 +213,7 @@ __attribute__ ((optnone))
 #endif
 int main(int argc, char **argv) {
 	/*			TGDS 1.6 Standard ARM9 Init code start	*/
-	bool isTGDSCustomConsole = true;	//set default console or custom console: custom console
+	bool isTGDSCustomConsole = true;	//set default console or custom console: custom console (TGDS Dual 3D)
 	GUI_init(isTGDSCustomConsole);
 	GUI_clear();
 	

@@ -86,6 +86,16 @@ void SceneInit1(struct Scene * Inst){
 	CameraInit1(&Inst->camera); //construct camera
 }
 
+
+void render3DUpperScreen(){
+	//todo: Update camera for NintendoDS Upper 3D Screen
+}
+
+void render3DBottomScreen(){
+	//todo: Update camera for NintendoDS Bottom 3D Screen
+}
+
+
 /// Renders a single frame of the scene
 /*
 * This function renders all of the objects that are attached
@@ -105,7 +115,12 @@ void drawScene(){
 
 	// set up our directional overhead light
 	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene);
-
+	
+	#ifdef ARM9
+	//NDS: Dual 3D Render implementation
+	TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
+	#endif
+	
 	//position camera
 	position(&Inst->camera); 
 	
@@ -127,7 +142,6 @@ void drawScene(){
 
 #ifdef ARM9
 	glFlush();
-	HaltUntilIRQ(); //Save power until next Vblank
 #endif
 }
 
