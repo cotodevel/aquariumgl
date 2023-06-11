@@ -102,12 +102,17 @@ void render3DBottomScreen(){
 * to the rendering queue of the Scene.
 */
 void drawScene(){
-	struct Scene * Inst = &scene;
-	// clear scene
+	#ifdef ARM9
+	//NDS: Dual 3D Render implementation
+	TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
+	#endif
+	
 #ifdef WIN32
+	// clear scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 #endif
-
+	
+	struct Scene * Inst = &scene;
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	// set up our directional overhead light
@@ -115,11 +120,6 @@ void drawScene(){
 
 	// set up our directional overhead light
 	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene);
-	
-	#ifdef ARM9
-	//NDS: Dual 3D Render implementation
-	TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
-	#endif
 	
 	//position camera
 	position(&Inst->camera); 
@@ -142,6 +142,7 @@ void drawScene(){
 
 #ifdef ARM9
 	glFlush();
+	IRQVBlankWait();
 #endif
 }
 
