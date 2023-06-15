@@ -676,6 +676,7 @@ void getTextures(void)
 	for(i = 0; i < texturesInSlot; i++){
 		printf("Texture loaded: %d:textID[%d] Size: %d", i, texturesRenderable[i], getTextureBaseFromTextureSlot(activeTexture));
 	}
+	printf("Free Mem: %d KB", ((int)TGDSARM9MallocFreeMemory()/1024));
 #endif
 }
 
