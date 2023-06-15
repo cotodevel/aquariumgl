@@ -103,8 +103,8 @@ void render3DBottomScreen(){
 */
 void drawScene(){
 	#ifdef ARM9
-	//NDS: Dual 3D Render implementation
-	TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
+	//NDS: Dual 3D Render implementation: Disabled because the engine takes too much CPU
+	//TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
 	#endif
 	
 #ifdef WIN32
@@ -142,7 +142,7 @@ void drawScene(){
 
 #ifdef ARM9
 	glFlush();
-	IRQVBlankWait();
+	HaltUntilIRQ(); //Halt CPU power until next interrupt //IRQVBlankWait();
 #endif
 }
 
