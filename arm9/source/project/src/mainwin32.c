@@ -80,7 +80,8 @@ __attribute__((optnone))
 #endif
 int InitGL()
 {
-	glInit(); //NDSDLUtils: Initializes a new videoGL context
+	int TGDSOpenGLDisplayListWorkBufferSize = (256*1024);
+	glInit(TGDSOpenGLDisplayListWorkBufferSize); //NDSDLUtils: Initializes a new videoGL context
 	
 	glClearColor(255,255,255);		// White Background
 	glClearDepth(0x7FFF);		// Depth Buffer Setup

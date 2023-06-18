@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <malloc.h>
+#include <math.h>
 
 #define TGDSARM9Malloc malloc
 #define TGDSARM9Calloc calloc
@@ -44,6 +45,21 @@ typedef volatile uint8	vuint8;
 typedef volatile uint16	vuint16;
 typedef volatile uint32	vuint32;
 
+typedef unsigned int GLenum;
+typedef unsigned char GLboolean;
+typedef unsigned int GLbitfield;
+typedef signed char GLbyte;
+typedef short GLshort;
+typedef int GLint;
+typedef int GLsizei;
+typedef unsigned char GLubyte;
+typedef unsigned short GLushort;
+typedef unsigned int GLuint;
+typedef float GLfloat;
+typedef float GLclampf;
+typedef double GLdouble;
+typedef double GLclampd;
+typedef void GLvoid;
 
 #ifndef __cplusplus
 typedef unsigned char bool;
