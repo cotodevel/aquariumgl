@@ -102,6 +102,8 @@ void render3DBottomScreen(){
 * to the rendering queue of the Scene.
 */
 void drawScene(){
+	struct Scene * Inst = &scene;
+	
 	#ifdef ARM9
 	//NDS: Dual 3D Render implementation: Disabled because the engine takes too much CPU
 	//TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
@@ -112,7 +114,6 @@ void drawScene(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 #endif
 	
-	struct Scene * Inst = &scene;
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	// set up our directional overhead light
