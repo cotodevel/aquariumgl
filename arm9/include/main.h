@@ -27,9 +27,6 @@ USA
 #include "utilsTGDS.h"
 #include "VideoGL.h"
 
-
-#define TGDSPROJECTNAME ((char*) "project")
-
 //project 1 multimedia list
 #define videoIntro ((char*)"0:/sth1.tvs") //video intro
 #define videoTest ((char*)"0:/test.tvs") 
@@ -43,16 +40,6 @@ USA
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#ifdef __cplusplus
-/////////////////////////////// Billiard GL defs ///////////////////////////////////////
-
-extern GLint DLDUMMY;
-extern GLint DLDUMMY2;
-extern void setupDLEnableDisable2DTextures();
-
-/////////////////////////////////////////////////////////////////////////////////////
 #endif
 
 extern int main(int argc, char **argv);
@@ -70,16 +57,9 @@ extern void closeSoundUser();
 
 extern char args[8][MAX_TGDSFILENAME_LENGTH];
 extern char *argvs[8];
-extern GLvoid ReSizeGLScene(GLsizei width, GLsizei height);
-extern int InitGL();
 extern bool get_pen_delta( int *dx, int *dy );
 	
-extern int TWLPrintf(const char *fmt, ...);
-extern int startAquarium(int argc, char *argv[]);
 extern int pendPlay;
-
-extern void render3DUpperScreen();
-extern void render3DBottomScreen();
 
 #ifdef __cplusplus
 }

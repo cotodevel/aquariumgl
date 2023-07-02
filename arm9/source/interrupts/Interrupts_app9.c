@@ -29,7 +29,6 @@ USA
 #include "math.h"
 #include "imagepcx.h"
 #include "keypadTGDS.h"
-#include "CubeImported.h"
 
 #ifdef ARM9
 __attribute__((section(".itcm")))
@@ -103,10 +102,7 @@ void VblankUser(){
 #ifdef ARM9
 __attribute__((section(".itcm")))
 #endif
-void VcounterUser(){	
-	
-	//Timing reserved for 2D/3D rendering
-	
+void VcounterUser(){
 	handleARM9SVC();	/* Do not remove, handles TGDS services */
 }
 
