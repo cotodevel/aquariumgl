@@ -29,7 +29,6 @@
 //#include "VideoGL.h"
 // NDSDISPLAYLISTUTILS Mode END
 
-
 #ifdef _MSC_VER
 #include <GL\GLUT.h>
 #include "TGDSTypes.h"
