@@ -5,6 +5,7 @@
 */
 
 #include "Renderable.h"
+#include "Scene.h"
 
 #ifndef _MSC_VER
 					// //
@@ -83,7 +84,7 @@ void _drawOctopus(struct MarineObject * marineObj)
 	// draw octopus body (stretched along Y axis)
 	glPushMatrix();
 	glScalef(1.0f, 3.0f, 1.0f);
-	drawSphere(0.3f, 16, 8);
+	drawSphereCustom(0.3f, 16, 8);
 	glPopMatrix(
 #ifdef ARM9
 		1

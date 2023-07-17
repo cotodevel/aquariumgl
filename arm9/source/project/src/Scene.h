@@ -23,6 +23,7 @@
     #include <GL/gl.h>
     #include <GL/glut.h>
 	#include "SOIL.h"
+	#include "..\..\..\..\..\toolchaingenericds\src\common\libutils\arm9\source\ndsDisplayListUtils.h"
 #endif
 
 #ifdef _MSC_VER
@@ -107,7 +108,8 @@ extern void tiltdown(struct Camera * Inst);	/// tilts camera downwards
 
 extern int TWLPrintf(const char *fmt, ...);
 
-extern void drawSphere(float r, int lats, int longs);
+extern void drawSphereCustom(float r, int lats, int longs);
+
 extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
 extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
 extern GLint DLSOLIDCUBE0_06F;
