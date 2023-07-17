@@ -4,6 +4,7 @@
 * Igor Kromin 40125374
 */
 #include "Renderable.h"
+#include "Scene.h"
 
 #ifndef _MSC_VER
 					// //
@@ -46,7 +47,7 @@ void _drawCrab(struct MarineObject * marineObj)
 	// draw crab body (squashed along Y axis
 	glPushMatrix();
 	glScalef(1.0f, 0.5f, 1.0f);
-	drawSphere(0.3f, 16, 16);
+	drawSphereCustom(0.3f, 16, 16);
 	glPopMatrix(
 #ifdef ARM9
 		1
@@ -69,11 +70,11 @@ void _drawCrab(struct MarineObject * marineObj)
 
 	// draw left crab eye
 	glTranslatef(-0.06f, 0.0f, 0.3f);
-	drawSphere(0.05f, 12, 8);
+	drawSphereCustom(0.05f, 12, 8);
 
 	// draw right crab eye
 	glTranslatef(0.12f, 0.0f, 0.0f);
-	drawSphere(0.05f, 12, 8);
+	drawSphereCustom(0.05f, 12, 8);
 }
 
 
