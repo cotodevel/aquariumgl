@@ -18,7 +18,7 @@
 #endif
 
 #ifdef ARM9
-#include "VideoGL.h"
+#include "videoGL.h"
 #include "Sphere008.h" //comment out when running on NDSDisplayListUtils
 #endif
 
