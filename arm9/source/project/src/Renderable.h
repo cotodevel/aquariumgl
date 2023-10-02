@@ -26,7 +26,7 @@
 // NDSDLUtils Mode : uncomment these if building AquariumGL on NDSDLUtils for WIN32 (NDS GX 3D debugger)
 //Otherwise, comment these out if building for TGDS or WIN32 port of AquariumGL
 //#undef _MSC_VER
-//#include "VideoGL.h"
+//#include "videoGL.h"
 // NDSDISPLAYLISTUTILS Mode END
 
 #ifdef _MSC_VER
@@ -39,7 +39,7 @@
 #endif
 
 #ifdef ARM9
-#include "VideoGL.h"
+#include "videoGL.h"
 #endif
 
 #include <stdio.h>

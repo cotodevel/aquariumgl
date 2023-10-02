@@ -15,7 +15,7 @@
 #endif
 
 #ifdef ARM9
-#include "VideoGL.h"
+#include "videoGL.h"
 #endif
 
 /// Default Constructor. Initialises defaults.
