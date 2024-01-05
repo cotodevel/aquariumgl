@@ -23,8 +23,6 @@
 #endif
 
 // create the static parts of all objects
-unsigned int texturesRenderable[2];
-
 struct MarineObject MarineObjectInit1(
 	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,

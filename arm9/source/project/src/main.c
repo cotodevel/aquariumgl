@@ -41,8 +41,7 @@ USA
 #include "interrupts.h"
 #include "ipcfifoTGDSUser.h"
 
-#include "grass_tex.h"
-#include "fish_tex.h"
+
 #include <ctype.h>
 
 #ifdef __cplusplus
@@ -681,18 +680,6 @@ void getTextures(void)
     load_image("../src/resources/fish.png");
 #endif
 
-#ifdef ARM9
-	//#1: Load a texture and map each one to a texture slot
-	u32 arrayOfTextures[2];
-	arrayOfTextures[FLOOR_TEXTURE] = (u32)&grass_tex; //0: grass_tex.bmp
-	arrayOfTextures[FISH_TEXTURE] = (u32)&fish_tex; //1: fish_tex.bmp  
-	int texturesInSlot = LoadLotsOfGLTextures((u32*)&arrayOfTextures, (int*)&texturesRenderable, 2); //Implements both glBindTexture and glTexImage2D 
-	int i = 0;
-	for(i = 0; i < texturesInSlot; i++){
-		printf("Texture loaded: %d:textID[%d] Size: %d", i, texturesRenderable[i], getTextureBaseFromTextureSlot(activeTexture));
-	}
-	printf("Free Mem: %d KB", ((int)TGDSARM9MallocFreeMemory()/1024));
-#endif
 }
 
 #ifdef _MSC_VER
