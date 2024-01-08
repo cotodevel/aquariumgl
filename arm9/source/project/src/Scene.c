@@ -4,15 +4,22 @@
 #endif
 
 #include "Scene.h"
+#ifdef ARM9
 #include "grass_tex.h"
 #include "fish_tex.h"
 #include "GXPayload.h" //required to flush the GX<->DMA<->FIFO circuit on real hardware
+#endif
 
 #ifndef _MSC_VER
 					// //
 #define ARM9 1		// Enable only if not real GCC + NDS environment
 #undef _MSC_VER		// //
 #undef WIN32		// //
+#endif
+
+
+#ifdef _MSC_VER
+GLint texturesRenderable[10];
 #endif
 
 int widthScene;	/// the width of the window
