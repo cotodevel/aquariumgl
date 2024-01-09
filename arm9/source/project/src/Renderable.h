@@ -203,7 +203,6 @@ extern GLfloat vertexStarFish[];
 extern GLfloat normalStarFish[];
 extern GLfloat coloursStarFish[];
 extern int TWLPrintf(const char *fmt, ...);
-extern unsigned int texturesRenderable[2];	/// texture id array
 extern GLfloat getRand(GLfloat minimum, GLfloat range);	/// generates a random value in max range
 extern int startAquarium(int argc, char *argv[]);
 

@@ -4,12 +4,22 @@
 #endif
 
 #include "Scene.h"
+#ifdef ARM9
+#include "grass_tex.h"
+#include "fish_tex.h"
+#include "GXPayload.h" //required to flush the GX<->DMA<->FIFO circuit on real hardware
+#endif
 
 #ifndef _MSC_VER
 					// //
 #define ARM9 1		// Enable only if not real GCC + NDS environment
 #undef _MSC_VER		// //
 #undef WIN32		// //
+#endif
+
+
+#ifdef _MSC_VER
+GLint texturesRenderable[10];
 #endif
 
 int widthScene;	/// the width of the window
@@ -37,6 +47,12 @@ GLfloat position1Scene[4]	= {-2.0f, -5.0f, -5.0f, -1.0f};
 GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
 
 /// Resets the camera position to default position and tilt
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void initializeCamera(struct Camera * Inst){
 	TWLPrintf("-- Creating camera\n");
 	Inst->distance = -50.0f;
@@ -46,6 +62,12 @@ void initializeCamera(struct Camera * Inst){
 
 /// Positions the camera at the required place and rotation
 /// Zoom and spin is done by translate/rotate
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void position(struct Camera * Inst){
 	glTranslatef(0.0f, 0.0f, Inst->distance);
 	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f);
@@ -65,27 +87,57 @@ void position(struct Camera * Inst){
 }
 
 /// Decrements the distance to origin (zoom in)
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void dec(struct Camera * Inst){
 	Inst->distance--;
 }
 
 /// Incrementes the distance to origin (zoom out)
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void inc(struct Camera * Inst){
 	Inst->distance++;
 }
 
 /// Adjusts the camera rotation around the Y axis
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void clockwise(struct Camera * Inst){
 	Inst->horizontalAngle++;
 }
 
 /// Adjusts the camera rotation around the Y axis
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void anticlockwise(struct Camera * Inst){
 	Inst->horizontalAngle--;
 }
 
 /// Adjusts the camera rotation around the X axis
 /// the angle is locked if it gets above 0 degrees
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void tiltup(struct Camera * Inst){
 	if (Inst->verticalTilt < 0)
 		Inst->verticalTilt++;
@@ -93,12 +145,24 @@ void tiltup(struct Camera * Inst){
 
 /// Adjusts the camera rotation around the X axis
 /// The angle is locked if it gets greate than 90 degrees
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void tiltdown(struct Camera * Inst){
 	if (Inst->verticalTilt > -90)
 		Inst->verticalTilt--;
 }
 
 /// Default Constructor. Initialises defaults.
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void initializeScene(struct Scene * Inst){
 	TWLPrintf("-- Creating scene\n");
 
@@ -127,6 +191,7 @@ static bool renderCube = false;
 #ifdef WIN32
 static bool renderCube;
 #endif
+
 void render3DUpperScreen(){
 	//Update camera for NintendoDS Upper 3D Screen:
 	renderCube = false;
@@ -139,6 +204,12 @@ void render3DBottomScreen(){
 
 
 /// Renders a single frame of the scene
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void drawScene(){
 	struct Scene * Inst = &scene;
 
@@ -165,6 +236,11 @@ void drawScene(){
 		int i = 0;
 		for (i = 0; i < Inst->curElementAlloced; i++){
 			#ifdef ARM9
+				glMatrixMode(GL_TEXTURE); //GX 3D hardware needs this to enable texturing on a frame basis
+				glLoadIdentity();	
+				glMatrixMode(GL_MODELVIEW);
+				
+				glMaterialShinnyness();
 				updateGXLights(); //Update GX 3D light scene!
 				glColor3f(1.0, 1.0, 1.0); //clear last scene color/light vectors
 			#endif
@@ -183,7 +259,12 @@ void drawScene(){
     #endif
 }
 
-
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void glut2SolidCube0_06f() {
 #ifdef ARM9
 	updateGXLights(); //Update GX 3D light scene!
@@ -196,10 +277,10 @@ void glut2SolidCube0_06f() {
 /// and blending are set up here
 #ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O0")))
+__attribute__((optimize("Ofast")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
-__attribute__((optnone))
+__attribute__ ((optnone))
 #endif
 #endif
 int InitGL(int argc, char *argv[]){
@@ -266,10 +347,8 @@ int InitGL(int argc, char *argv[]){
 	int TGDSOpenGLDisplayListWorkBufferSize = (256*1024);
 	struct Scene * Inst = &scene;
 	glInit(TGDSOpenGLDisplayListWorkBufferSize); //NDSDLUtils: Initializes a new videoGL context
-	
-	glClearColor(255,255,255);		// White Background
 	glClearDepth(0x7FFF);		// Depth Buffer Setup
-	glEnable(GL_ANTIALIAS|GL_TEXTURE_2D|GL_BLEND); // Enable Texture Mapping + light #0 enabled per scene
+	glEnable(GL_ANTIALIAS|GL_TEXTURE_2D|GL_BLEND); // Enable Texture Mapping
 
 	glDisable(GL_LIGHT0|GL_LIGHT1|GL_LIGHT2|GL_LIGHT3);
 
@@ -277,15 +356,36 @@ int InitGL(int argc, char *argv[]){
 		setTGDSARM9PrintfCallback((printfARM9LibUtils_fn)&TGDSDefaultPrintf2DConsole); //Redirect to default TGDS printf Console implementation
 		menuShow();
 	}
+	setTGDSARM9PrintfCallback((printfARM9LibUtils_fn)&TGDSDefaultPrintf2DConsole); //Redirect to default TGDS printf Console implementation
 	//REG_IE = REG_IE & ~(IRQ_VBLANK); //Handled later in BG Music
 	//REG_IE |= IRQ_VCOUNT;
 	
 	glReset(); //Depend on GX stack to render scene
 	glClearColor(0,35,195);		// blue green background colour
 
+	setOrientation(ORIENTATION_0, true);
+	//set mode 0, enable BG0 and set it to 3D
+	SETDISPCNT_MAIN(MODE_0_3D);
+	
 	/* TGDS 1.65 OpenGL 1.1 Initialization */
 	ReSizeGLScene(255, 191);
 	glMaterialShinnyness();
+	//glGenTextures(1, &textureSizePixelCoords[Texture_CubeID].textureIndex);
+	//glBindTexture(0, textureSizePixelCoords[Texture_CubeID].textureIndex);
+	//glTexImage2D(0, 0, GL_RGB, TEXTURE_SIZE_128 , TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD, (u8*)_6bppBitmap);		
+	
+	//Multiple 64x64 textures as PCX/BMP
+	//Load 2 textures and map each one to a texture slot
+	u32 arrayOfTextures[2];
+	arrayOfTextures[FLOOR_TEXTURE] = (u32)&grass_tex; //0: grass_tex.bmp
+	arrayOfTextures[FISH_TEXTURE] = (u32)&fish_tex; //1: fish_tex.bmp  
+	int texturesInSlot = LoadLotsOfGLTextures((u32*)&arrayOfTextures, (sizeof(arrayOfTextures)/sizeof(u32)) ); //Implements both glBindTexture and glTexImage2D 
+	int i = 0;
+	for(i = 0; i < texturesInSlot; i++){
+		printf("Tex. index: %d: Tex. name[%d]", i, getTextureNameFromIndex(i));
+	}
+	printf("Free Mem: %d KB", ((int)TGDSARM9MallocFreeMemory()/1024));
+	glCallListGX((u32*)&GXPayload); //Run this payload once to force cache flushes on DMA GXFIFO
 #endif
 	
 	glEnable(GL_COLOR_MATERIAL);	//allow to mix both glColor3f + light sources when lighting is enabled (glVertex + glNormal3f)
@@ -364,10 +464,10 @@ void setupTGDSProjectOpenGLDisplayLists(){
 
 #ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("O0")))
+__attribute__((optimize("Ofast")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
-__attribute__((optnone))
+__attribute__ ((optnone))
 #endif
 #endif
 GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// resizes the window (GLUT & TGDS GL)
@@ -403,7 +503,12 @@ void resizeWindow(int w, int h)
 }
 #endif
 
-
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 int startTGDSProject(int argc, char *argv[])
 {
 	time_t time1 = time(NULL);
@@ -516,6 +621,12 @@ int startTGDSProject(int argc, char *argv[])
 * This method simply adds on the passed object to the end
 * of the rendering queue.
 */
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 bool add(struct Scene * Inst, struct MarineObject *object){
 	if(Inst->curElementAlloced < renderableElementsTotal){
 		memcpy(&Inst->elementsStart[Inst->curElementAlloced], object, sizeof(struct MarineObject));
@@ -534,6 +645,12 @@ bool add(struct Scene * Inst, struct MarineObject *object){
 * MODELVIEW matrices are restored to their original states when
 * this method returns.
 */
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void drawHUD(struct Scene * Inst){
 	GLboolean lightsOn;
 	
@@ -621,6 +738,12 @@ void drawHUD(struct Scene * Inst){
 
 
 /// Prints a string with a count attached
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str, int count){
 	char buffer[30];
 	int i = 0;
@@ -633,6 +756,12 @@ void printGL1(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *
 
 
 /// Prints a string in the window
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *str){
 #ifdef WIN32
 	int j = 0;
@@ -647,6 +776,12 @@ void printGL2(struct Scene * Inst, GLfloat x, GLfloat y, GLfloat z, const char *
 
 
 /// Displays the menu screen
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void printMenu(struct Scene * Inst){
 	glColor3f(0.0f, 0.0f, 0.0f);
 	printGL2(Inst, 0.0f, 1.7f, -1.0f, "---[ Help Screen ]------------");
@@ -679,6 +814,12 @@ void printMenu(struct Scene * Inst){
 	printGL2(Inst, 0.0f, 6.8f, -1.0f, "---[Igor Kromin 40125374 ]----");
 }
 
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("Ofast")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
 void drawSphereCustom(float r, int lats, int longs){
 
 #ifdef WIN32
