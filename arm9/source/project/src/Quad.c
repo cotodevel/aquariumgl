@@ -44,38 +44,13 @@ void _drawQuad(struct MarineObject * marineObj)
 #endif	
 	);
 
-	glTexParameteri(
-#ifdef ARM9
-		0, 
-#endif
+//DS doesn't support filtering.
 #ifdef WIN32
-		GL_TEXTURE_2D,
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 #endif
-	GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(
-#ifdef ARM9
-		0, 
-#endif
-#ifdef WIN32
-		GL_TEXTURE_2D,
-#endif
-	GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(
-#ifdef ARM9
-		0, 
-#endif
-#ifdef WIN32
-		GL_TEXTURE_2D,
-#endif
-	GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(
-#ifdef ARM9
-		0, 
-#endif
-#ifdef WIN32
-		GL_TEXTURE_2D,
-#endif
-	GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	glColor3f(0.9f, 0.6f, 0.0f);
 	glBegin(GL_QUADS);

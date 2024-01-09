@@ -132,6 +132,10 @@ extern bool add(struct Scene * Inst, struct MarineObject *object);
 extern void getTextures(void);
 extern void resizeWindow(int w, int h);
 
+#ifdef _MSC_VER
+extern GLint texturesRenderable[10];
+#endif
+
 #ifdef __cplusplus
 }
 #endif
