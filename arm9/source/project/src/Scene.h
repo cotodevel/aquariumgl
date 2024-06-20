@@ -45,6 +45,7 @@ struct Camera{
 	GLfloat verticalTilt;
 	GLfloat horizontalAngle;
 	GLfloat distance;
+	GLfloat verticalAngle;
 };
 
 
