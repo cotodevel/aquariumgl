@@ -46,6 +46,10 @@ GLfloat specular1Scene[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
 GLfloat position1Scene[4]	= {-2.0f, -5.0f, -5.0f, -1.0f};
 GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
 
+//Separate Cameras for upper/bottom screen: A global camera directs the scene, then each camera is customized per screen
+static struct Camera upperScreenCamera;
+static struct Camera bottomScreenCamera;
+
 /// Resets the camera position to default position and tilt
 #if (defined(__GNUC__) && !defined(__clang__))
 __attribute__((optimize("Ofast")))
@@ -55,9 +59,10 @@ __attribute__ ((optnone))
 #endif
 void initializeCamera(struct Camera * Inst){
 	TWLPrintf("-- Creating camera\n");
-	Inst->distance = -50.0f;
+	Inst->distance = -25.0f;
 	Inst->verticalTilt = -30.0f;
 	Inst->horizontalAngle = 90.0f;
+	Inst->verticalAngle = 1.0f;
 }
 
 /// Positions the camera at the required place and rotation
@@ -70,19 +75,18 @@ __attribute__ ((optnone))
 #endif
 void position(struct Camera * Inst){
 	glTranslatef(0.0f, 0.0f, Inst->distance);
-	glRotatef(Inst->verticalTilt, 1.0f, 0.0f, 0.0f);
-	glRotatef(Inst->horizontalAngle, 0.0f, 1.0f, 0.0f);
+	glRotatef(Inst->horizontalAngle, Inst->verticalTilt, 1.0f, 0.0f);
 
 //DS GX: Set extra camera parameters
 #ifdef ARM9	
 	//any floating point gl call is being converted to fixed prior to being implemented
 	gluPerspective(-45, 256.0 / 192.0, 0.1, 250);
 
-
 	gluLookAt(	1.0, -Inst->distance, -45.0f + Inst->horizontalAngle,		//camera possition 
-				1.0, 1.0, 1.0,		//look at
-				1.0, 1.0, 45.0		//up
+				1.0, Inst->verticalAngle, 1.0,		//look at
+				1.0, 1.0, 45.0 		//up
 	);		
+	glRotateX(-25.0f);
 #endif
 }
 
@@ -185,21 +189,18 @@ void initializeScene(struct Scene * Inst){
 	initializeCamera(&Inst->camera); //construct camera
 }
 
-#ifdef ARM9
-static bool renderCube = false;
-#endif
-#ifdef WIN32
-static bool renderCube;
-#endif
-
 void render3DUpperScreen(){
-	//Update camera for NintendoDS Upper 3D Screen:
-	renderCube = false;
+	//Get Camera
+	upperScreenCamera = scene.camera;
+	
+	//Adjust Camera
+	upperScreenCamera.verticalAngle = -330.0f; 
+	upperScreenCamera.horizontalAngle = upperScreenCamera.horizontalAngle / 2;
 }
 
 void render3DBottomScreen(){
-	//Update camera for NintendoDS Bottom 3D Screen
-	renderCube = true;
+	//Get Camera
+	bottomScreenCamera = scene.camera;
 }
 
 
@@ -229,7 +230,12 @@ void drawScene(){
 	glLoadIdentity();
 
 	//position camera
-	position(&Inst->camera); 
+	if(NE_Screen == 0){
+		position(&upperScreenCamera); 
+	}
+	else{
+		position(&bottomScreenCamera);
+	}
 	
 	// draw all elements in the scene
 	{
@@ -255,7 +261,8 @@ void drawScene(){
 
 	#ifdef ARM9
     glFlush();
-	HaltUntilIRQ(); //Halt CPU power until next interrupt //IRQVBlankWait();
+	handleARM9SVC();	/* Do not remove, handles TGDS services */
+    IRQVBlankWait();
     #endif
 }
 
