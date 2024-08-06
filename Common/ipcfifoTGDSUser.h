@@ -48,10 +48,7 @@ struct sIPCSharedTGDSSpecific {
 
 #define FIFO_PLAYSOUNDSTREAM_FILE (u32)(0xFFFFABCB)
 #define FIFO_STOPSOUNDSTREAM_FILE (u32)(0xFFFFABCC)
-
 #define FIFO_PLAYSOUNDEFFECT_FILE (u32)(0xFFFFABCD)
-
-#define workBufferSoundEffect0 (s16*)((int)0x06000000 + (96*1024) - (4096*4))
 
 #define NO_VIDEO_PLAYBACK	1
 
