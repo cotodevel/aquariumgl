@@ -47,7 +47,13 @@ USA
 #include "arm7vram.h"
 #include "arm7vram_twl.h"
 
-u32 * getTGDSMBV3ARM7Bootloader(){
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+u32 * getTGDSARM7VRAMCore(){
 	if(__dsimode == false){
 		return (u32*)&arm7vram[0];	
 	}
@@ -80,12 +86,13 @@ extern int vsnprintf(char *str, size_t size, const char *format, va_list ap);
 
 struct Scene scene;	/// the scene we render
 
+#ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Os")))
+__attribute__((optimize("O0")))
 #endif
-
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
+#endif
 #endif
 int main(int argc, char *argv[])
 {
@@ -96,17 +103,11 @@ int main(int argc, char *argv[])
 	#ifdef ARM9
 	/*			TGDS 1.6 Standard ARM9 Init code start	*/
 	//Save Stage 1: IWRAM ARM7 payload: NTR/TWL (0x03800000)
-	memcpy((void *)TGDS_MB_V3_ARM7_STAGE1_ADDR, (const void *)0x02380000, (int)(96*1024));	//
-	coherent_user_range_by_size((uint32)TGDS_MB_V3_ARM7_STAGE1_ADDR, (int)(96*1024)); //		also for TWL binaries 
+	memcpy((void *)TGDS_MB_V3_ARM7_STAGE1_ADDR, (const void *)0x02380000, (int)(96*1024));
+	coherent_user_range_by_size((uint32)TGDS_MB_V3_ARM7_STAGE1_ADDR, (int)(96*1024));
 	
 	//Execute Stage 2: VRAM ARM7 payload: NTR/TWL (0x06000000)
-	u32 * payload = NULL;
-	if(__dsimode == false){
-		payload = (u32*)&arm7vram[0];	
-	}
-	else{
-		payload = (u32*)&arm7vram_twl[0];
-	}
+	u32 * payload = getTGDSARM7VRAMCore();
 	executeARM7Payload((u32)0x02380000, 96*1024, payload);
 	
 	bool isTGDSCustomConsole = true;	//set default console or custom console: custom console 
@@ -138,6 +139,8 @@ int main(int argc, char *argv[])
 		TWLSetTouchscreenTWLMode(); //guaranteed TSC on TWL Mode through Unlaunch
 	}
 	REG_IME = 1;
+	
+	setBacklight(POWMAN_BACKLIGHT_TOP_BIT | POWMAN_BACKLIGHT_BOTTOM_BIT); //Dual3D or debug session enabled screens
 	
 	/*
 	#ifdef NO_VIDEO_PLAYBACK
@@ -172,7 +175,7 @@ int main(int argc, char *argv[])
 		strcpy(&thisArgv[0][0], TGDSPROJECTNAME);	//Arg0:	This Binary loaded
 		strcpy(&thisArgv[1][0], curChosenBrowseFile);	//Arg1:	NDS Binary reloaded
 		strcpy(&thisArgv[2][0], tmpName);					//Arg2: NDS Binary ARG0
-		u32 * payload = getTGDSMBV3ARM7Bootloader();		
+		u32 * payload = getTGDSARM7VRAMCore();		
 		if(TGDSMultibootRunNDSPayload(curChosenBrowseFile, (u8*)payload, 3, (char*)&thisArgv) == false){ //should never reach here, nor even return true. Should fail it returns false
 			printf("Invalid NDS/TWL Binary >%d", TGDSPrintfColor_Yellow);
 			printf("or you are in NTR mode trying to load a TWL binary. >%d", TGDSPrintfColor_Yellow);
@@ -221,6 +224,14 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void TGDSAPPExit(u32 fn_address){
 #ifdef ARM9
 	clrscr();
@@ -238,6 +249,14 @@ void TGDSAPPExit(u32 fn_address){
 /// 25 milliseconds. A timer is used to give smooth animation at the
 /// same rate on differnt computers. idle function draws the scenes
 /// at way too different speeds on different computers
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void animateScene(int type)
 {
 #ifdef _MSC_VER
@@ -247,6 +266,14 @@ void animateScene(int type)
 }
 
 /// Handles keyboard input for normal keys
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void keyboardInput(unsigned char key, int x, int y)
 {
 	switch(key) {
@@ -335,6 +362,14 @@ void keyboardInput(unsigned char key, int x, int y)
 
 
 /// Processes special keyboard keys like F1, F2, etc
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void keyboardInputSpecial(int key, int x, int y){
 	switch (key){
 	
@@ -420,6 +455,14 @@ void keyboardInputSpecial(int key, int x, int y){
 }
 
 /// Adds an object to the scene
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void addObject(int type)
 {
 	/*
@@ -429,16 +472,18 @@ void addObject(int type)
 	*/
 
 	// first pick the x and z locations
-	GLfloat x = getRand(-25.0f, 50.0f);
-	GLfloat z = getRand(-25.0f, 50.0f);
+	volatile GLfloat x = getRand(-25.0f, 50.0f);
+	volatile GLfloat z = getRand(-25.0f, 50.0f);
+
+	//so far OK
 
 	// the height is a bit different, differnt objects need a different
 	// offset above the sea floor
-	GLfloat y;
+	volatile GLfloat y;
 
-	GLfloat mat1Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
-	GLfloat mat2Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
-	struct MarineObject object;
+	volatile GLfloat mat1Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	volatile GLfloat mat2Init[] = {0.0f, 0.0f, 0.0f, 0.0f};
+	volatile struct MarineObject object;
 
 	switch (type)
 	{
@@ -475,7 +520,7 @@ void addObject(int type)
 		y = -0.4f;
 		{
 			GLfloat mat1[] = {0.5f, 0.5f, 0.5f, 1.f};
-			object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);
+			object = BuildCrab((void*)&_drawCrab, (void*)&_draw_dlistCrab, mat1, 50.f, NULL, NULL, NULL, NULL);	//broken
 			//scale the crab
 			#ifdef ARM9
 			scale(&object, 7.0f, 7.0f, 7.0f);
@@ -573,6 +618,14 @@ void addObject(int type)
 
 
 /// Sets up the viewing volume to be used
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void setupViewVolume(void)
 {
 	// work out the aspect ratio for width and height
@@ -602,6 +655,14 @@ void setupViewVolume(void)
 }
 
 /// Initiates all textures
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void getTextures(void)
 {
 	TWLPrintf("-- Generating/Loading Textures\n");
@@ -627,14 +688,24 @@ void load_image(const char* filename)
 #endif
 
 //ARM9 printf nocash debugger
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 int TWLPrintf(const char *fmt, ...){
 #ifdef ARM9
-	va_list args;
-	va_start (args, fmt);
-	vsnprintf ((sint8*)ConsolePrintfBuf, 64, fmt, args);
-	va_end (args);
-	
-	nocashMessage((char*)ConsolePrintfBuf);
+	if(__dsimode == true){
+		va_list args;
+		va_start (args, fmt);
+		vsnprintf ((sint8*)ConsolePrintfBuf, 64, fmt, args);
+		va_end (args);
+		
+		nocashMessage((char*)ConsolePrintfBuf);
+	}
 #endif
 	return 0;
 }
@@ -682,6 +753,14 @@ bool get_pen_delta( int *dx, int *dy ){
 	return true;
 }
 
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void menuShow(){
 	clrscr();
 	printf(" ---- ");

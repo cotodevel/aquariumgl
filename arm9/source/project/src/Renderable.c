@@ -23,6 +23,14 @@
 #endif
 
 // create the static parts of all objects
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject MarineObjectInit1(
 	int callerTypeIn,
 	GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
@@ -74,6 +82,14 @@ struct MarineObject MarineObjectInit1(
 }
 
 /// Builds a display list of this object.
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void build(struct MarineObject * marineObjRef, GLuint *dlist){
 	*dlist = glGenLists(1);
 	if (!glIsList(*dlist)) {
@@ -109,6 +125,14 @@ void build(struct MarineObject * marineObjRef, GLuint *dlist){
 * This method moves the object coordinates to the specified position along
 * the x, y and z axes.
 */
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void move(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->x = x;
 	marineObjRef->y = y;
@@ -123,6 +147,14 @@ void move(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 * performed around the point (1.0f, 1.0f, 1.0f) and happen in
 * the following manner: x-rot, y-rot, z-rot
 */
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void rotate(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->rx = x;
 	marineObjRef->ry = y;
@@ -131,6 +163,14 @@ void rotate(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z)
 
 
 /// Scales the object
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void scale(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 	marineObjRef->sx = x;
 	marineObjRef->sy = y;
@@ -149,6 +189,14 @@ void scale(struct MarineObject * marineObjRef, GLfloat x, GLfloat y, GLfloat z){
 * If a display list has been built for this object, then it is
 * draw instead of re-drawing the object.
 */
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void draw(struct MarineObject * marineObjRef){
 	glPushMatrix();
 
@@ -205,6 +253,14 @@ void draw(struct MarineObject * marineObjRef){
 
 
 /// Generates a random value to use
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 GLfloat getRand(GLfloat minimum, GLfloat range)
 {
 	return (((GLfloat)rand() / (GLfloat)RAND_MAX) * range) + minimum;
