@@ -15,6 +15,14 @@
 
 /// Default Constructor. Builds the display list for the crab.
 //Crab class. Draws a pinky coloured crab.
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject BuildCrab(
 	void * drawCrabFn, void * displayListFn,
 	GLfloat materialIn[4], GLfloat shininessIn,
@@ -33,6 +41,14 @@ struct MarineObject BuildCrab(
 
 
 /// Draws the crab
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _drawCrab(struct MarineObject * marineObj)
 {
 	/*
@@ -79,6 +95,14 @@ void _drawCrab(struct MarineObject * marineObj)
 
 
 /// Draws the display list for the crab object
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _draw_dlistCrab(struct MarineObject * marineObj)
 {
 	// work out how much to advance the object by relative to its orientation
@@ -117,6 +141,14 @@ void _draw_dlistCrab(struct MarineObject * marineObj)
 
 
 /// Draws a leg using an angle between the two bones
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset){
 	// draw first part of a leg
 	glPushMatrix();
@@ -144,6 +176,14 @@ void drawLegCrab(GLfloat jointAngle, GLfloat jointOffset){
 
 
 /// Draws one leg
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void draw1LegCrab()
 {
 	drawLegCrab(-45.0f, 0.075f);
@@ -151,6 +191,14 @@ void draw1LegCrab()
 
 
 /// Draws complete set of legs (side legs)
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void drawLegsCrab(){
 	GLfloat i = 0;
 	// set a darker pinky colour for legs

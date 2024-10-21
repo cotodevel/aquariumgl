@@ -35,11 +35,11 @@
 
 #define PI 3.14159
 
-#define OBJ_CRAB 0
-#define OBJ_OCTOPUS 1
-#define OBJ_STARFISH 2
-#define OBJ_FISH 3
-#define OBJ_PLANT 4
+#define OBJ_CRAB (int)(0)
+#define OBJ_OCTOPUS (int)(1)
+#define OBJ_STARFISH (int)(2)
+#define OBJ_FISH (int)(3)
+#define OBJ_PLANT (int)(4)
 
 struct Camera{
 	GLfloat verticalTilt;
@@ -114,6 +114,7 @@ extern void drawSphereCustom(float r, int lats, int longs);
 extern void drawCircle(GLfloat x, GLfloat y, GLfloat r, GLfloat BALL_RADIUS);
 extern void drawCylinder(int numMajor, int numMinor, float height, float radius);
 extern GLint DLSOLIDCUBE0_06F;
+
 extern void glut2SolidCube0_06f();
 extern int InitGL(int argc, char *argv[]); /// initialises OpenGL
 extern void setupTGDSProjectOpenGLDisplayLists();

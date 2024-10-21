@@ -4,6 +4,8 @@
 #endif
 
 #include "Scene.h"
+#include "loader.h"
+
 #ifdef ARM9
 #include "grass_tex.h"
 #include "fish_tex.h"
@@ -511,7 +513,7 @@ void resizeWindow(int w, int h)
 #endif
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -521,7 +523,12 @@ int startTGDSProject(int argc, char *argv[])
 	time_t time1 = time(NULL);
 	TWLPrintf("-- Program starting: %d\n", (unsigned int)time1);
 	srand(time1);
+
+	//so far OK
+
 	InitGL(argc, argv);
+
+	//so far OK
 
 	// register our call-back functions
 	TWLPrintf("-- Registering callbacks\n");
@@ -535,10 +542,14 @@ int startTGDSProject(int argc, char *argv[])
 
 	// generate/load textures
 	getTextures();
-
+	
+	//so far OK
+	
 	// create the scene and set perspective projection as default
 	initializeScene(&scene);
 	scene.perspectiveMode = true;
+
+	//so far OK
 
 	// create a single quad for the floor of the aquarium (reduces 420~ objects into mere 22 which makes the engine runnable on NintendoDS at good framerate)
 	{
@@ -571,6 +582,8 @@ int startTGDSProject(int argc, char *argv[])
 		add(&scene, &quad);
 	}
 
+	//so far OK
+
 	// 'fake' keys being pressed to enable the state to
 	// setup lighting and fog
 	keyboardInput((unsigned char)'L', 0, 0);
@@ -579,6 +592,8 @@ int startTGDSProject(int argc, char *argv[])
 	keyboardInput((unsigned char)'2', 0, 0);
 	keyboardInput((unsigned char)'F', 0, 0);
 
+	//so far OK
+	
 	// add some stuff to the scene
 	{
 		int o = 0;
@@ -600,16 +615,46 @@ int startTGDSProject(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
+
 	BgMusicOff();
 	BgMusic("0:/tank.ima");
 	//startTimerCounter(tUnitsMilliseconds, 1);
     glMaterialShinnyness();
 	glReset(); //Depend on GX stack to render scene
 	glClearColor(0,35,195);		// blue green background colour
+	
+	//so far OK
+
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
 		keyboardInputSpecial((int)keysHeld(), 0, 0);
+		
+		/*
+		//Go back to TGDS-multiboot
+		if(keysDown() & KEY_L){	
+			haltARM7(); //required
+			char thisArgv[3][MAX_TGDSFILENAME_LENGTH];
+			memset(thisArgv, 0, sizeof(thisArgv));
+			strcpy(&thisArgv[0][0], "");	//Arg0:	This Binary loaded
+			strcpy(&thisArgv[1][0], "");	//Arg1:	NDS Binary to chainload through TGDS-MB
+			strcpy(&thisArgv[2][0], "");	//Arg2: NDS Binary loaded from TGDS-MB	
+			char * TGDS_MB = NULL;
+			if(__dsimode == true){
+				TGDS_MB = "0:/ToolchainGenericDS-multiboot.srl";
+			}
+			else{
+				TGDS_MB = "0:/ToolchainGenericDS-multiboot.nds";
+			}
+			u32 * payload = getTGDSARM7VRAMCore();
+			if(TGDSMultibootRunNDSPayload(TGDS_MB, (u8*)payload, 0, (char*)&thisArgv) == false){ //should never reach here, nor even return true. Should fail it returns false
+				
+			}
+			while(keysDown() & KEY_L){
+				scanKeys();
+			}
+		}
+		*/
 		
 		//sound (ARM7)
 		
@@ -822,7 +867,7 @@ void printMenu(struct Scene * Inst){
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -855,7 +900,7 @@ void drawSphereCustom(float r, int lats, int longs){
 
 	#ifdef ARM9
 	#include "Sphere008.h"
-	glScalef(r, r, r);
-	glCallListGX((u32*)&Sphere008); //comment out when running on NDSDisplayListUtils
+	glScalef(r*32, r*lats, r*longs);
+	glCallList(DLSOLIDCUBE0_06F);
 	#endif
 }

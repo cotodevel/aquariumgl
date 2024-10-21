@@ -32,6 +32,8 @@ D-PAD Down: Move camera further
 A: Enable background music
 B: Enable background music
 
+Note: TGDSProject3D offers Custom ARM7 VRAM Core providing all necessary services for wifi + soundstream + homebrew loader 
+
 Source: https://www.igorkromin.net/index.php/2013/03/02/opengl-aquarium-written-in-c/
 
 ____Remoteboot____

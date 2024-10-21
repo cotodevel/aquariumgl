@@ -14,6 +14,14 @@
 #undef WIN32		// //
 #endif
 
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject BuildOctopus(
 		void * drawOctopusFn, GLfloat materialIn[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
@@ -28,6 +36,15 @@ struct MarineObject BuildOctopus(
 }
 
 static bool bottomReach;
+
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _drawOctopus(struct MarineObject * marineObj)
 {
 	// work out how much to advance the object by relative to its orientation

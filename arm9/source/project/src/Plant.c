@@ -19,6 +19,14 @@
 #endif
 
 /// Default Constructor. Initialises defaults.
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject BuildPlant(
 		void * drawPlantFn, void * displayListFn,
 		GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
@@ -35,6 +43,14 @@ struct MarineObject BuildPlant(
 }
 
 /// Draws the Plant
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _drawPlant(struct MarineObject * marineObj)
 {
 	/*
@@ -52,6 +68,14 @@ void _drawPlant(struct MarineObject * marineObj)
 
 // Generates the plan. This really draws it, but the draw commands
 // are saved into the display list
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void generateBranches(int level, int number){
 	GLfloat height = 0;
 	GLfloat bottom = 0;
@@ -98,6 +122,14 @@ void generateBranches(int level, int number){
 
 
 /// Draws the display list for the plant object
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _draw_dlistPlant(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)

@@ -42,7 +42,7 @@ USA
 extern "C" {
 #endif
 
-extern u32 * getTGDSMBV3ARM7Bootloader();
+extern u32 * getTGDSARM7VRAMCore();
 extern int main(int argc, char **argv);
 extern void menuShow();
 extern char curChosenBrowseFile[MAX_TGDSFILENAME_LENGTH];
@@ -56,7 +56,6 @@ extern struct fd * _FileHandleAudio;
 extern bool stopSoundStreamUser();
 extern void closeSoundUser();
 extern bool get_pen_delta( int *dx, int *dy );
-	
 extern int pendPlay;
 
 #ifdef __cplusplus
