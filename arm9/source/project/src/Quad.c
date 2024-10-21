@@ -14,6 +14,14 @@
 #endif
 
 /// Default Constructor. Initialises defaults.
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject BuildQuad(
 		void * drawQuadFn, GLfloat materialIn1[4], GLfloat materialIn2[4], GLfloat shininessIn,
 		GLfloat * vertexIn, GLfloat * normalIn, GLfloat * texelsIn, GLfloat * coloursIn
@@ -24,6 +32,14 @@ struct MarineObject BuildQuad(
 }
 
 /// Draws the quad
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _drawQuad(struct MarineObject * marineObj)
 {
 	// set up the material properties (only front needs to be set)
