@@ -14,6 +14,14 @@
 #endif
 
 /// Default Constructor. Initialises defaults.
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 struct MarineObject BuildStarfish(
 		void * drawStarFishFn,
 		GLfloat materialIn[4], GLfloat shininessIn,
@@ -28,6 +36,14 @@ struct MarineObject BuildStarfish(
 }
 
 /// Draws the StarFish
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__ ((optnone))
+#endif
+#endif
 void _drawStarFish(struct MarineObject * marineObj){
 
 	// work out how much to advance the object by relative to its orientation
