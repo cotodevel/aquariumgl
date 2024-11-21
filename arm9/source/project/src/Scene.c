@@ -9,7 +9,9 @@
 #ifdef ARM9
 #include "grass_tex.h"
 #include "fish_tex.h"
-#include "GXPayload.h" //required to flush the GX<->DMA<->FIFO circuit on real hardware
+#include "GXPayload.h"
+#include "biosTGDS.h"
+#include "Sphere008.h"
 #endif
 
 #ifndef _MSC_VER
@@ -208,7 +210,7 @@ void render3DBottomScreen(){
 
 /// Renders a single frame of the scene
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -221,6 +223,9 @@ void drawScene(){
 	if(Inst->TGDSProjectDual3DEnabled == true){
 		TGDS_ProcessDual(render3DUpperScreen, render3DBottomScreen);
 	}
+	else{
+		render3DBottomScreen();
+	}
 	#endif
 
 	#ifdef WIN32
@@ -232,13 +237,17 @@ void drawScene(){
 	glLoadIdentity();
 
 	//position camera
-	if(NE_Screen == 0){
-		position(&upperScreenCamera); 
+	if(Inst->TGDSProjectDual3DEnabled == true){
+		if(NE_Screen == 0){
+			position(&upperScreenCamera); 
+		}
+		else{
+			position(&bottomScreenCamera);
+		}
 	}
 	else{
 		position(&bottomScreenCamera);
 	}
-	
 	// draw all elements in the scene
 	{
 		int i = 0;
@@ -263,8 +272,8 @@ void drawScene(){
 
 	#ifdef ARM9
     glFlush();
-	handleARM9SVC();	/* Do not remove, handles TGDS services */
-    IRQVBlankWait();
+	IRQVBlankWait();
+    handleARM9SVC();	/* Do not remove, handles TGDS services */
     #endif
 }
 
@@ -294,6 +303,7 @@ __attribute__ ((optnone))
 #endif
 int InitGL(int argc, char *argv[]){
 	TWLPrintf("-- Setting up OpenGL context\n");
+	
 #ifdef _MSC_VER
 	// initialise glut
 	glutInit(&argc, argv);
@@ -366,10 +376,6 @@ int InitGL(int argc, char *argv[]){
 		menuShow();
 	}
 	setTGDSARM9PrintfCallback((printfARM9LibUtils_fn)&TGDSDefaultPrintf2DConsole); //Redirect to default TGDS printf Console implementation
-	//REG_IE = REG_IE & ~(IRQ_VBLANK); //Handled later in BG Music
-	//REG_IE |= IRQ_VCOUNT;
-	
-	glReset(); //Depend on GX stack to render scene
 	glClearColor(0,35,195);		// blue green background colour
 
 	setOrientation(ORIENTATION_0, true);
@@ -394,7 +400,6 @@ int InitGL(int argc, char *argv[]){
 		printf("Tex. index: %d: Tex. name[%d]", i, getTextureNameFromIndex(i));
 	}
 	printf("Free Mem: %d KB", ((int)TGDSARM9MallocFreeMemory()/1024));
-	glCallListGX((u32*)&GXPayload); //Run this payload once to force cache flushes on DMA GXFIFO
 #endif
 	
 	glEnable(GL_COLOR_MATERIAL);	//allow to mix both glColor3f + light sources when lighting is enabled (glVertex + glNormal3f)
@@ -404,6 +409,13 @@ int InitGL(int argc, char *argv[]){
 
 	//setupGLUTObjects();
 	setupTGDSProjectOpenGLDisplayLists();
+	
+	#ifdef ARM9
+	REG_IE |= IRQ_VBLANK;
+	glut2SolidCube0_06f();
+	glCallListGX((const u32*)&GXPayload[0]);
+	#endif
+	
 	return 0;
 }
 
@@ -616,11 +628,11 @@ int startTGDSProject(int argc, char *argv[])
 
 #if defined(ARM9)
 
-	BgMusicOff();
+	//BgMusicOff();
 	BgMusic("0:/tank.ima");
 	//startTimerCounter(tUnitsMilliseconds, 1);
     glMaterialShinnyness();
-	glReset(); //Depend on GX stack to render scene
+	//glReset(); //Depend on GX stack to render scene. // nope,crashes GX
 	glClearColor(0,35,195);		// blue green background colour
 	
 	//so far OK
@@ -899,7 +911,6 @@ void drawSphereCustom(float r, int lats, int longs){
 #endif
 
 	#ifdef ARM9
-	#include "Sphere008.h"
 	glScalef(r*32, r*lats, r*longs);
 	glCallList(DLSOLIDCUBE0_06F);
 	#endif
