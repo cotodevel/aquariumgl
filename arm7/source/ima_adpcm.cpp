@@ -143,7 +143,7 @@ int IMA_Adpcm_Stream::stream( s16 *target, int length )
 	if( format == WAV_FORMAT_PCM )
 		return stream_pcm( target, length );
 	else
-	return decode_ima( target, length );
+		return decode_ima( target, length );
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
@@ -520,7 +520,7 @@ int IMA_Adpcm_Player::play(
 	int buffer_length, 
 	closeSoundHandle closeHandle, 
 	FATFS * inFatfsFILEHandle, 
-	int incomingStreamingMode
+	u32 incomingStreamingMode
 ){
 	if(inFatfsFILEHandle == NULL){
 		return -1;
@@ -536,31 +536,23 @@ int IMA_Adpcm_Player::play(
 	}
 	
 	// IMA-ADPCM stream
-	if(currentStreamingMode == FIFO_PLAYSOUNDSTREAM_FILE){
-		int fsize = pf_size(stream.currentFatfsFILEHandle);
-		soundData.channels = headerChunk.wChannels = ADPCMchannels = stream.get_channels();
-		headerChunk.dwSamplesPerSec = stream.get_sampling_rate();
-		headerChunk.wFormatTag = 1;
-		headerChunk.wBitsPerSample = 16;	//Always signed 16 bit PCM out
-		soundData.len = fsize;
-		soundData.loc = 0;
-		soundData.dataOffset = pf_tell(stream.currentFatfsFILEHandle);
-		multRate = 1;
-		sndRate = headerChunk.dwSamplesPerSec;
-		sampleLen = buffer_length;
-		soundData.sourceFmt = SRC_WAV;
-		
-		//ARM7 sound code
-		setupSoundTGDSVideoPlayerARM7();
-		strpcmL0 = (s16*)0x037f8000;
-		strpcmL1 = (s16*)((int)strpcmL0 + (sampleLen << 1 )); 	//strpcmL0 + (size >> 1);
-		strpcmR0 = (s16*)((int)strpcmL1 + (sampleLen << 1 ));	//strpcmL1 + (size >> 1);
-		strpcmR1 = (s16*)((int)strpcmR0 + (sampleLen << 1 ));		//strpcmR0 + (size >> 1);		
-	}
-	else if(currentStreamingMode == FIFO_PLAYSOUNDEFFECT_FILE){
-		//file handle is opened, and decoding is realtime in small samples, then mixed into the final output audio buffer.
-	}
-
+	int fsize = pf_size(stream.currentFatfsFILEHandle);
+	soundData.channels = headerChunk.wChannels = ADPCMchannels = stream.get_channels();
+	headerChunk.dwSamplesPerSec = stream.get_sampling_rate();
+	headerChunk.wFormatTag = 1;
+	headerChunk.wBitsPerSample = 16;	//Always signed 16 bit PCM out
+	soundData.len = fsize;
+	soundData.loc = 0;
+	soundData.dataOffset = pf_tell(stream.currentFatfsFILEHandle);
+	multRate = 1;
+	sndRate = headerChunk.dwSamplesPerSec;
+	sampleLen = buffer_length;
+	soundData.sourceFmt = SRC_WAV;
+	setupSoundTGDSVideoPlayerARM7();
+	strpcmL0 = (s16*)0x037f8000;
+	strpcmL1 = (strpcmL0 + (sampleLen ));
+	strpcmR0 = (strpcmL1 + (sampleLen ));
+	strpcmR1 = (strpcmR0 + (sampleLen ));
 	paused = false;
 	setvolume( 4 );
 	active=true;
@@ -598,6 +590,7 @@ __attribute__ ((optnone))
 void IMA_Adpcm_Player::stop()		{
 	stream.close();
 	active=false;
+	paused=true;
 	setvolume( 0 );
 }
 
@@ -654,27 +647,19 @@ __attribute__((optimize("O0")))
 __attribute__ ((optnone))
 #endif
 __attribute__((section(".iwram64K")))
-int IMA_Adpcm_Player::i_stream_request( int length, void * dest, int format )		{
-	if( !paused ) {
-		if( stream.stream( (s16*)dest, length ) != 1)
-		{
-			
-		}
-		else{
-			if(!stream.wave_loop){ //is bool loop == disabled?
-				stop();
-			}
-		}
-		
-	} 
+int IMA_Adpcm_Player::i_stream_request( int length, void * dest, int format ){
+	if( stream.stream( (s16*)dest, length ) != 1 ) {
+		return 0;
+	}
 	else {
 		s16 *d = (s16*)dest;
 		int i = length * 2;
 		for( ; i; i-- ) {
 			*d++ = 0;
 		}
+		stop();
 	}
-	return length;
+	return -1;
 }
 
 __attribute__((section(".iwram64K")))
@@ -699,23 +684,24 @@ __attribute__ ((optnone))
 __attribute__((section(".iwram64K")))
 void IMAADPCMDecode(s16 * lBuf, s16 * rBuf, IMA_Adpcm_Player * thisPlayer)	{
 	s16 * tmpData = (s16 *)&adpcmWorkBuffer[0];
-	thisPlayer->i_stream_request(ADPCM_SIZE, tmpData, WAV_FORMAT_IMA_ADPCM);
-	if(soundData.channels == 2)
-	{
-		uint i=0;
-		for(i=0;i<(ADPCM_SIZE);++i)
-		{					
-			lBuf[i] = (s16)checkClipping((int)tmpData[i << 1]);
-			rBuf[i] = (s16)checkClipping((int)tmpData[(i << 1) | 1]);
-		}
-	}
-	else
-	{
-		uint i=0;
-		for(i=0;i<(ADPCM_SIZE);++i)
+	if(thisPlayer->i_stream_request(ADPCM_SIZE, tmpData, WAV_FORMAT_IMA_ADPCM) != -1){
+		if(soundData.channels == 2)
 		{
-			lBuf[i] = (s16)checkClipping((int)tmpData[i]);
-			rBuf[i] = (s16)checkClipping((int)tmpData[i]);
+			uint i=0;
+			for(i=0;i<(ADPCM_SIZE);++i)
+			{					
+				lBuf[i] = (s16)checkClipping((int)tmpData[i << 1]);
+				rBuf[i] = (s16)checkClipping((int)tmpData[(i << 1) | 1]);
+			}
+		}
+		else
+		{
+			uint i=0;
+			for(i=0;i<(ADPCM_SIZE);++i)
+			{
+				lBuf[i] = (s16)checkClipping((int)tmpData[i]);
+				rBuf[i] = (s16)checkClipping((int)tmpData[i]);
+			}
 		}
 	}
 }
@@ -771,42 +757,6 @@ void timerAudioCallback(){
 
 	if(backgroundMusicPlayer.active == true){
 		IMAADPCMDecode((s16 *)bufR,(s16 *)bufL, &backgroundMusicPlayer);
-	}
-
-	//Sound effect mix
-	if(SoundEffect0Player.active == true){
-		s16 * tmpDat = (s16 *)&adpcmWorkBuffer[0];
-		SoundEffect0Player.i_stream_request(ADPCM_SIZE, tmpDat, WAV_FORMAT_IMA_ADPCM);
-		if(SoundEffect0Player.stream.get_channels() == 2){
-			uint i=0;
-			for(i=0;i<(ADPCM_SIZE);++i)
-			{
-				int mixedL=(int)bufL[i] + (int)checkClipping((int)tmpDat[i << 1]);
-				if (mixedL>32767) mixedL=32767;
-				if (mixedL<-32768) mixedL=-32768;
-				bufL[i] = (short)mixedL;
-				
-				int mixedR=(int)bufR[i] + (int)checkClipping((int)tmpDat[(i << 1) | 1]);
-				if (mixedR>32767) mixedR=32767;
-				if (mixedR<-32768) mixedR=-32768;
-				bufR[i] = (short)mixedR;
-			}
-		}
-		else{
-			uint i=0;
-			for(i=0;i<(ADPCM_SIZE);++i)
-			{
-				int mixedL=(int)bufL[i] + (int)checkClipping((int)tmpDat[i]);
-				if (mixedL>32767) mixedL=32767;
-				if (mixedL<-32768) mixedL=-32768;
-				bufL[i] = (short)mixedL;
-				
-				int mixedR=(int)bufR[i] + (int)checkClipping((int)tmpDat[i]);
-				if (mixedR>32767) mixedR=32767;
-				if (mixedR<-32768) mixedR=-32768;
-				bufR[i] = (short)mixedR;
-			}
-		}
 	}
 
 	// Left channel
