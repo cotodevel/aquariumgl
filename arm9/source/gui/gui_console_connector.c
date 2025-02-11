@@ -53,7 +53,7 @@ __attribute__ ((optnone))
 #endif
 vramSetup * getProjectSpecificVRAMSetup(){
 	struct Scene * Inst = &scene;
-	Inst->TGDSProjectDual3DEnabled = false; //false to enable TGDS Single 3D Screen + Console; true to enable TGDS Dual 3D Screen mode
+	Inst->TGDSProjectDual3DEnabled = true; //false to enable TGDS Single 3D Screen + Console; true to enable TGDS Dual 3D Screen mode
 	if(Inst->TGDSProjectDual3DEnabled == false){
 		return TGDSFOOBILLIARD_3DVRAM_SETUP();
 	}
