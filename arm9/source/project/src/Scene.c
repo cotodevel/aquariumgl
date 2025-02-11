@@ -30,25 +30,30 @@ int widthScene;	/// the width of the window
 int heightScene;	/// the height of the window
 
 // light 0 colours
+
+//https://www.glprogramming.com/red/chapter05.html
+//The GL_DIFFUSE parameter probably most closely correlates with what you naturally think of as "the color of a light." 
+//It defines the RGBA color of the diffuse light that a particular light source adds to a scene. By default, GL_DIFFUSE is (1.0, 1.0, 1.0, 1.0) for GL_LIGHT0, 
+//which produces a bright, white light as shown in the left side of "Plate 13" in Appendix I. 
+//The default value for any other light (GL_LIGHT1, ... , GL_LIGHT7) is (0.0, 0.0, 0.0, 0.0).
 #ifdef WIN32
-GLfloat ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f}; //WIN32
-GLfloat diffuse0Scene[4]	= {0.4f, 0.4f, 0.4f, 1.01f}; //WIN32
-GLfloat specular0Scene[4]	= {0.2f, 0.2f, 0.2f, 1.0f}; //WIN32
-GLfloat position0Scene[4]	= {0.0f, -1.0f, 0.0f, 0.0f}; //WIN32
+GLfloat light_ambient0Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f}; //WIN32
+GLfloat light_diffuse0Scene[4]	= {0.4f, 0.4f, 0.4f, 1.01f}; //WIN32
+GLfloat light_specular0Scene[4]	= {0.2f, 0.2f, 0.2f, 1.0f}; //WIN32
+GLfloat light_position0Scene[4]	= {0.0f, -1.0f, 0.0f, 0.0f}; //WIN32
 #endif
 #ifdef ARM9
-GLfloat ambient0Scene[]  = { 0.0f, 0.0f, 0.0f, 1.0f }; //NDS
-GLfloat diffuse0Scene[]  = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
-GLfloat specular0Scene[] = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
-GLfloat position0Scene[] = { 2.0f, 5.0f, 5.0f, 0.0f }; //NDS
+GLfloat light_ambient0Scene[]  = { 0.0f, 0.0f, 0.0f, 1.0f }; //NDS
+GLfloat light_diffuse0Scene[]  = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
+GLfloat light_specular0Scene[] = { 1.0f, 1.0f, 1.0f, 1.0f }; //NDS
+GLfloat light_position0Scene[] = { 2.0f, 5.0f, 5.0f, 0.0f }; //NDS
 #endif
 
 // light 1 colours
-GLfloat ambient1Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
-GLfloat diffuse1Scene[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
-GLfloat specular1Scene[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
-GLfloat position1Scene[4]	= {-2.0f, -5.0f, -5.0f, -1.0f};
-GLfloat direction1Scene[4]	= {0.0f, 0.0f, -1.0f};
+GLfloat light_ambient1Scene[4]	= {0.1f, 0.1f, 0.1f, 1.0f};
+GLfloat light_diffuse1Scene[4]	= {0.45f, 0.45f, 0.45f, 1.0f};
+GLfloat light_specular1Scene[4]	= {0.5f, 0.5f, 0.5f, 1.0f};
+GLfloat light_position1Scene[4]	= {-2.0f, -5.0f, -5.0f, -1.0f};
 
 //Separate Cameras for upper/bottom screen: A global camera directs the scene, then each camera is customized per screen
 static struct Camera upperScreenCamera;
@@ -177,15 +182,15 @@ void initializeScene(struct Scene * Inst){
 	// set up our directional overhead lights
 	Inst->light0On = false;
 	Inst->light1On = false;
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0Scene);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0Scene);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0Scene);
-	glLightfv(GL_LIGHT0, GL_POSITION, position0Scene);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient0Scene);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse0Scene);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular0Scene);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position0Scene);
 	
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient1Scene);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse1Scene);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, specular1Scene);
-	glLightfv(GL_LIGHT1, GL_POSITION, position1Scene);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1Scene);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse1Scene);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1Scene);
+	glLightfv(GL_LIGHT1, GL_POSITION, light_position1Scene);
 	
 	Inst->fogMode = false;
 	Inst->wireMode = false;		/// wireframe mode on / off
@@ -229,13 +234,13 @@ void drawScene(){
 	#endif
 
 	#ifdef WIN32
-	// clear scene
+	// Clear The Scene And The Depth Buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	#endif
 
-	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	glMatrixMode(GL_MODELVIEW);
+	
 	//position camera
 	if(Inst->TGDSProjectDual3DEnabled == true){
 		if(NE_Screen == 0){
@@ -248,6 +253,12 @@ void drawScene(){
 	else{
 		position(&bottomScreenCamera);
 	}
+	
+	// draw element(s) in the scene + light source(s)
+	#ifdef ARM9
+		glMaterialShinnyness();		
+	#endif
+	
 	// draw all elements in the scene
 	{
 		int i = 0;
@@ -257,7 +268,6 @@ void drawScene(){
 				glLoadIdentity();	
 				glMatrixMode(GL_MODELVIEW);
 				
-				glMaterialShinnyness();
 				updateGXLights(); //Update GX 3D light scene!
 				glColor3f(1.0, 1.0, 1.0); //clear last scene color/light vectors
 			#endif
@@ -272,13 +282,13 @@ void drawScene(){
 
 	#ifdef ARM9
     glFlush();
-	IRQVBlankWait();
-    handleARM9SVC();	/* Do not remove, handles TGDS services */
-    #endif
+	bool waitForVblank = true;	//TGDS threads + OpenGL frame
+	int threadsRan = runThreads(internalTGDSThreads, waitForVblank);
+	#endif
 }
 
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -295,7 +305,7 @@ void glut2SolidCube0_06f() {
 /// and blending are set up here
 #ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
 __attribute__ ((optnone))
@@ -366,6 +376,7 @@ int InitGL(int argc, char *argv[]){
 	int TGDSOpenGLDisplayListWorkBufferSize = (256*1024);
 	struct Scene * Inst = &scene;
 	glInit(TGDSOpenGLDisplayListWorkBufferSize); //NDSDLUtils: Initializes a new videoGL context
+	glClearColor(0,35,195);		// blue green background colour
 	glClearDepth(0x7FFF);		// Depth Buffer Setup
 	glEnable(GL_ANTIALIAS|GL_TEXTURE_2D|GL_BLEND); // Enable Texture Mapping
 
@@ -376,19 +387,12 @@ int InitGL(int argc, char *argv[]){
 		menuShow();
 	}
 	setTGDSARM9PrintfCallback((printfARM9LibUtils_fn)&TGDSDefaultPrintf2DConsole); //Redirect to default TGDS printf Console implementation
-	glClearColor(0,35,195);		// blue green background colour
-
-	setOrientation(ORIENTATION_0, true);
-	//set mode 0, enable BG0 and set it to 3D
-	SETDISPCNT_MAIN(MODE_0_3D);
+	REG_IE |= IRQ_VBLANK;
 	
+
 	/* TGDS 1.65 OpenGL 1.1 Initialization */
 	ReSizeGLScene(255, 191);
 	glMaterialShinnyness();
-	//glGenTextures(1, &textureSizePixelCoords[Texture_CubeID].textureIndex);
-	//glBindTexture(0, textureSizePixelCoords[Texture_CubeID].textureIndex);
-	//glTexImage2D(0, 0, GL_RGB, TEXTURE_SIZE_128 , TEXTURE_SIZE_128, 0, TEXGEN_TEXCOORD, (u8*)_6bppBitmap);		
-	
 	//Multiple 64x64 textures as PCX/BMP
 	//Load 2 textures and map each one to a texture slot
 	u32 arrayOfTextures[2];
@@ -401,15 +405,17 @@ int InitGL(int argc, char *argv[]){
 	}
 	printf("Free Mem: %d KB", ((int)TGDSARM9MallocFreeMemory()/1024));
 #endif
-	
-	glEnable(GL_COLOR_MATERIAL);	//allow to mix both glColor3f + light sources when lighting is enabled (glVertex + glNormal3f)
 
 	glDisable(GL_CULL_FACE); 
 	glCullFace (GL_NONE);
+	glColorMaterial(GL_FRONT, GL_DIFFUSE); 
+	
+	glEnable(GL_COLOR_MATERIAL);	//allow to mix both glColor3f + light sources (glVertex + glNormal3f)
 
-	//setupGLUTObjects();
+	
 	setupTGDSProjectOpenGLDisplayLists();
 	
+	//reset the GX through a payload (displaylist of a default polygon)
 	#ifdef ARM9
 	REG_IE |= IRQ_VBLANK;
 	glut2SolidCube0_06f();
@@ -419,6 +425,15 @@ int InitGL(int argc, char *argv[]){
 	return 0;
 }
 
+
+#ifdef ARM9
+#if (defined(__GNUC__) && !defined(__clang__))
+__attribute__((optimize("O0")))
+#endif
+#if (!defined(__GNUC__) && defined(__clang__))
+__attribute__((optnone))
+#endif
+#endif
 
 #ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
@@ -485,10 +500,10 @@ void setupTGDSProjectOpenGLDisplayLists(){
 
 #ifdef ARM9
 #if (defined(__GNUC__) && !defined(__clang__))
-__attribute__((optimize("Ofast")))
+__attribute__((optimize("O0")))
 #endif
 #if (!defined(__GNUC__) && defined(__clang__))
-__attribute__ ((optnone))
+__attribute__((optnone))
 #endif
 #endif
 GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// resizes the window (GLUT & TGDS GL)
@@ -535,16 +550,12 @@ int startTGDSProject(int argc, char *argv[])
 	time_t time1 = time(NULL);
 	TWLPrintf("-- Program starting: %d\n", (unsigned int)time1);
 	srand(time1);
-
-	//so far OK
-
 	InitGL(argc, argv);
-
-	//so far OK
 
 	// register our call-back functions
 	TWLPrintf("-- Registering callbacks\n");
-	
+
+//VS2012
 #ifdef _MSC_VER
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(resizeWindow);
@@ -554,15 +565,9 @@ int startTGDSProject(int argc, char *argv[])
 
 	// generate/load textures
 	getTextures();
-	
-	//so far OK
-	
 	// create the scene and set perspective projection as default
 	initializeScene(&scene);
 	scene.perspectiveMode = true;
-
-	//so far OK
-
 	// create a single quad for the floor of the aquarium (reduces 420~ objects into mere 22 which makes the engine runnable on NintendoDS at good framerate)
 	{
 
@@ -593,9 +598,6 @@ int startTGDSProject(int argc, char *argv[])
 		scale(&quad, 95.5f, 95.5f, 3.0f);
 		add(&scene, &quad);
 	}
-
-	//so far OK
-
 	// 'fake' keys being pressed to enable the state to
 	// setup lighting and fog
 	keyboardInput((unsigned char)'L', 0, 0);
@@ -603,8 +605,6 @@ int startTGDSProject(int argc, char *argv[])
 	keyboardInput((unsigned char)'1', 0, 0);
 	keyboardInput((unsigned char)'2', 0, 0);
 	keyboardInput((unsigned char)'F', 0, 0);
-
-	//so far OK
 	
 	// add some stuff to the scene
 	{
@@ -627,22 +627,14 @@ int startTGDSProject(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
-
-	//BgMusicOff();
+	BgMusicOff();
 	BgMusic("0:/tank.ima");
-	//startTimerCounter(tUnitsMilliseconds, 1);
     glMaterialShinnyness();
-	//glReset(); //Depend on GX stack to render scene. // nope,crashes GX
-	glClearColor(0,35,195);		// blue green background colour
-	
-	//so far OK
-
 	while(1==1){
 		//Handle Input & game logic
 		scanKeys();
 		keyboardInputSpecial((int)keysHeld(), 0, 0);
 		
-		/*
 		//Go back to TGDS-multiboot
 		if(keysDown() & KEY_L){	
 			haltARM7(); //required
@@ -651,22 +643,30 @@ int startTGDSProject(int argc, char *argv[])
 			strcpy(&thisArgv[0][0], "");	//Arg0:	This Binary loaded
 			strcpy(&thisArgv[1][0], "");	//Arg1:	NDS Binary to chainload through TGDS-MB
 			strcpy(&thisArgv[2][0], "");	//Arg2: NDS Binary loaded from TGDS-MB	
-			char * TGDS_MB = NULL;
+			char * bootldr = NULL;
 			if(__dsimode == true){
-				TGDS_MB = "0:/ToolchainGenericDS-multiboot.srl";
+				bootldr = "0:/ToolchainGenericDS-multiboot.srl";
 			}
 			else{
-				TGDS_MB = "0:/ToolchainGenericDS-multiboot.nds";
+				bootldr = "0:/ToolchainGenericDS-multiboot.nds";
 			}
-			u32 * payload = getTGDSARM7VRAMCore();
-			if(TGDSMultibootRunNDSPayload(TGDS_MB, (u8*)payload, 0, (char*)&thisArgv) == false){ //should never reach here, nor even return true. Should fail it returns false
+			u32 * payload = getTGDSMBV3ARM7Bootloader();
+			if(TGDSMultibootRunNDSPayload(bootldr, (u8*)payload, 0, (char*)&thisArgv) == false){ //should never reach here, nor even return true. Should fail it returns false
 				
 			}
 			while(keysDown() & KEY_L){
 				scanKeys();
 			}
 		}
-		*/
+		
+		if(keysDown() & KEY_R){	
+			GUI.GBAMacroMode = !GUI.GBAMacroMode; //swap LCD
+			TGDSLCDSwap();
+			
+			while(keysDown() & KEY_R){
+				scanKeys();
+			}
+		}
 		
 		//sound (ARM7)
 		

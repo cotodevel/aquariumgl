@@ -2,28 +2,34 @@
 #define __SCENE_H
 
 #include "Renderable.h"
+#ifdef _MSC_VER
+#include <GL\GLUT.h>
+#include "TGDSTypes.h"
+#include "..\..\..\..\..\toolchaingenericds\src\common\libutils\arm9\source\ndsDisplayListUtils.h"
+#endif
 
 #ifdef ARM9
 #include <math.h>
 #include "timerTGDS.h"
+#include "biosTGDS.h"
 #include "videoGL.h"
 #include "soundTGDS.h"
 #include "main.h"
+#include "ipcfifoTGDSUser.h"
 #endif
 
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <time.h>
 #include <math.h>
+#include <time.h>
 
 #if defined(_WIN32) || defined(WIN32)
     #include <windows.h>
     #include <GL/gl.h>
     #include <GL/glut.h>
 	#include "SOIL.h"
-	#include "..\..\..\..\..\toolchaingenericds\src\common\libutils\arm9\source\ndsDisplayListUtils.h"
 #endif
 
 #ifdef _MSC_VER
