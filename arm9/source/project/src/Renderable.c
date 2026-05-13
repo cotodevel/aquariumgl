@@ -19,7 +19,6 @@
 
 #ifdef ARM9
 #include "videoGL.h"
-#include "Sphere008.h" //comment out when running on NDSDisplayListUtils
 #endif
 
 // create the static parts of all objects
