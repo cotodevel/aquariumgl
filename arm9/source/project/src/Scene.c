@@ -11,7 +11,9 @@
 #include "fish_tex.h"
 #include "GXPayload.h"
 #include "biosTGDS.h"
-#include "Sphere008.h"
+#include "imagepcx.h"
+#include "videoGL.h"
+#include "TGDS_threads.h"
 #endif
 
 #ifndef _MSC_VER
@@ -610,13 +612,12 @@ int startTGDSProject(int argc, char *argv[])
 	{
 		int o = 0;
 		for (o = 0; o < 4; o++){
-			addObject(OBJ_CRAB);
-			addObject(OBJ_STARFISH);
-			//addObject(OBJ_FISH);
-			//addObject(OBJ_FISH);
-			//addObject(OBJ_FISH);
-			addObject(OBJ_OCTOPUS);
-			addObject(OBJ_PLANT);
+			addObject(OBJ_CRAB); //safe on NTR
+			addObject(OBJ_STARFISH); //safe on NTR
+			addObject(OBJ_OCTOPUS); //safe on NTR
+			if(__dsimode == true){
+				addObject(OBJ_PLANT); //breaks on NTR hardware, culprit is malformed NTR binary
+			}
 		}
 	}
 
@@ -627,6 +628,14 @@ int startTGDSProject(int argc, char *argv[])
 #endif
 
 #if defined(ARM9)
+
+	if(__dsimode == true){
+		setCpuClock(true); //true: 133Mhz (TWL Mode only)
+	}
+	else{
+		setCpuClock(false); //false: 66Mhz (NTR/TWL default CPU speed)
+	}
+
 	BgMusicOff();
 	BgMusic("0:/tank.ima");
     glMaterialShinnyness();
@@ -637,7 +646,13 @@ int startTGDSProject(int argc, char *argv[])
 		
 		//Go back to TGDS-multiboot
 		if(keysDown() & KEY_L){	
+			BgMusicOff();
 			haltARM7(); //required
+			
+			//Execute Stage 1: IWRAM ARM7 payload: NTR/TWL (0x03800000)
+			u32 * payload = (u32*)TGDS_MB_V3_ARM7_STAGE1_ADDR;
+			executeARM7Payload((u32)0x02380000, 96*1024, payload);
+
 			char thisArgv[3][MAX_TGDSFILENAME_LENGTH];
 			memset(thisArgv, 0, sizeof(thisArgv));
 			strcpy(&thisArgv[0][0], "");	//Arg0:	This Binary loaded
@@ -650,7 +665,7 @@ int startTGDSProject(int argc, char *argv[])
 			else{
 				bootldr = "0:/ToolchainGenericDS-multiboot.nds";
 			}
-			u32 * payload = getTGDSMBV3ARM7Bootloader();
+			payload = getTGDSMBV3ARM7Bootloader();
 			if(TGDSMultibootRunNDSPayload(bootldr, (u8*)payload, 0, (char*)&thisArgv) == false){ //should never reach here, nor even return true. Should fail it returns false
 				
 			}

@@ -32,9 +32,9 @@ USA
 #include "InterruptsARMCores_h.h"
 #include "libutilsShared.h"
 #include "microphoneShared.h"
+
 #ifdef ARM7
 #include <string.h>
-
 #include "main.h"
 #include "wifi_arm7.h"
 #include "spifwTGDS.h"
@@ -118,7 +118,6 @@ void HandleFifoEmptyWeakRef(uint32 cmd1,uint32 cmd2){
 //project specific stuff
 
 #ifdef ARM9
-
 #if (defined(__GNUC__) && !defined(__clang__))
 __attribute__((optimize("O0")))
 #endif
